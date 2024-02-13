@@ -6,9 +6,9 @@ const logo = 'https://i.imgur.com/ZCeiOY4.jpg';
 const apikasu = "https://apikasu.onrender.com"
 const apikey = "SebastianDevelop"
 
-const bot = new Telegraf('');
+const bot = new Telegraf('6320234612:AAFL1KCmYSc9P62smu8o2fDw_ON0h30_lw0');
 
-const mongoUrl = '';
+const mongoUrl = 'mongodb+srv://talkibot:talkibot@cluster0.ddbrmbi.mongodb.net/?retryWrites=true&w=majority';
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, '\x1b[41m\x1b[30m%s\x1b[0m', 'Error de conexión a MongoDB:'));
@@ -68,7 +68,8 @@ bot.start(async (ctx) => {
     𝗝𝗨𝗘𝗚𝗢𝗦
 
     /trabajar
-    
+    /laberintobot
+
     𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦, 𝗕𝗨𝗦𝗤𝗨𝗘𝗗𝗔𝗦 𝗬 𝗦𝗧𝗔𝗟𝗞𝗘𝗢𝗦
     
     /tiktokstalk
@@ -780,24 +781,30 @@ bot.command('tiktok', async (ctx) => {
 bot.command('instagram', async (ctx) => {
     const command = '/instagram';
     const userText = ctx.message.text.slice(command.length + 1).trim();
-
     if (!userText) {
         ctx.reply(`Por favor, ingresa el enlace del video de Instagram`);
         return;
     }
     const response = await fetch(`${apikasu}/api/dowloader/instagram?url=${userText}&apikey=${apikey}`);
     if (response.ok) {
-        const textResponse = await response.json();
-        if (textResponse.status && textResponse.result && textResponse.result.length > 0 && textResponse.result[0].link) {
-            const videoUrl = textResponse.result[0].link;
-            ctx.replyWithVideo({ url: videoUrl });
+        const apiResponse = await response.json();
+        if (apiResponse.status && apiResponse.result && apiResponse.result.length > 0) {
+            const mediaArray = apiResponse.result;
+            for (const mediaUrl of mediaArray) {
+                if (mediaUrl.includes('.mp4')) {
+                    ctx.replyWithVideo({ url: mediaUrl });
+                } else if (mediaUrl.includes('.jpg') || mediaUrl.includes('.png')) {
+                    ctx.replyWithPhoto({ url: mediaUrl });
+                }
+            }
         } else {
-            ctx.reply('La API no devolvió una URL de video válida.');
+            ctx.reply('La API no devolvió resultados válidos.');
         }
     } else {
-        ctx.reply('Hubo un error al obtener el video desde la API.');
+        ctx.reply('Hubo un error al obtener los medios desde la API.');
     }
 });
+
 bot.command('instagramstory', async (ctx) => {
     const command = '/instagramstory';
     const userText = ctx.message.text.slice(command.length + 1).trim();
@@ -996,6 +1003,77 @@ bot.command('trabajar', async (ctx) => {
         console.error('Error al obtener trabajo');
         ctx.reply('¡Ups! Ha ocurrido un error al obtener la información del trabajo.');
     }
+});
+
+
+bot.command('laberintobot', async (ctx) => {
+  const laberinto = [
+    ['*', '*', '*', '*', '*', '*', '*', '*', '*'],
+    ['*', ' ', ' ', ' ', '*', ' ', ' ', ' ', '*'],
+    ['*', ' ', '*', ' ', '*', '*', ' ', ' ', '*'],
+    ['*', ' ', '*', ' ', ' ', '*', ' ', '*', '*'],
+    ['*', ' ', ' ', ' ', '*', ' ', ' ', ' ', '*'],
+    ['*', '*', '*', '*', '*', '*', '*', ' ', '*'],
+    ['*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*'],
+    ['*', '*', '*', '*', '*', '*', '*', '*', '*'],
+  ];
+
+ 
+  let x = 1;
+  let y = 1;
+
+  
+  const printLaberinto = () => {
+    let output = '';
+    for (let i = 0; i < laberinto.length; i++) {
+      for (let j = 0; j < laberinto[i].length; j++) {
+        if (i === y && j === x) {
+          output += '🤖'; 
+        } else if (laberinto[i][j] === '*') {
+          output += '⬛'; 
+        } else {
+          output += '⬜'; 
+        }
+      }
+      output += '\n'; // Nueva línea para cada fila del laberinto
+    }
+    return output;
+  };
+
+  
+  ctx.reply('Bienvenido al LaberintoBot! Usa los comandos /arriba, /abajo, /izquierda, /derecha para mover al robot por el laberinto.\n\n' + printLaberinto());
+
+  // Comando para mover hacia arriba
+  bot.command('arriba', (ctx) => {
+    if (laberinto[y - 1][x] !== '*') {
+      y--;
+    }
+    ctx.reply(printLaberinto());
+  });
+
+  // Comando para mover hacia abajo UWUS
+  bot.command('abajo', (ctx) => {
+    if (laberinto[y + 1][x] !== '*') {
+      y++;
+    }
+    ctx.reply(printLaberinto());
+  });
+
+  // Comando para mover hacia la izquierda, LO MISMO
+  bot.command('izquierda', (ctx) => {
+    if (laberinto[y][x - 1] !== '*') {
+      x--;
+    }
+    ctx.reply(printLaberinto());
+  });
+
+  // Comando para mover hacia la derecha, no mover nada aquí JAJAJAJ
+  bot.command('derecha', (ctx) => {
+    if (laberinto[y][x + 1] !== '*') {
+      x++;
+    }
+    ctx.reply(printLaberinto());
+  });
 });
 
 //termina categoria de juegos
