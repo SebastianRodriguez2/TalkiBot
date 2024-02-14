@@ -1,11 +1,25 @@
 const { Telegraf } = require('telegraf');
 const fetch = require('node-fetch')
 const mongoose = require('mongoose');
+const chalk = require('chalk')
+
 const logo = 'https://i.imgur.com/ZCeiOY4.jpg';
 const apikasu = "https://apikasu.onrender.com"
 const apikey = "SebastianDevelop"
 const bot = new Telegraf('');
 const mongoUrl = '';
+
+console.log(chalk.blue(`
+████████╗ █████╗ ██╗     ██╗  ██╗██╗    ██████╗  ██████╗ ████████╗
+╚══██╔══╝██╔══██╗██║     ██║ ██╔╝██║    ██╔══██╗██╔═══██╗╚══██╔══╝
+   ██║   ███████║██║     █████╔╝ ██║    ██████╔╝██║   ██║   ██║   
+   ██║   ██╔══██║██║     ██╔═██╗ ██║    ██╔══██╗██║   ██║   ██║   
+   ██║   ██║  ██║███████╗██║  ██╗██║    ██████╔╝╚██████╔╝   ██║   
+   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝    ╚═════╝  ╚═════╝    ╚═╝`));
+console.log(chalk.cyan('@Sebastian @Traxnox'));
+console.log(chalk.yellow('BOT DE TELEGRAM'));
+console.log(chalk.green('Intentando hacer conexión con la base de datos de MongoDB'));
+
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, '\x1b[41m\x1b[30m%s\x1b[0m', 'Error de conexión a MongoDB:'));
