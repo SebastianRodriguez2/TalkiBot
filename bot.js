@@ -1,14 +1,11 @@
 const { Telegraf } = require('telegraf');
 const fetch = require('node-fetch')
 const mongoose = require('mongoose');
-
 const logo = 'https://i.imgur.com/ZCeiOY4.jpg';
 const apikasu = "https://apikasu.onrender.com"
 const apikey = "SebastianDevelop"
-
-const bot = new Telegraf('6320234612:AAFL1KCmYSc9P62smu8o2fDw_ON0h30_lw0');
-
-const mongoUrl = 'mongodb+srv://talkibot:talkibot@cluster0.ddbrmbi.mongodb.net/?retryWrites=true&w=majority';
+const bot = new Telegraf('');
+const mongoUrl = '';
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, '\x1b[41m\x1b[30m%s\x1b[0m', 'Error de conexión a MongoDB:'));
@@ -25,7 +22,10 @@ const userSchema = new mongoose.Schema({
     languageCode: String,
     Dinero: String,
     Avatar: String,
-    lastWorkTime: { type: Date, default: null }
+    lastWorkTime: { type: Date, default: null },
+    DiasTrabajados: String,
+    Patrimonio: String,
+    Propiedades: String,
 });
 const User = mongoose.model('User', userSchema);
 
@@ -34,61 +34,70 @@ const User = mongoose.model('User', userSchema);
 bot.start(async (ctx) => {
     const user = ctx.from;
     const name = ctx.message.from.first_name;
-
     const menu = `
 𝗛𝗼𝗹𝗮: ${name}
-
-  𝗠𝗘𝗡𝗨 𝗖𝗢𝗠𝗣𝗟𝗘𝗧𝗢 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
     
-    𝗔𝗖𝗘𝗥𝗖𝗔 𝗗𝗘
+      𝗠𝗘𝗡𝗨 𝗖𝗢𝗠𝗣𝗟𝗘𝗧𝗢 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
+        
+        𝗔𝗖𝗘𝗥𝗖𝗔 𝗗𝗘
+        
+        /help
+        /creadores
+        /cuentasoficiales
+        /miapi
+        /ping
+        /info
     
-    /help
-    /creadores
-    /cuentasoficiales
-    /miapi
-    /ping
-    /info
-
-    𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
-
-    /cambiarnombre
-    /cambiarfoto
-    /perfil
+        𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
     
-    𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
+        /cambiarnombre
+        /cambiarfoto
+        /perfil
+        
+        𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
+        
+        /chatgpt
+        /bard
+        /gemini
+        /ipinfo
+        /bingcreator
+        /imagina
+        /imagina2
     
-    /chatgpt
-    /bard
-    /gemini
-    /ipinfo
-    /bingcreator
-    /imagina
-    /imagina2
-
-    𝗝𝗨𝗘𝗚𝗢𝗦
-
-    /trabajar
-    /laberintobot
-
-    𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦, 𝗕𝗨𝗦𝗤𝗨𝗘𝗗𝗔𝗦 𝗬 𝗦𝗧𝗔𝗟𝗞𝗘𝗢𝗦
+        𝗘𝗖𝗢𝗡𝗢𝗠𝗜𝗔
     
-    /tiktokstalk
-    /instagramstalk
-    /letra
-    /spotify
-    /applemusic
-    /googlesearch
-    /facebook
-    /youtubevideo
-    /youtubeaudio
-    /tiktok
-    /tiktokimg
-    /instagram
-    /instagramstory
-    /twitter
-    /threads
-    /mediafire`
-
+        /trabajar
+        /interesesportrabajo
+        /comprarpropiedad
+    
+        𝗝𝗨𝗘𝗚𝗢𝗦
+    
+        /ahorcado
+        
+        𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦, 𝗕𝗨𝗦𝗤𝗨𝗘𝗗𝗔𝗦 𝗬 𝗦𝗧𝗔𝗟𝗞𝗘𝗢𝗦
+        
+        /tiktokstalk
+        /instagramstalk
+        /letra
+        /spotify
+        /applemusic
+        /deezer
+        /googlesearch
+        /image
+        /pinterest
+        /wallpaper
+        /facebook
+        /youtubevideo
+        /youtubechannel
+        /youtubeaudio
+        /tiktok
+        /tiktokimg
+        /instagram
+        /instagramstory
+        /twitter
+        /threads
+        /mediafire
+        /googledrive`
     try {
         const fullName = user.first_name + (user.last_name ? ' ' + user.last_name : '');
         await User.updateOne({ userId: user.id }, {
@@ -99,7 +108,10 @@ bot.start(async (ctx) => {
             fullName: fullName,
             chatType: ctx.chat.type,
             languageCode: ctx.from.language_code,
-            Dinero: 0,
+            Dinero: 1,
+            Patrimonio: 1,
+            Propiedades: 1,
+            DiasTrabajados: 1,
             Avatar: 'https://i.imgur.com/ZCeiOY4.jpg'
         }, { upsert: true });
         ctx.replyWithPhoto({ url: logo }, {
@@ -116,64 +128,73 @@ bot.start(async (ctx) => {
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
     }
 });
-
-
 // menus (modificar los 2)
 bot.command('help', async (ctx) => {
     const name = ctx.message.from.first_name;
     const menu = `
 𝗛𝗼𝗹𝗮: ${name}
-
-  𝗠𝗘𝗡𝗨 𝗖𝗢𝗠𝗣𝗟𝗘𝗧𝗢 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
     
-    𝗔𝗖𝗘𝗥𝗖𝗔 𝗗𝗘
-    
-    /help
-    /creadores
-    /cuentasoficiales
-    /miapi
-    /ping
-    /info
-
-    𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
-
-    /cambiarnombre
-    /cambiarfoto
-    /perfil
-    
-    𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
-    
-    /chatgpt
-    /bard
-    /gemini
-    /ipinfo
-    /bingcreator
-    /imagina
-    /imagina2
-
-    𝗝𝗨𝗘𝗚𝗢𝗦
-
-    /trabajar
-    
-    𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦, 𝗕𝗨𝗦𝗤𝗨𝗘𝗗𝗔𝗦 𝗬 𝗦𝗧𝗔𝗟𝗞𝗘𝗢𝗦
-    
-    /tiktokstalk
-    /instagramstalk
-    /letra
-    /spotify
-    /applemusic
-    /googlesearch
-    /facebook
-    /youtubevideo
-    /youtubeaudio
-    /tiktok
-    /tiktokimg
-    /instagram
-    /instagramstory
-    /twitter
-    /threads
-    /mediafire`;
-
+    𝗠𝗘𝗡𝗨 𝗖𝗢𝗠𝗣𝗟𝗘𝗧𝗢 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
+      
+      𝗔𝗖𝗘𝗥𝗖𝗔 𝗗𝗘
+      
+      /help
+      /creadores
+      /cuentasoficiales
+      /miapi
+      /ping
+      /info
+  
+      𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+  
+      /cambiarnombre
+      /cambiarfoto
+      /perfil
+      
+      𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
+      
+      /chatgpt
+      /bard
+      /gemini
+      /ipinfo
+      /bingcreator
+      /imagina
+      /imagina2
+  
+      𝗘𝗖𝗢𝗡𝗢𝗠𝗜𝗔
+  
+      /trabajar
+      /interesesportrabajo
+      /comprarpropiedad
+  
+      𝗝𝗨𝗘𝗚𝗢𝗦
+  
+      /ahorcado
+      
+      𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦, 𝗕𝗨𝗦𝗤𝗨𝗘𝗗𝗔𝗦 𝗬 𝗦𝗧𝗔𝗟𝗞𝗘𝗢𝗦
+      
+      /tiktokstalk
+      /instagramstalk
+      /letra
+      /spotify
+      /applemusic
+      /deezer
+      /googlesearch
+      /image
+      /pinterest
+      /wallpaper
+      /facebook
+      /youtubevideo
+      /youtubechannel
+      /youtubeaudio
+      /tiktok
+      /tiktokimg
+      /instagram
+      /instagramstory
+      /twitter
+      /threads
+      /mediafire
+      /googledrive`;
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
             inline_keyboard: [
@@ -183,8 +204,6 @@ bot.command('help', async (ctx) => {
         }
     });
 });
-
-
 //acciones de los botones del menu
 bot.action('creadores', (ctx) => {
     ctx.reply(`
@@ -202,16 +221,12 @@ bot.action('creadores', (ctx) => {
 𝗜𝗻𝘀𝘁𝗮𝗴𝗿𝗮𝗺: https://www.instagram.com/traxnox/
 𝗚𝗶𝘁𝗛𝘂𝗯: https://github.com/ByTraxnox-X`);
 });
-
 bot.action('cuentasoficiales', (ctx) => {
     ctx.reply(`
 Mis unicas cuentas oficiales son las de este enlace!
 https://solo.to/talki`);
 });
-
-
-// comandos de acerca de
-
+// comienza categoria acerca de
 let lastPingTime = 0;
 bot.command('ping', async (ctx) => {
     const startTime = performance.now();
@@ -227,7 +242,6 @@ bot.command('ping', async (ctx) => {
             ctx.reply('Ocurrió un error al obtener información del bot.');
         });
 });
-
 bot.command('info', async (ctx) => {
     const activeStatus = (lastPingTime > 0) ? 'Activo' : 'Inactivo';
     const lastPing = (lastPingTime > 0) ? `${lastPingTime.toFixed(2)} ms` : 'N/A';
@@ -237,8 +251,6 @@ bot.command('info', async (ctx) => {
 𝗘𝘀𝘁𝗮𝗱𝗼: ${activeStatus}
 𝗨𝗹𝘁𝗶𝗺𝗼 𝗽𝗶𝗻𝗴: ${lastPing}`);
 });
-
-
 bot.command('creadores', async (ctx) => {
     ctx.reply(`
 𝗦𝗲𝗯𝗮𝘀𝘁𝗶𝗮𝗻
@@ -255,25 +267,22 @@ bot.command('creadores', async (ctx) => {
 𝗜𝗻𝘀𝘁𝗮𝗴𝗿𝗮𝗺: https://www.instagram.com/traxnox/
 𝗚𝗶𝘁𝗛𝘂𝗯: https://github.com/ByTraxnox-X`);
 });
-
 bot.command('cuentasoficiales', (ctx) => {
     ctx.reply(`
 Mis unicas cuentas oficiales son las de este enlace!
 https://solo.to/talki`);
 });
-
 bot.command('miapi', async (ctx) => {
     ctx.reply(`
 la unica API de nuestro team es la del siguiente link!
 https://apikasu.onrender.com/`);
 });
-
 // termina comandos de acerca de
 
 // PLUGINS
 
-//comienza categoria de informacion
 
+//comienza categoria de informacion
 bot.command('cambiarnombre', async (ctx) => {
     const command = '/cambiarnombre';
     const userId = ctx.from.id;
@@ -282,7 +291,6 @@ bot.command('cambiarnombre', async (ctx) => {
         ctx.reply(`Por favor, ingresa el nuevo nombre`);
         return;
     }
-
     try {
         const userDocument = await User.findOne({ userId: userId });
         if (userDocument) {
@@ -296,12 +304,10 @@ bot.command('cambiarnombre', async (ctx) => {
         console.error('Error al actualizar el nombre del usuario en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
     }
-
 });
 
 bot.command('perfil', async (ctx) => {
     const userId = ctx.from.id;
-
     try {
         const userDocument = await User.findOne({ userId: userId });
         if (userDocument) {
@@ -315,12 +321,13 @@ bot.command('perfil', async (ctx) => {
 
 𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡 𝗔𝗗𝗜𝗖𝗜𝗢𝗡𝗔𝗟:
 
-𝗗𝗶𝗻𝗲𝗿𝗼: ${userDocument.Dinero}`
-
+𝗗𝗶𝗻𝗲𝗿𝗼: ${userDocument.Dinero}
+𝗗𝗶𝗮𝘀 𝘁𝗿𝗮𝗯𝗮𝗷𝗮𝗱𝗼𝘀: ${userDocument.DiasTrabajados}
+𝗣𝗮𝘁𝗿𝗶𝗺𝗼𝗻𝗶𝗼: ${userDocument.Patrimonio}
+𝗣𝗿𝗼𝗽𝗶𝗲𝗱𝗮𝗱𝗲𝘀: ${userDocument.Propiedades}`
             ctx.replyWithPhoto({ url: userDocument.Avatar }, {
                 caption: mensaje
             })
-
         } else {
             ctx.reply('Usuario no encontrado en la base de datos.');
         }
@@ -329,7 +336,6 @@ bot.command('perfil', async (ctx) => {
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
     }
 });
-
 bot.command('cambiarfoto', async (ctx) => {
     const command = '/cambiarfoto';
     const userId = ctx.from.id;
@@ -338,7 +344,6 @@ bot.command('cambiarfoto', async (ctx) => {
         ctx.reply(`Por favor, ingresa el enlace de la nueva foto`);
         return;
     }
-
     try {
         const userDocument = await User.findOne({ userId: userId });
         if (userDocument) {
@@ -354,13 +359,11 @@ bot.command('cambiarfoto', async (ctx) => {
         console.error('Error al actualizar el nombre del usuario en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
     }
-
 });
-
 //termina categoria de informacion
 
-//comienza categoria de 𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
 
+//comienza categoria de 𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
 bot.command('chatgpt', async (ctx) => {
     const command = '/chatgpt';
     const userText = ctx.message.text.slice(command.length + 1).trim();
@@ -369,7 +372,6 @@ bot.command('chatgpt', async (ctx) => {
         return;
     }
     const response = await fetch(`${apikasu}/api/tools/chatgpt?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
-
     if (response.ok) {
         const textResponse = await response.json();
         ctx.reply(textResponse.result);
@@ -386,7 +388,6 @@ bot.command('bard', async (ctx) => {
         return;
     }
     const response = await fetch(`${apikasu}/api/tools/bard?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
-
     if (response.ok) {
         const textResponse = await response.json();
         ctx.reply(textResponse.result);
@@ -403,7 +404,6 @@ bot.command('gemini', async (ctx) => {
         return;
     }
     const response = await fetch(`${apikasu}/api/tools/gemini?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
-
     if (response.ok) {
         const textResponse = await response.json();
         ctx.reply(textResponse.result);
@@ -420,7 +420,6 @@ bot.command('ipinfo', async (ctx) => {
         return;
     }
     const response = await fetch(`${apikasu}/api/tools/ip?ip=${userText}&apikey=${apikey}`);
-
     if (response.ok) {
         const textResponse = await response.json();
         const result = textResponse.result
@@ -453,14 +452,11 @@ bot.command('bingcreator', async (ctx) => {
         return;
     }
     const response = await fetch(`${apikasu}/api/tools/bingimg?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
-
     if (response.ok) {
         const textResponse = await response.json();
         const result = textResponse.result
         const imageUrl = `${result[0]}`;
-
         ctx.replyWithPhoto({ url: imageUrl });
-
     } else {
         ctx.reply('Hubo un error al obtener la creacion desde la API.');
     }
@@ -509,11 +505,69 @@ bot.command('imagina2', async (ctx) => {
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
     }
 });
-
 //termina categoria de 𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
 
 
 //inicia categoria de descarga, busqueda y stalkeo
+bot.command('image', async (ctx) => {
+    const command = '/image';
+    const userText = ctx.message.text.slice(command.length + 1).trim();
+    if (!userText) {
+        ctx.reply(`Por favor, ingresa un texto para buscar la imagen`);
+        return;
+    }
+    const response = await fetch(`${apikasu}/api/search/googleimg?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
+    if (response.ok) {
+        const textResponse = await response.json();
+        const result = textResponse.result
+        const imageUrl = `${result[0]}`;
+        ctx.replyWithPhoto({ url: imageUrl });
+    } else {
+        ctx.reply('Hubo un error al obtener la imagen.');
+    }
+});
+bot.command('pinterest', async (ctx) => {
+    const command = '/pinterest';
+    const userText = ctx.message.text.slice(command.length + 1).trim();
+    if (!userText) {
+        ctx.reply(`Por favor, ingresa un texto para buscar la imagen`);
+        return;
+    }
+    const response = await fetch(`${apikasu}/api/search/pinterest?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
+    if (response.ok) {
+        const textResponse = await response.json();
+        const result = textResponse.result
+        const imageUrl = `${result[0]}`;
+        ctx.replyWithPhoto({ url: imageUrl });
+    } else {
+        ctx.reply('Hubo un error al obtener la imagen.');
+    }
+});
+bot.command('wallpaper', async (ctx) => {
+    const command = '/wallpaper';
+    const userText = ctx.message.text.slice(command.length + 1).trim();
+    if (!userText) {
+        ctx.reply(`Por favor, ingresa un texto para buscar el wallpaper`);
+        return;
+    }
+    try {
+        const response = await fetch(`${apikasu}/api/search/wallpaper?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
+        if (response.ok) {
+            const { result } = await response.json();
+            if (result && result.length > 0) {
+                const imageUrl = result[0].image;
+                ctx.replyWithPhoto({ url: imageUrl });
+            } else {
+                ctx.reply('No se encontraron imágenes.');
+            }
+        } else {
+            ctx.reply('Hubo un error al obtener la imagen.');
+        }
+    } catch (error) {
+        console.error('Error al procesar la solicitud de wallpaper:', error);
+        ctx.reply('Hubo un error al procesar la solicitud de wallpaper.');
+    }
+});
 
 
 bot.command('googlesearch', async (ctx) => {
@@ -524,19 +578,16 @@ bot.command('googlesearch', async (ctx) => {
         return;
     }
     const response = await fetch(`${apikasu}/api/search/google?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
-
     if (response.ok) {
         const textResponse = await response.json();
         const respon = textResponse.result[0]
         const result = `
-        𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
 
 𝗧𝗶𝘁𝘂𝗹𝗼: ${respon.title}
 𝗟𝗶𝗻𝗸: ${respon.link}
 𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝗰𝗶𝗼𝗻 𝗰𝗼𝗿𝘁𝗮: ${respon.snippet}     `
-
         ctx.reply(result)
-
     } else {
         ctx.reply('Hubo un error al obtener la creacion desde la API.');
     }
@@ -550,7 +601,6 @@ bot.command('tiktokstalk', async (ctx) => {
         return;
     }
     const response = await fetch(`${apikasu}/api/tools/tiktokstalk?username=${encodeURIComponent(userText)}&apikey=${apikey}`);
-
     if (response.ok) {
         const textResponse = await response.json();
         const result = textResponse.result
@@ -566,16 +616,12 @@ bot.command('tiktokstalk', async (ctx) => {
 𝗖𝘂𝗲𝗻𝘁𝗮 𝗽𝗿𝗶𝘃𝗮𝗱𝗮: ${result.isPrivate ? 'Si' : 'No'}
 
 𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡 ADICIONAL
-
 𝗔𝗺𝗶𝗴𝗼𝘀: ${result.friends}
 𝗟𝗶𝗸𝗲𝘀: ${result.totalLikes}
 𝗩𝗶𝗱𝗲𝗼𝘀: ${result.totalVideos}
 𝗥𝗲𝗴𝗶𝗼𝗻: ${result.region} `;
-
         const imageUrl = `${result.pp_thumbnail}`;
-
         ctx.replyWithPhoto({ url: imageUrl }, { caption: caption });
-
     } else {
         ctx.reply('Hubo un error al obtener el texto desde la API.');
     }
@@ -589,7 +635,6 @@ bot.command('instagramstalk', async (ctx) => {
         return;
     }
     const response = await fetch(`${apikasu}/api/tools/igstalk?username=${encodeURIComponent(userText)}&apikey=${apikey}`);
-
     if (response.ok) {
         const textResponse = await response.json();
         const result = textResponse.result
@@ -604,11 +649,8 @@ bot.command('instagramstalk', async (ctx) => {
 𝗦𝗶𝗴𝘂𝗶𝗲𝗻𝗱𝗼: ${result.following}
 𝗩𝗲𝗿𝗶𝗳𝗶𝗰𝗮𝗱𝗼: ${result.is_verified ? 'Si' : 'No'}
 𝗖𝘂𝗲𝗻𝘁𝗮 𝗽𝗿𝗶𝘃𝗮𝗱𝗮: ${result.is_private ? 'Si' : 'No'}`;
-
         const imageUrl = `${result.profile_pic_url}`;
-
         ctx.replyWithPhoto({ url: imageUrl }, { caption: caption });
-
     } else {
         ctx.reply('Hubo un error al obtener el texto desde la API.');
     }
@@ -622,7 +664,6 @@ bot.command('letra', async (ctx) => {
         return;
     }
     const response = await fetch(`${apikasu}/api/search/lyrics?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
-
     if (response.ok) {
         const textResponse = await response.json();
         const result = textResponse.result
@@ -631,9 +672,7 @@ bot.command('letra', async (ctx) => {
 
 𝗧𝗶𝘁𝘂𝗹𝗼: ${result.title}
 𝗔𝗿𝘁𝗶𝘀𝘁𝗮: ${result.artist}
-
 𝗟𝗲𝘁𝗿𝗮: ${result.lyrics}`;
-
         ctx.reply(caption);
     } else {
         ctx.reply('Hubo un error al obtener el texto desde la API.');
@@ -648,7 +687,6 @@ bot.command('twitter', async (ctx) => {
         return;
     }
     const response = await fetch(`${apikasu}/api/dowloader/twitter?url=${userText}&apikey=${apikey}`);
-
     if (response.ok) {
         const textResponse = await response.json();
         const result = textResponse.result
@@ -678,7 +716,6 @@ bot.command('facebook', async (ctx) => {
         ctx.reply('Hubo un error al obtener el texto desde la API.');
     }
 });
-
 
 bot.command('spotify', async (ctx) => {
     const command = '/spotify';
@@ -710,17 +747,54 @@ bot.command('spotify', async (ctx) => {
         ctx.reply('Hubo un error al procesar la solicitud de Spotify.');
     }
 });
-
-bot.command('applemusic', async (ctx) => {
-
+bot.command('deezer', async (ctx) => {
     function formatDuration(milliseconds) {
         const totalSeconds = Math.floor(milliseconds / 1000);
         const minutes = Math.floor(totalSeconds / 60);
         const seconds = totalSeconds % 60;
-
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     }
+    const command = '/deezer';
+    const userText = ctx.message.text.slice(command.length + 1).trim();
+    if (!userText) {
+        ctx.reply(`Por favor, ingresa el enlace de Deezer`);
+        return;
+    }
+    try {
+        const response = await fetch(`${apikasu}/api/dowloader/deezer?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
+        if (response.ok) {
+            const sptyInfo = await response.json();
+            const firstResult = sptyInfo.result[0]; 
+            if (firstResult) {
+                const audioUrl = firstResult.preview;
+                const message = `
+ 𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
 
+𝗧𝗶𝘁𝘂𝗹𝗼: ${firstResult.title}
+𝗗𝘂𝗿𝗮𝗰𝗶𝗼𝗻: ${formatDuration(firstResult.duration)} Minutos
+𝗟𝗶𝗻𝗸: ${firstResult.link}
+𝗔𝗿𝘁𝗶𝘀𝘁𝗮: ${firstResult.artist.name}
+𝗟𝗶𝗻𝗸 𝗱𝗲𝗹 𝗽𝗲𝗿𝗳𝗶𝗹 𝗱𝗲𝗹 𝗮𝗿𝘁𝗶𝘀𝘁𝗮: ${firstResult.artist.link}`;
+                ctx.replyWithAudio({ url: audioUrl }, { caption: message });
+            } else {
+                ctx.reply('No se encontraron resultados de Deezer.');
+            }
+        } else {
+            ctx.reply('Hubo un error al obtener información de Deezer desde la API.');
+        }
+    } catch (error) {
+        console.error('Error al procesar la solicitud de Deezer:', error);
+        ctx.reply('Hubo un error al procesar la solicitud de Deezer.');
+    }
+});
+
+bot.command('applemusic', async (ctx) => {
+    function formatDuration(milliseconds) {
+        const totalSeconds = Math.floor(milliseconds / 1000);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }
     const command = '/applemusic';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
@@ -733,7 +807,7 @@ bot.command('applemusic', async (ctx) => {
             const applemusic = await response.json();
             const result = applemusic.result;
             const message = `
- 𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
 
 𝗧𝗶𝘁𝘂𝗹𝗼: ${result.name}
 𝗔𝗿𝘁𝗶𝘀𝘁𝗮: ${result.artists}
@@ -749,7 +823,6 @@ bot.command('applemusic', async (ctx) => {
         ctx.reply('Hubo un error al procesar la solicitud de Apple Music.');
     }
 });
-
 
 bot.command('tiktok', async (ctx) => {
     const command = '/tiktok';
@@ -879,7 +952,6 @@ bot.command('threads', async (ctx) => {
     }
 });
 
-
 bot.command('mediafire', async (ctx) => {
     const command = '/mediafire';
     const userText = ctx.message.text.slice(command.length + 1).trim();
@@ -894,7 +966,7 @@ bot.command('mediafire', async (ctx) => {
             const result = textResponse.result;
             const documentUrl = result.url;
             const extension = result.ext.toLowerCase();
-            const allowedExtensions = ['mp4', 'mp3', 'jpg', 'jpeg', 'png', 'gif', 'pdf'];
+            const allowedExtensions = ['mp4', 'mp3', 'jpg', 'jpeg', 'png', 'gif', 'pdf', 'rar', 'zip'];
             if (allowedExtensions.includes(extension)) {
                 const document = `${documentUrl}.${extension}`;
                 const message = `
@@ -909,10 +981,9 @@ bot.command('mediafire', async (ctx) => {
                     ctx.replyWithAudio({ url: document }, { caption: message, supports_streaming: true });
                 } else if (['jpg', 'jpeg', 'png', 'gif'].includes(extension)) {
                     ctx.replyWithPhoto({ url: document }, { caption: message });
-                } else if (extension === 'pdf') {
-                    ctx.replyWithDocument({ url: document }, { caption: message });
-                }
-                else {
+                } else if (['pdf', 'rar', 'zip'].includes(extension)) {
+                    ctx.replyWithDocument({ url: document, filename: result.filename });
+                } else {
                     ctx.reply('Extensión no admitida.');
                 }
             } else {
@@ -923,6 +994,72 @@ bot.command('mediafire', async (ctx) => {
         }
     } else {
         ctx.reply('Hubo un error al obtener el texto desde la API.');
+    }
+});
+
+bot.command('googledrive', async (ctx) => {
+    const command = '/googledrive';
+    const userText = ctx.message.text.slice(command.length + 1).trim();
+    if (!userText) {
+        ctx.reply(`Por favor, ingresa el enlace del archivo de Google Drive`);
+        return;
+    }
+    try {
+        const response = await fetch(`${apikasu}/api/dowloader/googledrive?url=${userText}&apikey=${apikey}`);
+        if (response.ok) {
+            const textResponse = await response.json();
+            if (textResponse.status && textResponse.result) {
+                const result = textResponse.result;
+                const documentUrl = result.url;
+                const message = `
+𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+
+𝗡𝗼𝗺𝗯𝗿𝗲: ${result.fileName}
+𝗽𝗲𝘀𝗼: ${result.fileSize}`;
+                ctx.replyWithDocument({ url: documentUrl, filename: result.fileName, caption: message });
+            } else {
+                ctx.reply('La API no devolvió la información esperada.');
+            }
+        } else {
+            ctx.reply('Hubo un error al obtener el texto desde la API.');
+        }
+    } catch (error) {
+        console.error('Error al procesar la solicitud de Google Drive:', error);
+        ctx.reply('Hubo un error al procesar la solicitud de Google Drive.');
+    }
+});
+bot.command('youtubechannel', async (ctx) => {
+    const command = '/youtubechannel';
+    const userText = ctx.message.text.slice(command.length + 1).trim();
+    if (!userText) {
+        ctx.reply(`Por favor, ingresa el nombre del canal de YouTube`);
+        return;
+    }
+    try {
+        const response = await fetch(`${apikasu}/api/search/youtubechannel?channel=${encodeURIComponent(userText)}&apikey=${apikey}`);
+        if (response.ok) {
+            const jsonResponse = await response.json();
+            if (jsonResponse.status && jsonResponse.result && jsonResponse.result.length > 0) {
+                const channels = jsonResponse.result.slice(0, 2);
+                channels.forEach(channel => {
+                    const message = `
+𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+
+𝗡𝗼𝗺𝗯𝗿𝗲: ${channel.channel_name}
+𝗖𝗮𝗻𝗮𝗹 𝗜𝗗: ${channel.channel_id}
+𝗔𝗰𝗲𝗿𝗰𝗮 𝗗𝗲𝗹 𝗖𝗮𝗻𝗮𝗹: ${channel.channel_about}
+𝗖𝗿𝗲𝗮𝗱𝗼 𝗘𝗻: ${new Date(channel.channel_created).toDateString()}`;
+                    ctx.replyWithPhoto({ url: channel.channel_picture.medium.url }, { caption: message });
+                });
+            } else {
+                ctx.reply('No se encontraron canales de YouTube con ese nombre.');
+            }
+        } else {
+            ctx.reply('Hubo un error al obtener la información desde la API.');
+        }
+    } catch (error) {
+        console.error('Error al procesar la solicitud de YouTube Channel');
+        ctx.reply('Hubo un error al procesar la solicitud de YouTube Channel.');
     }
 });
 
@@ -969,11 +1106,11 @@ bot.command('youtubeaudio', async (ctx) => {
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
     }
 });
-
 //termina categoria de descarga, busqueda y stalkeo
 
-//comienza categoria de juegos
 
+
+//comienza categoria de economia
 function convertirMinutosAHoras(minutos) {
     const horas = Math.floor(minutos / 60);
     const minutosRestantes = minutos % 60;
@@ -989,6 +1126,8 @@ bot.command('trabajar', async (ctx) => {
             const trabajos = await response.json();
             const trabajo = trabajos[Math.floor(Math.random() * trabajos.length)];
             const DolaresGanados = Math.floor(Math.random() * 100) + 1;
+            const dias = '1'
+            db.DiasTrabajados = Number(db.DiasTrabajados) + Number(dias);
             db.Dinero = Number(db.Dinero) + Number(DolaresGanados);
             db.lastWorkTime = new Date();
             await db.save();
@@ -1005,76 +1144,294 @@ bot.command('trabajar', async (ctx) => {
     }
 });
 
-
-bot.command('laberintobot', async (ctx) => {
-  const laberinto = [
-    ['*', '*', '*', '*', '*', '*', '*', '*', '*'],
-    ['*', ' ', ' ', ' ', '*', ' ', ' ', ' ', '*'],
-    ['*', ' ', '*', ' ', '*', '*', ' ', ' ', '*'],
-    ['*', ' ', '*', ' ', ' ', '*', ' ', '*', '*'],
-    ['*', ' ', ' ', ' ', '*', ' ', ' ', ' ', '*'],
-    ['*', '*', '*', '*', '*', '*', '*', ' ', '*'],
-    ['*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*'],
-    ['*', '*', '*', '*', '*', '*', '*', '*', '*'],
-  ];
-
- 
-  let x = 1;
-  let y = 1;
-
-  
-  const printLaberinto = () => {
-    let output = '';
-    for (let i = 0; i < laberinto.length; i++) {
-      for (let j = 0; j < laberinto[i].length; j++) {
-        if (i === y && j === x) {
-          output += '🤖'; 
-        } else if (laberinto[i][j] === '*') {
-          output += '⬛'; 
+bot.command('interesesportrabajo', async (ctx) => {
+    const userId = ctx.from.id;
+    try {
+        const db = await User.findOne({ userId: userId });
+        if (db) {
+            const diasTrabajados = db.DiasTrabajados || 0;
+            if (diasTrabajados >= 30) {
+                const factorAleatorio = Math.floor(Math.random() * (70 * 50 + 1) + 50);
+                const intereses = Math.floor(diasTrabajados * (factorAleatorio / 100));
+                db.Dinero = Number(db.Dinero) + intereses;
+                await db.save();
+                ctx.reply(`¡Felicidades! Has ganado ${intereses} Dolares en intereses por tus días trabajados.`);
+                db.DiasTrabajados = 0
+                await db.save();
+            } else {
+                ctx.reply('No tienes suficientes días trabajados para ganar intereses. Trabaja más para acumular días.');
+            }
         } else {
-          output += '⬜'; 
+            ctx.reply('No tienes un trabajo registrado. ¡Trabaja primero para ganar intereses!');
         }
-      }
-      output += '\n'; // Nueva línea para cada fila del laberinto
+    } catch (error) {
+        console.error('Error al calcular intereses');
+        ctx.reply('¡Ups! Ha ocurrido un error al calcular los intereses por trabajo.');
     }
-    return output;
-  };
+});
 
-  
-  ctx.reply('Bienvenido al LaberintoBot! Usa los comandos /arriba, /abajo, /izquierda, /derecha para mover al robot por el laberinto.\n\n' + printLaberinto());
+bot.command('comprarpropiedad', async (ctx) => {
+    const userId = ctx.from.id;
+    try {
+        const user = await User.findOne({ userId: userId });
+        if (!user) {
+            ctx.reply('No tienes un trabajo registrado. ¡Trabaja primero para ganar dinero!');
+            return;
+        }
+        const mensaje = `
+𝗣𝗿𝗼𝗽𝗶𝗲𝗱𝗮𝗱𝗲𝘀 𝗱𝗶𝘀𝗽𝗼𝗻𝗶𝗯𝗹𝗲𝘀 𝘆 𝘀𝘂𝘀 𝘃𝗮𝗹𝗼𝗿𝗲𝘀.
 
-  // Comando para mover hacia arriba
-  bot.command('arriba', (ctx) => {
-    if (laberinto[y - 1][x] !== '*') {
-      y--;
+𝗖𝗶𝘂𝗱𝗮𝗱: Texas y Orlando
+𝗩𝗮𝗹𝗼𝗿: 25.000 - 50.000
+
+𝗖𝗶𝘂𝗱𝗮𝗱: Miami y NewYork
+𝗩𝗮𝗹𝗼𝗿: 50.000 - 150.000
+
+𝗖𝗶𝘂𝗱𝗮𝗱: California y Washington D.C
+𝗩𝗮𝗹𝗼𝗿: 170.000`;
+        const imagen = 'https://i.imgur.com/00O1jnT.jpg';
+        ctx.replyWithPhoto({ url: imagen }, {
+            caption: mensaje,
+            reply_markup: {
+                inline_keyboard: [
+                    [{ text: 'Texas o Orlando', callback_data: 'textasyorlando' }],
+                    [{ text: 'Miami o NewYork', callback_data: 'miamiynewyork' }],
+                    [{ text: 'California o Whashington', callback_data: 'californiaywhashington' }],
+                ],
+            },
+        });
+    } catch (error) {
+        console.error('Error al obtener la información del usuario', error);
+        ctx.reply('¡Ups! Ha ocurrido un error al obtener la información.');
     }
-    ctx.reply(printLaberinto());
-  });
+});
 
-  // Comando para mover hacia abajo UWUS
-  bot.command('abajo', (ctx) => {
-    if (laberinto[y + 1][x] !== '*') {
-      y++;
+bot.action('textasyorlando', async (ctx) => {
+    const imagen = 'https://i.imgur.com/1UZXKic.jpg';
+    const ciudades = ['Texas', 'Orlando'];
+    const ciudadpropiedad = ciudades[Math.floor(Math.random() * ciudades.length)];
+    const precios = [25000, 50000];
+    const preciopropiedad = precios[Math.floor(Math.random() * precios.length)];
+    const userId = ctx.from.id;
+    const propiedad = 1;
+    try {
+        const db = await User.findOne({ userId: userId });
+        if (!db) {
+            ctx.reply('No tienes un trabajo registrado. ¡Trabaja primero para ganar dinero!');
+            return;
+        }
+        if (db.Dinero >= preciopropiedad) {
+            db.Dinero = Number(db.Dinero) - Number(preciopropiedad);
+            db.Patrimonio = Number(db.Patrimonio) + Number(preciopropiedad);
+            db.Propiedades = Number(db.Propiedades) + Number(propiedad);
+            await db.save();
+            ctx.replyWithPhoto({ url: imagen }, {
+                caption: `¡Felicidades! Has comprado una propiedad en ${ciudadpropiedad} por ${preciopropiedad} Dolares.`
+            });
+        } else {
+            ctx.reply(`Lo siento, no tienes suficiente dinero para comprar la propiedad en ${ciudadpropiedad}.`);
+        }
+    } catch (error) {
+        console.error('Error al comprar propiedad', error);
+        ctx.reply('¡Ups! Ha ocurrido un error al comprar la propiedad.');
     }
-    ctx.reply(printLaberinto());
-  });
+});
 
-  // Comando para mover hacia la izquierda, LO MISMO
-  bot.command('izquierda', (ctx) => {
-    if (laberinto[y][x - 1] !== '*') {
-      x--;
+bot.action('miamiynewyork', async (ctx) => {
+    const imagen = 'https://i.pinimg.com/originals/09/7a/ff/097aff4ba5931283509093fd50ceafe5.jpg'
+    const ciudad = ['Miami', 'NewYork'];
+    const ciudadpropiedad = ciudad[Math.floor(Math.random() * ciudad.length)];
+    const precio = ['50000', '150000'];
+    const preciopropiedad = precio[Math.floor(Math.random() * precio.length)];
+    const userId = ctx.from.id;
+    const propiedad = '1'
+    try {
+        const db = await User.findOne({ userId: userId });
+        if (!db) {
+            ctx.reply('No tienes un trabajo registrado. ¡Trabaja primero para ganar dinero!');
+            return;
+        }
+        if (db.Dinero >= preciopropiedad) {
+            db.Dinero = Number(db.Dinero) - Number(preciopropiedad);
+            db.Patrimonio = Number(db.Patrimonio) + Number(preciopropiedad);
+            db.Propiedades = Number(db.Propiedades) + Number(propiedad);
+            await db.save();
+            ctx.replyWithPhoto({ url: imagen }, {
+                caption: `¡Felicidades! Has comprado una propiedad en ${ciudadpropiedad} por ${preciopropiedad} Dolares.`
+            });
+        } else {
+            ctx.reply(`Lo siento, no tienes suficiente dinero para comprar la propiedad en ${ciudadpropiedad}.`);
+        }
+    } catch (error) {
+        console.error('Error al comprar propiedad', error);
+        ctx.reply('¡Ups! Ha ocurrido un error al comprar la propiedad.');
     }
-    ctx.reply(printLaberinto());
-  });
+});
 
-  // Comando para mover hacia la derecha, no mover nada aquí JAJAJAJ
-  bot.command('derecha', (ctx) => {
-    if (laberinto[y][x + 1] !== '*') {
-      x++;
+bot.action('californiaywhashington', async (ctx) => {
+    const imagen = 'https://megaricos.com/wp-content/uploads/2019/09/mansion-nueva-york-1-673x449.jpg';
+    const ciudades = ['California', 'Washington'];
+    const ciudadpropiedad = ciudades[Math.floor(Math.random() * ciudades.length)];
+    const precios = [150000, 250000];
+    const preciopropiedad = precios[Math.floor(Math.random() * precios.length)];
+    const userId = ctx.from.id;
+    const propiedad = 1;
+    try {
+        const db = await User.findOne({ userId: userId });
+        if (!db) {
+            ctx.reply('No tienes un trabajo registrado. ¡Trabaja primero para ganar dinero!');
+            return;
+        }
+        if (db.Dinero >= preciopropiedad) {
+            db.Dinero = Number(db.Dinero) - Number(preciopropiedad);
+            db.Patrimonio = Number(db.Patrimonio) + Number(preciopropiedad);
+            db.Propiedades = Number(db.Propiedades) + Number(propiedad);
+            await db.save();
+            ctx.replyWithPhoto({ url: imagen }, {
+                caption: `¡Felicidades! Has comprado una propiedad en ${ciudadpropiedad} por ${preciopropiedad} Dolares.`
+            });
+        } else {
+            ctx.reply(`Lo siento, no tienes suficiente dinero para comprar la propiedad en ${ciudadpropiedad}.`);
+        }
+    } catch (error) {
+        console.error('Error al comprar propiedad', error);
+        ctx.reply('¡Ups! Ha ocurrido un error al comprar la propiedad.');
     }
-    ctx.reply(printLaberinto());
-  });
+});
+//termina categoria de economia
+
+
+//comienza categoria de juegos
+
+let currentWord = '';
+let guessedWord = [];
+let incorrectGuesses = 0;
+const maxIncorrectGuesses = 6;
+let hangmanParts = 0;
+
+const words = [
+    'elefante', 'platano', 'programacion', 'telegrama', 'javascript',
+    'computadora', 'espanol', 'telefono', 'guitarra', 'frutas',
+    'montana', 'familia', 'cancion', 'emocion', 'aventura',
+    'chocolate', 'naturaleza', 'oceanografia', 'elevar', 'feliz',
+    'invierno', 'radiante', 'paisaje', 'ocasional', 'trabajo',
+    'hipopotamo', 'radiacion', 'querido', 'exquisito', 'arquitectura',
+    'rejuvenecer', 'xylofono', 'quiosco', 'zebra', 'sabroso',
+    'noviembre', 'sublime', 'ilusion', 'xylografia',
+    'ahorcado', 'abrazo', 'burro', 'cine', 'delfin',
+    'espejo', 'felicidad', 'galleta', 'huevo', 'iglesia',
+    'jirafa', 'kiosco', 'lampara', 'mariposa', 'naranja',
+    'oso', 'piano', 'quijote', 'rosa', 'sol',
+    'telescopio', 'uva', 'viento', 'waffle', 'xilofono',
+    'yoga', 'zapato', 'llama', 'agua', 'solucion',
+    'bicicleta', 'cascada', 'dinosaurio', 'escalera', 'fantasma',
+    'guitarra', 'helado', 'isla', 'jardin', 'kiwi'
+];
+
+bot.command('ahorcado', (ctx) => {
+    startGame();
+    displayWord(ctx);
+});
+
+bot.on('callback_query', (ctx) => {
+    const guessedLetter = ctx.callbackQuery.data;
+    ctx.answerCbQuery();
+
+    if (currentWord.includes(guessedLetter)) {
+        updateGuessedWord(guessedLetter);
+    } else {
+        incorrectGuesses++;
+        hangmanParts++;
+    }
+
+    displayWord(ctx);
+
+    if (checkGameStatus(ctx)) {
+        startGame();
+        ctx.reply('¡Has ganado! Vamos por otra palabra.', getPlayAgainButton());
+        displayWord(ctx);
+    }
+});
+
+function startGame() {
+    currentWord = getRandomWord();
+    guessedWord = Array(currentWord.length).fill('_');
+    incorrectGuesses = 0;
+    hangmanParts = 0;
+}
+
+function getRandomWord() {
+    const randomIndex = Math.floor(Math.random() * words.length);
+    return words[randomIndex];
+}
+
+function updateGuessedWord(guessedLetter) {
+    for (let i = 0; i < currentWord.length; i++) {
+        if (currentWord[i] === guessedLetter) {
+            guessedWord[i] = guessedLetter;
+        }
+    }
+}
+
+function displayWord(ctx) {
+    const displayText = `Palabra: ${guessedWord.join(' ')}\nIncorrectas: ${incorrectGuesses}/${maxIncorrectGuesses}`;
+    const hangmanText = getHangmanText(hangmanParts);
+    const keyboard = Markup.inlineKeyboard(getAlphabetButtons()).extra();
+
+    ctx.replyWithMarkdown(`${displayText}\n${hangmanText}`, keyboard);
+}
+
+function getHangmanText(parts) {
+    switch (parts) {
+        case 0:
+            return 'Ahorcado:\n\n';
+        case 1:
+            return 'Ahorcado:\n\n  O';
+        case 2:
+            return 'Ahorcado:\n\n  O\n  |';
+        case 3:
+            return 'Ahorcado:\n\n  O\n /|';
+        case 4:
+            return 'Ahorcado:\n\n  O\n /|\\';
+        case 5:
+            return 'Ahorcado:\n\n  O\n /|\\ \n /';
+        case 6:
+            return 'Ahorcado:\n\n  O\n /|\\ \n / \\';
+        default:
+            return '¡Has perdido! La palabra era: ' + currentWord;
+    }
+}
+
+function checkGameStatus(ctx) {
+    if (guessedWord.join('') === currentWord) {
+        return true;
+    }
+
+    if (hangmanParts >= maxIncorrectGuesses) {
+        ctx.reply(`¡Has perdido! La palabra era "${currentWord}". Intentemos con una nueva palabra.`, getPlayAgainButton());
+        return true;
+    }
+
+    return false;
+}
+
+function getAlphabetButtons() {
+    const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+    return alphabet.map(letter => Markup.callbackButton(letter, letter));
+}
+
+function getPlayAgainButton() {
+    return Markup.inlineKeyboard([Markup.callbackButton('Jugar de nuevo', 'play_again')]).extra();
+}
+
+bot.on('callback_query', (ctx) => {
+    if (ctx.callbackQuery.data === 'play_again') {
+        startGame();
+        ctx.reply('¡Vamos de nuevo! Adivina la palabra:');
+        displayWord(ctx);
+    }
 });
 
 //termina categoria de juegos
+
 bot.launch();
