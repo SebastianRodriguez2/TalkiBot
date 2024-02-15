@@ -1546,17 +1546,15 @@ bot.action('californiaywhashington', async (ctx) => {
 //comienza categoria de juegos
 
 
-let preguntasRespuestas = [];
 let indicePreguntaActual = 0;
 let preguntasCargadas = false;
 
-const rutaPreguntas = path.join(__dirname, 'lib', 'juegos', 'preguntas.json');
+const rutaPreguntas = './lib/juegos/preguntas.json';
 
 bot.command('preguntas', (ctx) => {
     if (!preguntasCargadas) {
         try {
-            const preguntasJSON = fs.readFileSync(rutaPreguntas, 'utf-8');
-            preguntasRespuestas = JSON.parse(preguntasJSON);
+            ctx.session.preguntasRespuestas = JSON.parse(fs.readFileSync(rutaPreguntas, 'utf-8'));
             preguntasCargadas = true;
             iniciarJuego(ctx);
         } catch (error) {
@@ -1570,14 +1568,14 @@ bot.command('preguntas', (ctx) => {
 bot.hears(/^\S+$/, (ctx) => {
     const respuestaUsuario = ctx.message.text;
 
-    if (preguntasRespuestas[indicePreguntaActual]) {
-        const respuestaCorrecta = preguntasRespuestas[indicePreguntaActual].respuesta.toLowerCase();
+    if (ctx.session.preguntasRespuestas[indicePreguntaActual]) {
+        const respuestaCorrecta = ctx.session.preguntasRespuestas[indicePreguntaActual].respuesta.toLowerCase();
 
         if (respuestaUsuario.toLowerCase() === respuestaCorrecta) {
             ctx.reply('¡Correcto! Siguiente pregunta.');
             indicePreguntaActual++;
 
-            if (preguntasRespuestas[indicePreguntaActual]) {
+            if (ctx.session.preguntasRespuestas[indicePreguntaActual]) {
                 enviarPregunta(ctx);
             } else {
                 ctx.reply('¡Has respondido todas las preguntas! ¡Bien hecho!');
@@ -1597,10 +1595,10 @@ function iniciarJuego(ctx) {
 
     // Configuración del temporizador
     setTimeout(() => {
-        if (preguntasRespuestas[indicePreguntaActual]) {
-            ctx.reply('¡Se acabó el tiempo! La respuesta era: ' + preguntasRespuestas[indicePreguntaActual].respuesta);
+        if (ctx.session.preguntasRespuestas[indicePreguntaActual]) {
+            ctx.reply('¡Se acabó el tiempo! La respuesta era: ' + ctx.session.preguntasRespuestas[indicePreguntaActual].respuesta);
             indicePreguntaActual++;
-            if (preguntasRespuestas[indicePreguntaActual]) {
+            if (ctx.session.preguntasRespuestas[indicePreguntaActual]) {
                 enviarPregunta(ctx);
             } else {
                 ctx.reply('¡Has respondido todas las preguntas! ¡Bien hecho!');
@@ -1611,7 +1609,7 @@ function iniciarJuego(ctx) {
 }
 
 function enviarPregunta(ctx) {
-    const preguntaActual = preguntasRespuestas[indicePreguntaActual].pregunta;
+    const preguntaActual = ctx.session.preguntasRespuestas[indicePreguntaActual].pregunta;
     ctx.reply(preguntaActual);
 }
 
