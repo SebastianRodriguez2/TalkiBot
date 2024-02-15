@@ -5,8 +5,8 @@ const mongoose = require('mongoose');
 const logo = 'https://i.imgur.com/ZCeiOY4.jpg';
 const apikasu = "https://apikasu.onrender.com"
 const apikey = "SebastianDevelop"
-const bot = new Telegraf('6320234612:AAFL1KCmYSc9P62smu8o2fDw_ON0h30_lw0');
-const mongoUrl = 'mongodb+srv://talkibot:talkibot@cluster0.ddbrmbi.mongodb.net/?retryWrites=true&w=majority';
+const bot = new Telegraf('');
+const mongoUrl = '';
 
 console.log(`
  ████████╗ █████╗ ██╗     ██╗  ██╗██╗    ██████╗  ██████╗ ████████╗
