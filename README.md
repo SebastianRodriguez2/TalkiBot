@@ -34,7 +34,7 @@
 SI DESEA PROPAR EL BOT ANTES DE INSTALAR, CLICK ABAJO.
 
 -  [`TALKI BOT`](https://t.me/talkisitobot)
--    [`ANUNCIOS TALKIBOT`](https://t.me/+gOWDsRow5mAwZmJh))
+-    [`ANUNCIOS TALKIBOT`](https://t.me/+gOWDsRow5mAwZmJh)
 
 ***
 
