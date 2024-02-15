@@ -5,8 +5,8 @@ const mongoose = require('mongoose');
 const logo = 'https://i.imgur.com/ZCeiOY4.jpg';
 const apikasu = "https://apikasu.onrender.com"
 const apikey = "SebastianDevelop"
-const bot = new Telegraf('');
-const mongoUrl = '';
+const bot = new Telegraf(process.env.token);
+const mongoUrl = process.env.mongodb;
 
 console.log(`
  ████████╗ █████╗ ██╗     ██╗  ██╗██╗    ██████╗  ██████╗ ████████╗
@@ -197,7 +197,9 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
       /ipinfo
       /bingcreator
       /imagina
-      /imagina2`;
+      /imagina2
+      /traducir
+      /ssweb`;
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
             inline_keyboard: [
@@ -273,6 +275,9 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
       
       /tiktokstalk
       /instagramstalk
+      /githubstalk
+      /peliculainfo
+      /tiktoksearch
       /letra
       /spotify
       /applemusic
@@ -584,6 +589,76 @@ bot.command('imagina2', async (ctx) => {
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
     }
 });
+bot.command('ssweb', async (ctx) => {
+    const command = '/ssweb';
+    const userText = ctx.message.text.slice(command.length + 1).trim();
+    if (!userText) {
+        ctx.reply(`Por favor, ingresa el enlace de la web`);
+        return;
+    }
+    const apiUrl = `${apikasu}/api/tools/ssweb?link=https://${encodeURIComponent(userText)}&apikey=${apikey}`;
+    try {
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+            const PhotoBuffer = await response.buffer();
+            ctx.replyWithPhoto({ source: PhotoBuffer });
+        } else {
+            ctx.reply(`Error al obtener la iamgen`);
+        }
+    } catch (error) {
+        console.error('Error al realizar la solicitud:');
+        ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+    }
+});
+bot.command('traducir', async (ctx) => {
+    const command = '/traducir';
+    const userText = ctx.message.text.slice(command.length + 1).trim();
+    const [languageCode, ...textArray] = userText.split(' ');
+    const userTextToTranslate = textArray.join(' ');
+    if (!isValidLanguageCode(languageCode)) {
+        ctx.reply('Código de idioma no válido. Utiliza un código de idioma de la lista proporcionada.');
+        return;
+    }
+    if (!userTextToTranslate) {
+        ctx.reply('Por favor, ingresa el texto que deseas traducir.');
+        return;
+    }
+    try {
+        const translationApiUrl = `${apikasu}/api/info/translate?text=${encodeURIComponent(userTextToTranslate)}&lang=${languageCode}&apikey=${apikey}`;
+        const response = await fetch(translationApiUrl);
+        if (response.ok) {
+            const translationResult = await response.json();
+            const caption = `
+𝗧𝗥𝗔𝗗𝗨𝗖𝗖𝗜𝗢𝗡
+
+𝗧𝗲𝘅𝘁𝗼 𝗼𝗿𝗶𝗴𝗶𝗻𝗮𝗹: ${userTextToTranslate}
+𝗧𝗿𝗮𝗱𝘂𝗰𝗰𝗶𝗼𝗻 (${languageCode}): ${translationResult.result}`;
+            ctx.reply(caption);
+        } else {
+            ctx.reply('Hubo un error al obtener la traducción desde la API.');
+        }
+    } catch (error) {
+        console.error('Error al traducir');
+        ctx.reply('Hubo un error al realizar la traducción.');
+    }
+});
+function isValidLanguageCode(code) {
+    const allLanguageCodes = [
+        'aa', 'ab', 'af', 'ak', 'sq', 'am', 'ar', 'an', 'hy', 'as', 'av', 'ae', 'ay', 'az', 'bm', 'ba',
+        'eu', 'be', 'bn', 'bh', 'bi', 'bs', 'br', 'bg', 'my', 'ca', 'km', 'ch', 'ce', 'ny', 'zh', 'cu',
+        'cv', 'kw', 'co', 'cr', 'hr', 'cs', 'da', 'dv', 'nl', 'dz', 'en', 'eo', 'et', 'ee', 'fo', 'fj',
+        'fi', 'fr', 'ff', 'gl', 'ka', 'de', 'el', 'gn', 'gu', 'ht', 'ha', 'he', 'hz', 'hi', 'ho', 'hu',
+        'ia', 'id', 'ie', 'ga', 'ig', 'ik', 'io', 'is', 'it', 'iu', 'ja', 'jv', 'kl', 'kn', 'kr', 'ks',
+        'kk', 'km', 'ki', 'rw', 'ky', 'kv', 'kg', 'ko', 'ku', 'kj', 'la', 'lb', 'lg', 'li', 'ln', 'lo',
+        'lt', 'lu', 'lv', 'gv', 'mk', 'mg', 'ms', 'ml', 'mt', 'mr', 'mh', 'mn', 'na', 'nv', 'nd', 'ne',
+        'ng', 'nb', 'nn', 'no', 'ii', 'nr', 'oc', 'oj', 'cu', 'om', 'or', 'os', 'pa', 'pi', 'fa', 'pl',
+        'ps', 'pt', 'qu', 'rm', 'rn', 'ro', 'ru', 'rw', 'sm', 'sg', 'sa', 'sc', 'sr', 'sn', 'sd', 'si',
+        'sk', 'sl', 'so', 'st', 'es', 'su', 'sw', 'ss', 'sv', 'ta', 'te', 'tg', 'th', 'ti', 'bo', 'tk',
+        'tl', 'tn', 'to', 'tr', 'ts', 'tt', 'tw', 'ty', 'ug', 'uk', 'ur', 'uz', 've', 'vi', 'vo', 'wa',
+        'cy', 'wo', 'fy', 'xh', 'yi', 'yo', 'za', 'zu'
+    ];
+    return allLanguageCodes.includes(code);
+}
 //termina categoria de 𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
 
 
@@ -734,6 +809,38 @@ bot.command('instagramstalk', async (ctx) => {
         ctx.reply('Hubo un error al obtener el texto desde la API.');
     }
 });
+bot.command('githubstalk', async (ctx) => {
+    const command = '/githubstalk';
+    const userText = ctx.message.text.slice(command.length + 1).trim();
+    if (!userText) {
+        ctx.reply(`Por favor, ingresa un nombre de usuario de GitHub`);
+        return;
+    }
+    const response = await fetch(`${apikasu}/api/info/githubstalk?user=${encodeURIComponent(userText)}&apikey=${apikey}`);
+    if (response.ok) {
+        const textResponse = await response.json();
+        const result = textResponse.result
+        const caption = `
+𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+
+𝗡𝗼𝗺𝗯𝗿𝗲 𝗱𝗲 𝘂𝘀𝘂𝗮𝗿𝗶𝗼: ${result.login}
+𝗡𝗼𝗺𝗯𝗿𝗲: ${result.name}
+𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝗰𝗶𝗼𝗻: ${result.bio}
+𝗧𝗶𝗽𝗼 𝗱𝗲 𝗰𝘂𝗲𝗻𝘁𝗮: ${result.type}
+𝗦𝗲𝗴𝘂𝗶𝗱𝗼𝗿𝗲𝘀:: ${result.followers}
+𝗦𝗶𝗴𝘂𝗶𝗲𝗻𝗱𝗼: ${result.following}
+𝗘𝗺𝗮𝗶𝗹: ${result.email}
+𝗖𝗼𝗺𝗽𝗮𝗻𝗶𝗮: ${result.company}
+𝗟𝗼𝗰𝗮𝗰𝗶𝗼𝗻: ${result.location}
+𝗥𝗲𝗽𝗼𝘀𝗶𝘁𝗼𝗿𝗶𝗼𝘀 𝗽𝘂𝗯𝗹𝗶𝗰𝗼𝘀: ${result.public_repos}
+𝗙𝗲𝗰𝗵𝗮 𝗱𝗲 𝗰𝗿𝗲𝗮𝗰𝗶𝗼𝗻: ${result.created_at}
+𝗙𝗲𝗰𝗵𝗮 𝗱𝗲 𝗮𝗰𝘁𝘂𝗮𝗹𝗶𝘇𝗮𝗰𝗶𝗼𝗻: ${result.updated_at}`;
+        const imageUrl = `${result.avatar_url}`;
+        ctx.replyWithPhoto({ url: imageUrl }, { caption: caption });
+    } else {
+        ctx.reply('Hubo un error al obtener el texto desde la API.');
+    }
+});
 
 bot.command('letra', async (ctx) => {
     const command = '/letra';
@@ -843,7 +950,7 @@ bot.command('deezer', async (ctx) => {
         const response = await fetch(`${apikasu}/api/dowloader/deezer?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
         if (response.ok) {
             const sptyInfo = await response.json();
-            const firstResult = sptyInfo.result[0]; 
+            const firstResult = sptyInfo.result[0];
             if (firstResult) {
                 const audioUrl = firstResult.preview;
                 const message = `
@@ -1183,6 +1290,62 @@ bot.command('youtubeaudio', async (ctx) => {
     } catch (error) {
         console.error('Error al realizar la solicitud:');
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+    }
+});
+bot.command('peliculainfo', async (ctx) => {
+    const command = '/peliculainfo';
+    const userText = ctx.message.text.slice(command.length + 1).trim();
+    if (!userText) {
+        ctx.reply(`Por favor, ingresa el nombre de la pelicula`);
+        return;
+    }
+    const response = await fetch(`${apikasu}/api/search/movieinfo?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
+    if (response.ok) {
+        const textResponse = await response.json();
+        const result = textResponse.result
+        const caption = `
+𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+
+𝗧𝗶𝘁𝘂𝗹𝗼: ${result.title}
+𝗔𝗻̃𝗼: ${result._yearData}
+𝗗𝘂𝗿𝗮𝗰𝗶𝗼𝗻: ${result.runtime}
+𝗚𝗲𝗻𝗲𝗿𝗼: ${result.genres}
+𝗔𝗰𝘁𝗼𝗿𝗲𝘀: ${result.actors}
+𝗣𝗿𝗲𝗺𝗶𝗼𝘀: ${result.awards}
+𝗖𝗼𝗻𝘁𝗶𝗻𝗲𝗻𝘁𝗲: ${result.country}
+𝗖𝗮𝗹𝗶𝗳𝗶𝗰𝗮𝗰𝗶𝗼𝗻𝗲𝘀: ${result.rating}
+𝗨𝗥𝗟: ${result.imdburl}`;
+        const imageUrl = `${result.poster}`;
+        ctx.replyWithPhoto({ url: imageUrl }, { caption: caption });
+    } else {
+        ctx.reply('Hubo un error al obtener la informacion desde la API.');
+    }
+});
+bot.command('tiktoksearch', async (ctx) => {
+    const command = '/tiktoksearch';
+    const userText = ctx.message.text.slice(command.length + 1).trim();
+    if (!userText) {
+        ctx.reply(`Por favor, ingresa el texto a buscar`);
+        return;
+    }
+    const response = await fetch(`${apikasu}/api/search/tiktoksearch?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
+    if (response.ok) {
+        const textResponse = await response.json();
+        const result = textResponse.result[0]
+        const caption = `
+𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+
+𝗧𝗶𝘁𝘂𝗹𝗼: ${result.title}
+𝗗𝘂𝗿𝗮𝗰𝗶𝗼𝗻: ${result.duration} segundos
+𝗥𝗲𝗽𝗿𝗼𝗱𝘂𝗰𝗰𝗶𝗼𝗻𝗲𝘀: ${result.play_count}
+𝗟𝗶𝗸𝗲𝘀: ${result.digg_count}
+𝗖𝗼𝗺𝗽𝗮𝗿𝘁𝗶𝗱𝗮𝘀: ${result.share_count}
+𝗗𝗲𝘀𝗰𝗮𝗿𝗴𝗮𝘀: ${result.download_count}
+𝗥𝗲𝗴𝗶𝗼𝗻: ${result.region}`;
+        const video = `${result.play}`;
+        ctx.replyWithVideo({ url: video }, { caption: caption });
+    } else {
+        ctx.reply('Hubo un error al obtener la informacion desde la API.');
     }
 });
 //termina categoria de descarga, busqueda y stalkeo
