@@ -1546,12 +1546,9 @@ bot.action('californiaywhashington', async (ctx) => {
 
 //comienza categoria de juegos
 
-
 let indicePreguntaActual = 0;
 let preguntasCargadas = false;
-
 const rutaPreguntas = '../lib/preguntas.json';
-
 bot.command('preguntas', (ctx) => {
     if (!preguntasCargadas) {
         try {
@@ -1565,18 +1562,14 @@ bot.command('preguntas', (ctx) => {
         iniciarJuego(ctx);
     }
 });
-
 bot.hears(/^\S+$/, (ctx) => {
-    const respuestaUsuario = ctx.message.text;
-
-    if (ctx.session.preguntasRespuestas[indicePreguntaActual]) {
+    if (preguntasCargadas) {
+        const respuestaUsuario = ctx.message.text.toLowerCase();
         const respuestaCorrecta = ctx.session.preguntasRespuestas[indicePreguntaActual].respuesta.toLowerCase();
-
-        if (respuestaUsuario.toLowerCase() === respuestaCorrecta) {
+        if (respuestaUsuario === respuestaCorrecta) {
             ctx.reply('¡Correcto! Siguiente pregunta.');
             indicePreguntaActual++;
-
-            if (ctx.session.preguntasRespuestas[indicePreguntaActual]) {
+            if (indicePreguntaActual < ctx.session.preguntasRespuestas.length) {
                 enviarPregunta(ctx);
             } else {
                 ctx.reply('¡Has respondido todas las preguntas! ¡Bien hecho!');
@@ -1585,36 +1578,25 @@ bot.hears(/^\S+$/, (ctx) => {
         } else {
             ctx.reply('Incorrecto. Inténtalo de nuevo.');
         }
-    } else {
-        ctx.reply('Primero inicia el juego con /preguntas.');
     }
 });
-
 function iniciarJuego(ctx) {
-    indicePreguntaActual = 0;
+    indicePreguntaActual = obtenerIndicePreguntaAleatoria(ctx.session.preguntasRespuestas.length);
     enviarPregunta(ctx);
-
-    // Configuración del temporizador
     setTimeout(() => {
-        if (ctx.session.preguntasRespuestas[indicePreguntaActual]) {
+        if (preguntasCargadas && indicePreguntaActual < ctx.session.preguntasRespuestas.length) {
             ctx.reply('¡Se acabó el tiempo! La respuesta era: ' + ctx.session.preguntasRespuestas[indicePreguntaActual].respuesta);
-            indicePreguntaActual++;
-            if (ctx.session.preguntasRespuestas[indicePreguntaActual]) {
-                enviarPregunta(ctx);
-            } else {
-                ctx.reply('¡Has respondido todas las preguntas! ¡Bien hecho!');
-                preguntasCargadas = false;
-            }
+            preguntasCargadas = false;
         }
-    }, 40000); // 40 segundos
+    }, 40000);
 }
-
 function enviarPregunta(ctx) {
     const preguntaActual = ctx.session.preguntasRespuestas[indicePreguntaActual].pregunta;
     ctx.reply(preguntaActual);
 }
-
-
+function obtenerIndicePreguntaAleatoria(max) {
+    return Math.floor(Math.random() * max);
+}
 
 //termina categoria de juegos
 
