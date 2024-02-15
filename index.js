@@ -1,7 +1,7 @@
 const { Telegraf } = require('telegraf');
 const fetch = require('node-fetch')
 const mongoose = require('mongoose');
-
+const path = require('path');
 const logo = 'https://i.imgur.com/ZCeiOY4.jpg';
 const apikasu = "https://apikasu.onrender.com"
 const apikey = "SebastianDevelop"
