@@ -33,19 +33,20 @@
 ### PROBAR BOT
 SI DESEA PROPAR EL BOT ANTES DE INSTALAR, CLICK ABAJO.
 
--  [`Talkisito Bot`](https://t.me/talkisitobot)
+-  [`TALKI BOT`](https://t.me/talkisitobot)
+-    [`ANUNCIOS TALKIBOT`](https://t.me/+gOWDsRow5mAwZmJh))
 
 ***
 
 ### BOT FATHER
 BOT PARA SACAR EL TOKEN
--  [`Bot Father`](https://t.me/BotFather)
+-  [`BOT FATHER`](https://t.me/BotFather)
 
 ***
 
 ### Mongo db
-BOT PARA SACAR EL TOKEN
--  [`MongoDB`](https://cloud.mongodb.com/)
+PAGINA PARA SACAR BASE DE DATOS
+-  [`MONGODB`](https://cloud.mongodb.com/)
 
 ***
 
