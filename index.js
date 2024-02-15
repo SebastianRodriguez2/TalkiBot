@@ -1545,134 +1545,77 @@ bot.action('californiaywhashington', async (ctx) => {
 
 //comienza categoria de juegos
 
-let currentWord = '';
-let guessedWord = [];
-let incorrectGuesses = 0;
-const maxIncorrectGuesses = 6;
-let hangmanParts = 0;
 
-const words = [
-    'elefante', 'platano', 'programacion', 'telegrama', 'javascript',
-    'computadora', 'espanol', 'telefono', 'guitarra', 'frutas',
-    'montana', 'familia', 'cancion', 'emocion', 'aventura',
-    'chocolate', 'naturaleza', 'oceanografia', 'elevar', 'feliz',
-    'invierno', 'radiante', 'paisaje', 'ocasional', 'trabajo',
-    'hipopotamo', 'radiacion', 'querido', 'exquisito', 'arquitectura',
-    'rejuvenecer', 'xylofono', 'quiosco', 'zebra', 'sabroso',
-    'noviembre', 'sublime', 'ilusion', 'xylografia',
-    'ahorcado', 'abrazo', 'burro', 'cine', 'delfin',
-    'espejo', 'felicidad', 'galleta', 'huevo', 'iglesia',
-    'jirafa', 'kiosco', 'lampara', 'mariposa', 'naranja',
-    'oso', 'piano', 'quijote', 'rosa', 'sol',
-    'telescopio', 'uva', 'viento', 'waffle', 'xilofono',
-    'yoga', 'zapato', 'llama', 'agua', 'solucion',
-    'bicicleta', 'cascada', 'dinosaurio', 'escalera', 'fantasma',
-    'guitarra', 'helado', 'isla', 'jardin', 'kiwi'
-];
+let preguntasRespuestas = [];
+let indicePreguntaActual = 0;
+let preguntasCargadas = false;
 
-bot.command('ahorcado', (ctx) => {
-    startGame();
-    displayWord(ctx);
-});
+const rutaPreguntas = path.join(__dirname, 'lib', 'juegos', 'preguntas.json');
 
-bot.on('callback_query', (ctx) => {
-    const guessedLetter = ctx.callbackQuery.data;
-    ctx.answerCbQuery();
-
-    if (currentWord.includes(guessedLetter)) {
-        updateGuessedWord(guessedLetter);
-    } else {
-        incorrectGuesses++;
-        hangmanParts++;
-    }
-
-    displayWord(ctx);
-
-    if (checkGameStatus(ctx)) {
-        startGame();
-        ctx.reply('¡Has ganado! Vamos por otra palabra.', getPlayAgainButton());
-        displayWord(ctx);
-    }
-});
-
-function startGame() {
-    currentWord = getRandomWord();
-    guessedWord = Array(currentWord.length).fill('_');
-    incorrectGuesses = 0;
-    hangmanParts = 0;
-}
-
-function getRandomWord() {
-    const randomIndex = Math.floor(Math.random() * words.length);
-    return words[randomIndex];
-}
-
-function updateGuessedWord(guessedLetter) {
-    for (let i = 0; i < currentWord.length; i++) {
-        if (currentWord[i] === guessedLetter) {
-            guessedWord[i] = guessedLetter;
+bot.command('preguntas', (ctx) => {
+    if (!preguntasCargadas) {
+        try {
+            const preguntasJSON = fs.readFileSync(rutaPreguntas, 'utf-8');
+            preguntasRespuestas = JSON.parse(preguntasJSON);
+            preguntasCargadas = true;
+            iniciarJuego(ctx);
+        } catch (error) {
+            ctx.reply('Error al cargar las preguntas.');
         }
-    }
-}
-
-function displayWord(ctx) {
-    const displayText = `Palabra: ${guessedWord.join(' ')}\nIncorrectas: ${incorrectGuesses}/${maxIncorrectGuesses}`;
-    const hangmanText = getHangmanText(hangmanParts);
-    const keyboard = Markup.inlineKeyboard(getAlphabetButtons()).extra();
-
-    ctx.replyWithMarkdown(`${displayText}\n${hangmanText}`, keyboard);
-}
-
-function getHangmanText(parts) {
-    switch (parts) {
-        case 0:
-            return 'Ahorcado:\n\n';
-        case 1:
-            return 'Ahorcado:\n\n  O';
-        case 2:
-            return 'Ahorcado:\n\n  O\n  |';
-        case 3:
-            return 'Ahorcado:\n\n  O\n /|';
-        case 4:
-            return 'Ahorcado:\n\n  O\n /|\\';
-        case 5:
-            return 'Ahorcado:\n\n  O\n /|\\ \n /';
-        case 6:
-            return 'Ahorcado:\n\n  O\n /|\\ \n / \\';
-        default:
-            return '¡Has perdido! La palabra era: ' + currentWord;
-    }
-}
-
-function checkGameStatus(ctx) {
-    if (guessedWord.join('') === currentWord) {
-        return true;
-    }
-
-    if (hangmanParts >= maxIncorrectGuesses) {
-        ctx.reply(`¡Has perdido! La palabra era "${currentWord}". Intentemos con una nueva palabra.`, getPlayAgainButton());
-        return true;
-    }
-
-    return false;
-}
-
-function getAlphabetButtons() {
-    const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
-    return alphabet.map(letter => Markup.callbackButton(letter, letter));
-}
-
-function getPlayAgainButton() {
-    return Markup.inlineKeyboard([Markup.callbackButton('Jugar de nuevo', 'play_again')]).extra();
-}
-
-bot.on('callback_query', (ctx) => {
-    if (ctx.callbackQuery.data === 'play_again') {
-        startGame();
-        ctx.reply('¡Vamos de nuevo! Adivina la palabra:');
-        displayWord(ctx);
+    } else {
+        iniciarJuego(ctx);
     }
 });
+
+bot.hears(/^\S+$/, (ctx) => {
+    const respuestaUsuario = ctx.message.text;
+
+    if (preguntasRespuestas[indicePreguntaActual]) {
+        const respuestaCorrecta = preguntasRespuestas[indicePreguntaActual].respuesta.toLowerCase();
+
+        if (respuestaUsuario.toLowerCase() === respuestaCorrecta) {
+            ctx.reply('¡Correcto! Siguiente pregunta.');
+            indicePreguntaActual++;
+
+            if (preguntasRespuestas[indicePreguntaActual]) {
+                enviarPregunta(ctx);
+            } else {
+                ctx.reply('¡Has respondido todas las preguntas! ¡Bien hecho!');
+                preguntasCargadas = false;
+            }
+        } else {
+            ctx.reply('Incorrecto. Inténtalo de nuevo.');
+        }
+    } else {
+        ctx.reply('Primero inicia el juego con /preguntas.');
+    }
+});
+
+function iniciarJuego(ctx) {
+    indicePreguntaActual = 0;
+    enviarPregunta(ctx);
+
+    // Configuración del temporizador
+    setTimeout(() => {
+        if (preguntasRespuestas[indicePreguntaActual]) {
+            ctx.reply('¡Se acabó el tiempo! La respuesta era: ' + preguntasRespuestas[indicePreguntaActual].respuesta);
+            indicePreguntaActual++;
+            if (preguntasRespuestas[indicePreguntaActual]) {
+                enviarPregunta(ctx);
+            } else {
+                ctx.reply('¡Has respondido todas las preguntas! ¡Bien hecho!');
+                preguntasCargadas = false;
+            }
+        }
+    }, 40000); // 40 segundos
+}
+
+function enviarPregunta(ctx) {
+    const preguntaActual = preguntasRespuestas[indicePreguntaActual].pregunta;
+    ctx.reply(preguntaActual);
+}
+
+
 
 //termina categoria de juegos
 
