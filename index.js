@@ -5,8 +5,8 @@ const mongoose = require('mongoose');
 const logo = 'https://i.imgur.com/ZCeiOY4.jpg';
 const apikasu = "https://apikasu.onrender.com"
 const apikey = "SebastianDevelop"
-const bot = new Telegraf('');
-const mongoUrl = '';
+const bot = new Telegraf('6320234612:AAFL1KCmYSc9P62smu8o2fDw_ON0h30_lw0');
+const mongoUrl = 'mongodb+srv://talkibot:talkibot@cluster0.ddbrmbi.mongodb.net/?retryWrites=true&w=majority';
 
 console.log(`
  ████████╗ █████╗ ██╗     ██╗  ██╗██╗    ██████╗  ██████╗ ████████╗
@@ -18,6 +18,7 @@ console.log(`
                       BOT DE TELEGRAM
 
 Intentando hacer conexión con la base de datos de MongoDB`);
+
 
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
@@ -50,18 +51,16 @@ bot.start(async (ctx) => {
     const menu = `
 𝗛𝗼𝗹𝗮: ${name}
 
-Porfavor de en el boton de Menu completo para conocer el menu completo de TalkiBot.
+Debido a los limites de telegram hemos decidido dividir el menu en categorias, porfavor para ver el menu en categorias presione el boton de la categoria que desea.
    
-      𝗠𝗘𝗡𝗨 𝗜𝗡𝗜𝗖𝗜𝗔𝗟 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜 𝗕𝗢𝗧
+  𝗠𝗘𝗡𝗨 𝗜𝗡𝗜𝗖𝗜𝗔𝗟 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜 𝗕𝗢𝗧
         
-        𝗔𝗖𝗘𝗥𝗖𝗔 𝗗𝗘
-        
-        /help
-        /creadores
-        /cuentasoficiales
-        /miapi
-        /ping
-        /info`
+    /help
+    /creadores
+    /cuentasoficiales
+    /miapi
+    /ping
+    /info`
     try {
         const fullName = user.first_name + (user.last_name ? ' ' + user.last_name : '');
         await User.updateOne({ userId: user.id }, {
@@ -82,9 +81,12 @@ Porfavor de en el boton de Menu completo para conocer el menu completo de TalkiB
             caption: menu,
             reply_markup: {
                 inline_keyboard: [
-                    [{ text: 'Menu completo', callback_data: 'menu' }],
-                    [{ text: 'Mis creadores', callback_data: 'creadores' }],
-                    [{ text: 'Mis cuentas oficiales', callback_data: 'cuentasoficiales' }],
+                    [{ text: 'ACERCA DE', callback_data: 'acerca' }],
+                    [{ text: 'INFORMACION', callback_data: 'informacion' }],
+                    [{ text: 'HERRAMIENTAS', callback_data: 'herramientas' }],
+                    [{ text: 'ECONOMIA', callback_data: 'economia' }],
+                    [{ text: 'JUEGOS', callback_data: 'juegos' }],
+                    [{ text: 'DESCARGAS, BUSQUEDAS Y STALKEOS', callback_data: 'dl' }],
                 ],
             },
         });
@@ -93,105 +95,101 @@ Porfavor de en el boton de Menu completo para conocer el menu completo de TalkiB
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
     }
 });
-bot.action('menu', async (ctx) => {
-    const name = ctx.message.from.first_name;
-    const menu = `
-𝗛𝗼𝗹𝗮: ${name}
-    
-    𝗠𝗘𝗡𝗨 𝗖𝗢𝗠𝗣𝗟𝗘𝗧𝗢 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
-      
-      𝗔𝗖𝗘𝗥𝗖𝗔 𝗗𝗘
-      
-      /help
-      /creadores
-      /cuentasoficiales
-      /miapi
-      /ping
-      /info
-  
-      𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
-  
-      /cambiarnombre
-      /cambiarfoto
-      /perfil
-      
-      𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
-      
-      /chatgpt
-      /bard
-      /gemini
-      /ipinfo
-      /bingcreator
-      /imagina
-      /imagina2
-  
-      𝗘𝗖𝗢𝗡𝗢𝗠𝗜𝗔
-  
-      /trabajar
-      /interesesportrabajo
-      /comprarpropiedad
-  
-      𝗝𝗨𝗘𝗚𝗢𝗦
-  
-      /ahorcado
-      
-      𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦, 𝗕𝗨𝗦𝗤𝗨𝗘𝗗𝗔𝗦 𝗬 𝗦𝗧𝗔𝗟𝗞𝗘𝗢𝗦
-      
-      /tiktokstalk
-      /instagramstalk
-      /letra
-      /spotify
-      /applemusic
-      /deezer
-      /googlesearch
-      /image
-      /pinterest
-      /wallpaper
-      /facebook
-      /youtubevideo
-      /youtubechannel
-      /youtubeaudio
-      /tiktok
-      /tiktokimg
-      /instagram
-      /instagramstory
-      /twitter
-      /threads
-      /mediafire
-      /googledrive`;
-    ctx.replyWithPhoto({ url: logo }, {
-        caption: menu, reply_markup: {
-            inline_keyboard: [
-                [{ text: 'Mis creadores', callback_data: 'creadores' }],
-                [{ text: 'Mis cuentas oficiales', callback_data: 'cuentasoficiales' }],
-            ],
-        }
-    });
-});
 // menus (modificar los 2)
 bot.command('help', async (ctx) => {
     const name = ctx.message.from.first_name;
     const menu = `
 𝗛𝗼𝗹𝗮: ${name}
-    
-    𝗠𝗘𝗡𝗨 𝗖𝗢𝗠𝗣𝗟𝗘𝗧𝗢 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
+
+Debido a los limites de telegram hemos decidido dividir el menu en categorias, porfavor para ver el menu en categorias presione el boton de la categoria que desea.
+   
+  𝗠𝗘𝗡𝗨 𝗜𝗡𝗜𝗖𝗜𝗔𝗟 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜 𝗕𝗢𝗧
+        
+     /help
+     /creadores
+     /cuentasoficiales
+     /miapi
+     /ping
+     /info`;
+    ctx.replyWithPhoto({ url: logo }, {
+        caption: menu, reply_markup: {
+            inline_keyboard: [
+                [{ text: 'ACERCA DE', callback_data: 'acerca' }],
+                [{ text: 'INFORMACION', callback_data: 'informacion' }],
+                [{ text: 'HERRAMIENTAS', callback_data: 'herramientas' }],
+                [{ text: 'ECONOMIA', callback_data: 'economia' }],
+                [{ text: 'JUEGOS', callback_data: 'juegos' }],
+                [{ text: 'DESCARGAS, BUSQUEDAS Y STALKEOS', callback_data: 'dl' }],
+            ],
+        }
+    });
+});
+//acciones de los botones del menu
+bot.action('acerca', async (ctx) => {
+    const name = ctx.message.from.first_name;
+    const menu = `
+𝗛𝗼𝗹𝗮: ${name}
+
+Debido a los limites de telegram hemos decidido dividir el menu en categorias, porfavor para ver el menu en categorias presione el boton de la categoria que desea.
+  
+  𝗠𝗘𝗡𝗨 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
       
-      𝗔𝗖𝗘𝗥𝗖𝗔 𝗗𝗘
-      
+    𝗔𝗖𝗘𝗥𝗖𝗔 𝗗𝗘
+
       /help
       /creadores
       /cuentasoficiales
       /miapi
       /ping
-      /info
+      /info`;
+    ctx.replyWithPhoto({ url: logo }, {
+        caption: menu, reply_markup: {
+            inline_keyboard: [
+                [{ text: 'INFORMACION', callback_data: 'informacion' }],
+                [{ text: 'HERRAMIENTAS', callback_data: 'herramientas' }],
+                [{ text: 'ECONOMIA', callback_data: 'economia' }],
+                [{ text: 'JUEGOS', callback_data: 'juegos' }],
+                [{ text: 'DESCARGAS, BUSQUEDAS Y STALKEOS', callback_data: 'dl' }],
+            ],
+        }
+    });
+});
+bot.action('informacion', async (ctx) => {
+    const name = ctx.message.from.first_name;
+    const menu = `
+𝗛𝗼𝗹𝗮: ${name}
+
+Debido a los limites de telegram hemos decidido dividir el menu en categorias, porfavor para ver el menu en categorias presione el boton de la categoria que desea.
   
-      𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+  𝗠𝗘𝗡𝗨 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
+      
+    𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
   
       /cambiarnombre
       /cambiarfoto
-      /perfil
+      /perfil`;
+    ctx.replyWithPhoto({ url: logo }, {
+        caption: menu, reply_markup: {
+            inline_keyboard: [
+                [{ text: 'ACERCA DE', callback_data: 'acerca' }],
+                [{ text: 'HERRAMIENTAS', callback_data: 'herramientas' }],
+                [{ text: 'ECONOMIA', callback_data: 'economia' }],
+                [{ text: 'JUEGOS', callback_data: 'juegos' }],
+                [{ text: 'DESCARGAS, BUSQUEDAS Y STALKEOS', callback_data: 'dl' }],
+            ],
+        }
+    });
+});
+bot.action('herramientas', async (ctx) => {
+    const name = ctx.message.from.first_name;
+    const menu = `
+𝗛𝗼𝗹𝗮: ${name}
+
+Debido a los limites de telegram hemos decidido dividir el menu en categorias, porfavor para ver el menu en categorias presione el boton de la categoria que desea.
+  
+  𝗠𝗘𝗡𝗨 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
       
-      𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
+    𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
       
       /chatgpt
       /bard
@@ -199,19 +197,79 @@ bot.command('help', async (ctx) => {
       /ipinfo
       /bingcreator
       /imagina
-      /imagina2
+      /imagina2`;
+    ctx.replyWithPhoto({ url: logo }, {
+        caption: menu, reply_markup: {
+            inline_keyboard: [
+                [{ text: 'ACERCA DE', callback_data: 'acerca' }],
+                [{ text: 'INFORMACION', callback_data: 'informacion' }],
+                [{ text: 'ECONOMIA', callback_data: 'economia' }],
+                [{ text: 'JUEGOS', callback_data: 'juegos' }],
+                [{ text: 'DESCARGAS, BUSQUEDAS Y STALKEOS', callback_data: 'dl' }],
+            ],
+        }
+    });
+});
+bot.action('economia', async (ctx) => {
+    const name = ctx.message.from.first_name;
+    const menu = `
+𝗛𝗼𝗹𝗮: ${name}
+
+Debido a los limites de telegram hemos decidido dividir el menu en categorias, porfavor para ver el menu en categorias presione el boton de la categoria que desea.
   
-      𝗘𝗖𝗢𝗡𝗢𝗠𝗜𝗔
+  𝗠𝗘𝗡𝗨 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
+      
+    𝗘𝗖𝗢𝗡𝗢𝗠𝗜𝗔
   
       /trabajar
       /interesesportrabajo
-      /comprarpropiedad
+      /comprarpropiedad`;
+    ctx.replyWithPhoto({ url: logo }, {
+        caption: menu, reply_markup: {
+            inline_keyboard: [
+                [{ text: 'ACERCA DE', callback_data: 'acerca' }],
+                [{ text: 'INFORMACION', callback_data: 'informacion' }],
+                [{ text: 'HERRAMIENTAS', callback_data: 'herramientas' }],
+                [{ text: 'JUEGOS', callback_data: 'juegos' }],
+                [{ text: 'DESCARGAS, BUSQUEDAS Y STALKEOS', callback_data: 'dl' }],
+            ],
+        }
+    });
+});
+bot.action('juegos', async (ctx) => {
+    const name = ctx.message.from.first_name;
+    const menu = `
+𝗛𝗼𝗹𝗮: ${name}
+
+Debido a los limites de telegram hemos decidido dividir el menu en categorias, porfavor para ver el menu en categorias presione el boton de la categoria que desea.
   
-      𝗝𝗨𝗘𝗚𝗢𝗦
-  
-      /ahorcado
+  𝗠𝗘𝗡𝗨 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
       
-      𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦, 𝗕𝗨𝗦𝗤𝗨𝗘𝗗𝗔𝗦 𝗬 𝗦𝗧𝗔𝗟𝗞𝗘𝗢𝗦
+    𝗝𝗨𝗘𝗚𝗢𝗦
+  
+      /ahorcado`;
+    ctx.replyWithPhoto({ url: logo }, {
+        caption: menu, reply_markup: {
+            inline_keyboard: [
+                [{ text: 'ACERCA DE', callback_data: 'acerca' }],
+                [{ text: 'INFORMACION', callback_data: 'informacion' }],
+                [{ text: 'HERRAMIENTAS', callback_data: 'herramientas' }],
+                [{ text: 'ECONOMIA', callback_data: 'economia' }],
+                [{ text: 'DESCARGAS, BUSQUEDAS Y STALKEOS', callback_data: 'dl' }],
+            ],
+        }
+    });
+});
+bot.action('dl', async (ctx) => {
+    const name = ctx.message.from.first_name;
+    const menu = `
+𝗛𝗼𝗹𝗮: ${name}
+
+Debido a los limites de telegram hemos decidido dividir el menu en categorias, porfavor para ver el menu en categorias presione el boton de la categoria que desea.
+ 
+  𝗠𝗘𝗡𝗨 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
+      
+    𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦, 𝗕𝗨𝗦𝗤𝗨𝗘𝗗𝗔𝗦 𝗬 𝗦𝗧𝗔𝗟𝗞𝗘𝗢𝗦
       
       /tiktokstalk
       /instagramstalk
@@ -238,33 +296,14 @@ bot.command('help', async (ctx) => {
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
             inline_keyboard: [
-                [{ text: 'Mis creadores', callback_data: 'creadores' }],
-                [{ text: 'Mis cuentas oficiales', callback_data: 'cuentasoficiales' }],
+                [{ text: 'ACERCA DE', callback_data: 'acerca' }],
+                [{ text: 'INFORMACION', callback_data: 'informacion' }],
+                [{ text: 'HERRAMIENTAS', callback_data: 'herramientas' }],
+                [{ text: 'ECONOMIA', callback_data: 'economia' }],
+                [{ text: 'JUEGOS', callback_data: 'juegos' }],
             ],
         }
     });
-});
-//acciones de los botones del menu
-bot.action('creadores', (ctx) => {
-    ctx.reply(`
-𝗦𝗲𝗯𝗮𝘀𝘁𝗶𝗮𝗻
-
-𝗡𝗼𝗺𝗯𝗿𝗲: Sebastian
-𝗡𝘂𝗺𝗲𝗿𝗼 𝘁𝗲𝗹𝗲𝗳𝗼𝗻𝗶𝗰𝗼: +57 301 4953662
-𝗜𝗻𝘀𝘁𝗮𝗴𝗿𝗮𝗺: https://www.instagram.com/seebastian_88/
-𝗚𝗶𝘁𝗛𝘂𝗯: https://github.com/BOT-TX
-
-𝗚𝘂𝗶𝗹𝗹𝗲𝗿𝗺𝗼
-
-𝗡𝗼𝗺𝗯𝗿𝗲: Guillermo
-𝗡𝘂𝗺𝗲𝗿𝗼 𝘁𝗲𝗹𝗲𝗳𝗼𝗻𝗶𝗰𝗼: +593 99 566 8111
-𝗜𝗻𝘀𝘁𝗮𝗴𝗿𝗮𝗺: https://www.instagram.com/traxnox/
-𝗚𝗶𝘁𝗛𝘂𝗯: https://github.com/ByTraxnox-X`);
-});
-bot.action('cuentasoficiales', (ctx) => {
-    ctx.reply(`
-Mis unicas cuentas oficiales son las de este enlace!
-https://solo.to/talki`);
 });
 // comienza categoria acerca de
 let lastPingTime = 0;
