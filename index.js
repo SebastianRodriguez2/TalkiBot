@@ -49,8 +49,10 @@ bot.start(async (ctx) => {
     const name = ctx.message.from.first_name;
     const menu = `
 𝗛𝗼𝗹𝗮: ${name}
-    
-      𝗠𝗘𝗡𝗨 𝗖𝗢𝗠𝗣𝗟𝗘𝗧𝗢 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
+
+Porfavor de en el boton de Menu completo para conocer el menu completo de TalkiBot.
+   
+      𝗠𝗘𝗡𝗨 𝗜𝗡𝗜𝗖𝗜𝗔𝗟 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜 𝗕𝗢𝗧
         
         𝗔𝗖𝗘𝗥𝗖𝗔 𝗗𝗘
         
@@ -59,58 +61,7 @@ bot.start(async (ctx) => {
         /cuentasoficiales
         /miapi
         /ping
-        /info
-    
-        𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
-    
-        /cambiarnombre
-        /cambiarfoto
-        /perfil
-        
-        𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
-        
-        /chatgpt
-        /bard
-        /gemini
-        /ipinfo
-        /bingcreator
-        /imagina
-        /imagina2
-    
-        𝗘𝗖𝗢𝗡𝗢𝗠𝗜𝗔
-    
-        /trabajar
-        /interesesportrabajo
-        /comprarpropiedad
-    
-        𝗝𝗨𝗘𝗚𝗢𝗦
-    
-        /ahorcado
-        
-        𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦, 𝗕𝗨𝗦𝗤𝗨𝗘𝗗𝗔𝗦 𝗬 𝗦𝗧𝗔𝗟𝗞𝗘𝗢𝗦
-        
-        /tiktokstalk
-        /instagramstalk
-        /letra
-        /spotify
-        /applemusic
-        /deezer
-        /googlesearch
-        /image
-        /pinterest
-        /wallpaper
-        /facebook
-        /youtubevideo
-        /youtubechannel
-        /youtubeaudio
-        /tiktok
-        /tiktokimg
-        /instagram
-        /instagramstory
-        /twitter
-        /threads
-        /mediafire
-        /googledrive`
+        /info`
     try {
         const fullName = user.first_name + (user.last_name ? ' ' + user.last_name : '');
         await User.updateOne({ userId: user.id }, {
@@ -131,6 +82,7 @@ bot.start(async (ctx) => {
             caption: menu,
             reply_markup: {
                 inline_keyboard: [
+                    [{ text: 'Menu completo', callback_data: 'menu' }],
                     [{ text: 'Mis creadores', callback_data: 'creadores' }],
                     [{ text: 'Mis cuentas oficiales', callback_data: 'cuentasoficiales' }],
                 ],
@@ -140,6 +92,81 @@ bot.start(async (ctx) => {
         console.error('Error al guardar la información del usuario en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
     }
+});
+bot.action('menu', async (ctx) => {
+    const name = ctx.message.from.first_name;
+    const menu = `
+𝗛𝗼𝗹𝗮: ${name}
+    
+    𝗠𝗘𝗡𝗨 𝗖𝗢𝗠𝗣𝗟𝗘𝗧𝗢 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
+      
+      𝗔𝗖𝗘𝗥𝗖𝗔 𝗗𝗘
+      
+      /help
+      /creadores
+      /cuentasoficiales
+      /miapi
+      /ping
+      /info
+  
+      𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+  
+      /cambiarnombre
+      /cambiarfoto
+      /perfil
+      
+      𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
+      
+      /chatgpt
+      /bard
+      /gemini
+      /ipinfo
+      /bingcreator
+      /imagina
+      /imagina2
+  
+      𝗘𝗖𝗢𝗡𝗢𝗠𝗜𝗔
+  
+      /trabajar
+      /interesesportrabajo
+      /comprarpropiedad
+  
+      𝗝𝗨𝗘𝗚𝗢𝗦
+  
+      /ahorcado
+      
+      𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦, 𝗕𝗨𝗦𝗤𝗨𝗘𝗗𝗔𝗦 𝗬 𝗦𝗧𝗔𝗟𝗞𝗘𝗢𝗦
+      
+      /tiktokstalk
+      /instagramstalk
+      /letra
+      /spotify
+      /applemusic
+      /deezer
+      /googlesearch
+      /image
+      /pinterest
+      /wallpaper
+      /facebook
+      /youtubevideo
+      /youtubechannel
+      /youtubeaudio
+      /tiktok
+      /tiktokimg
+      /instagram
+      /instagramstory
+      /twitter
+      /threads
+      /mediafire
+      /googledrive`;
+    ctx.replyWithPhoto({ url: logo }, {
+        caption: menu, reply_markup: {
+            inline_keyboard: [
+                [{ text: 'Mis creadores', callback_data: 'creadores' }],
+                [{ text: 'Mis cuentas oficiales', callback_data: 'cuentasoficiales' }],
+            ],
+        }
+    });
 });
 // menus (modificar los 2)
 bot.command('help', async (ctx) => {
