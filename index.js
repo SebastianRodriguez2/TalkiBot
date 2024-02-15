@@ -126,7 +126,7 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
 });
 //acciones de los botones del menu
 bot.action('acerca', async (ctx) => {
-    const name = ctx.message.from.first_name;
+    const name = ctx.from.first_name
     const menu = `
 𝗛𝗼𝗹𝗮: ${name}
 
@@ -155,7 +155,7 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
     });
 });
 bot.action('informacion', async (ctx) => {
-    const name = ctx.message.from.first_name;
+    const name = ctx.from.first_name
     const menu = `
 𝗛𝗼𝗹𝗮: ${name}
 
@@ -181,7 +181,7 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
     });
 });
 bot.action('herramientas', async (ctx) => {
-    const name = ctx.message.from.first_name;
+    const name = ctx.from.first_name
     const menu = `
 𝗛𝗼𝗹𝗮: ${name}
 
@@ -211,7 +211,7 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
     });
 });
 bot.action('economia', async (ctx) => {
-    const name = ctx.message.from.first_name;
+    const name = ctx.from.first_name
     const menu = `
 𝗛𝗼𝗹𝗮: ${name}
 
@@ -237,7 +237,7 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
     });
 });
 bot.action('juegos', async (ctx) => {
-    const name = ctx.message.from.first_name;
+    const name = ctx.from.first_name
     const menu = `
 𝗛𝗼𝗹𝗮: ${name}
 
@@ -261,7 +261,7 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
     });
 });
 bot.action('dl', async (ctx) => {
-    const name = ctx.message.from.first_name;
+    const name = ctx.from.first_name
     const menu = `
 𝗛𝗼𝗹𝗮: ${name}
 
