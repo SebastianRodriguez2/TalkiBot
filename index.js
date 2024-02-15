@@ -1550,7 +1550,7 @@ bot.action('californiaywhashington', async (ctx) => {
 let indicePreguntaActual = 0;
 let preguntasCargadas = false;
 
-const rutaPreguntas = './lib/juegos/preguntas.json';
+const rutaPreguntas = '../lib/preguntas.json';
 
 bot.command('preguntas', (ctx) => {
     if (!preguntasCargadas) {

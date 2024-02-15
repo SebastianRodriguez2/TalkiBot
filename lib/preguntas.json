@@ -1,0 +1,78 @@
+[
+    { "pregunta": "¿Cuál es la capital de Francia?", "respuesta": "París"
+    },
+    { "pregunta": "¿Cuántos planetas hay en nuestro sistema solar?", "respuesta": "8"
+    },
+    { "pregunta": "¿En qué año comenzó la Primera Guerra Mundial?", "respuesta": "1914"
+    },
+    { "pregunta": "¿Cuál es el río más largo del mundo?", "respuesta": "Amazonas"
+    },
+    { "pregunta": "¿Quién escribió Cien años de soledad?", "respuesta": "Gabriel García Márquez"
+    },
+    { "pregunta": "¿En qué país se encuentra la Gran Muralla China?", "respuesta": "China"
+    },
+    { "pregunta": "¿Cuál es el océano más grande?", "respuesta": "Pacífico"
+    },
+    { "pregunta": "¿Quién pintó la Mona Lisa?", "respuesta": "Leonardo da Vinci"
+    },
+    { "pregunta": "¿Cuál es el elemento más abundante en la corteza terrestre?", "respuesta": "Oxígeno"
+    },
+    { "pregunta": "¿En qué año se fundó Facebook?", "respuesta": "2004"
+    },
+    { "pregunta": "¿Cuál es la montaña más alta del mundo?", "respuesta": "Monte Everest"
+    },
+    { "pregunta": "¿Quién fue el primer presidente de los Estados Unidos?", "respuesta": "George Washington"
+    },
+    { "pregunta": "¿Cuál es la capital de Japón?", "respuesta": "Tokio"
+    },
+    { "pregunta": "¿En qué continente se encuentra Egipto?", "respuesta": "África"
+    },
+    { "pregunta": "¿Cuál es el instrumento musical más antiguo?", "respuesta": "Flauta"
+    },
+    { "pregunta": "¿Qué gas representa el símbolo 'O' en la tabla periódica?", "respuesta": "Oxígeno"
+    },
+    { "pregunta": "¿Cuántos huesos tiene el cuerpo humano?", "respuesta": "206"
+    },
+    { "pregunta": "¿En qué año terminó la Segunda Guerra Mundial?", "respuesta": "1945"
+    },
+    { "pregunta": "¿Cuál es la moneda oficial de Japón?", "respuesta": "Yen"
+    },
+    { "pregunta": "¿Quién escribió Romeo y Julieta?", "respuesta": "William Shakespeare"
+    },
+    { "pregunta": "¿En qué año se llevó a cabo la Revolución Rusa?", "respuesta": "1917"
+    },
+    { "pregunta": "¿Cuál es el metal más abundante en la Tierra?", "respuesta": "Aluminio"
+    },
+    { "pregunta": "¿Quién pintó La Noche Estrellada?", "respuesta": "Vincent van Gogh"
+    },
+    { "pregunta": "¿Cuál es el océano más pequeño?", "respuesta": "Océano Ártico"
+    },
+    { "pregunta": "¿En qué año se fundó Google?", "respuesta": "1998"
+    },
+    { "pregunta": "¿Quién descubrió la penicilina?", "respuesta": "Alexander Fleming"
+    },
+    { "pregunta": "¿Cuál es la capital de Australia?", "respuesta": "Canberra"
+    },
+    { "pregunta": "¿Cuántos lados tiene un hexágono?", "respuesta": "6"
+    },
+    { "pregunta": "¿En qué año se llevó a cabo la Revolución Francesa?", "respuesta": "1789"
+    },
+    { "pregunta": "¿Cuál es el país más grande del mundo?", "respuesta": "Rusia"
+    },
+    { "pregunta": "¿Quién fue el primer hombre en caminar sobre la Luna?", "respuesta": "Neil Armstrong"
+    },
+    { "pregunta": "¿Cuál es el río más largo de América del Sur?", "respuesta": "Amazonas"
+    },
+    { "pregunta": "¿Quién fue el pintor del Renacimiento conocido como El Divino?", "respuesta": "Leonardo da Vinci"
+    },
+    { "pregunta": "¿Cuál es el metal líquido a temperatura ambiente?", "respuesta": "Mercurio"
+    },
+    { "pregunta": "¿En qué año se independizó Estados Unidos?", "respuesta": "1776"
+    },
+    { "pregunta": "¿Cuál es el animal terrestre más grande?", "respuesta": "Elefante africano"
+    },
+    { "pregunta": "¿Quién escribió Don Quijote de la Mancha?", "respuesta": "Miguel de Cervantes"
+    },
+    { "pregunta": "¿Cuál es el desierto más grande del mundo?", "respuesta": "Sáhara"
+    }
+]
