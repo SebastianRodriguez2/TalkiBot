@@ -250,7 +250,7 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
       
     𝗝𝗨𝗘𝗚𝗢𝗦
   
-      /ahorcado`;
+      /wait`;
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
             inline_keyboard: [
@@ -1545,42 +1545,6 @@ bot.action('californiaywhashington', async (ctx) => {
 
 
 //comienza categoria de juegos
-
-let timeout = 30000
-let poin = 5000
-
-bot.command(['pregunta', 'preguntas', 'adivinanza', 'tekateki'], async (ctx) => {
-    let id = ctx.chat.id
-    if (id in conn.tekateki) {
-        ctx.reply('Todavía hay preguntas sin responder en este chat', conn.tekateki[id][0])
-        throw false
-    }
-
-    // Cambia la ruta del archivo JSON según tu estructura
-    let preguntas = JSON.parse(fs.readFileSync('./lib/juegos/preguntas.json'))
-    
-    // Ajusta el acceso a las preguntas y respuestas según la estructura de tu JSON
-    let randomIndex = Math.floor(Math.random() * preguntas.length)
-    let pregunta = preguntas[randomIndex].pregunta
-    let respuesta = preguntas[randomIndex].respuesta
-
-    let _clue = respuesta
-    let clue = _clue.replace(/[A-Za-z]/g, '_')
-    let caption = `
-ⷮ *${pregunta}*
-
-*Tiempo:* ${(timeout / 1000).toFixed(2)} segundos
-*Bono:* +${poin} Exp
-`.trim()
-    conn.tekateki[id] = [
-        await ctx.reply(caption),
-        { question: pregunta, response: respuesta }, poin,
-        setTimeout(async () => {
-            if (conn.tekateki[id]) await ctx.reply(`Se acabó el tiempo!\n*Respuesta:* ${respuesta}`, conn.tekateki[id][0])
-            delete conn.tekateki[id]
-        }, timeout)
-    ]
-});
 
 
 
