@@ -1546,57 +1546,43 @@ bot.action('californiaywhashington', async (ctx) => {
 
 //comienza categoria de juegos
 
-let indicePreguntaActual = 0;
-let preguntasCargadas = false;
-const rutaPreguntas = '../lib/preguntas.json';
-bot.command('preguntas', (ctx) => {
-    if (!preguntasCargadas) {
-        try {
-            ctx.session.preguntasRespuestas = JSON.parse(fs.readFileSync(rutaPreguntas, 'utf-8'));
-            preguntasCargadas = true;
-            iniciarJuego(ctx);
-        } catch (error) {
-            ctx.reply('Error al cargar las preguntas.');
-        }
-    } else {
-        iniciarJuego(ctx);
+let timeout = 30000
+let poin = 5000
+
+bot.command(['pregunta', 'preguntas', 'adivinanza', 'tekateki'], async (ctx) => {
+    let id = ctx.chat.id
+    if (id in conn.tekateki) {
+        ctx.reply('Todavía hay preguntas sin responder en este chat', conn.tekateki[id][0])
+        throw false
     }
+
+    // Cambia la ruta del archivo JSON según tu estructura
+    let preguntas = JSON.parse(fs.readFileSync('./lib/juegos/preguntas.json'))
+    
+    // Ajusta el acceso a las preguntas y respuestas según la estructura de tu JSON
+    let randomIndex = Math.floor(Math.random() * preguntas.length)
+    let pregunta = preguntas[randomIndex].pregunta
+    let respuesta = preguntas[randomIndex].respuesta
+
+    let _clue = respuesta
+    let clue = _clue.replace(/[A-Za-z]/g, '_')
+    let caption = `
+ⷮ *${pregunta}*
+
+*Tiempo:* ${(timeout / 1000).toFixed(2)} segundos
+*Bono:* +${poin} Exp
+`.trim()
+    conn.tekateki[id] = [
+        await ctx.reply(caption),
+        { question: pregunta, response: respuesta }, poin,
+        setTimeout(async () => {
+            if (conn.tekateki[id]) await ctx.reply(`Se acabó el tiempo!\n*Respuesta:* ${respuesta}`, conn.tekateki[id][0])
+            delete conn.tekateki[id]
+        }, timeout)
+    ]
 });
-bot.hears(/^\S+$/, (ctx) => {
-    if (preguntasCargadas) {
-        const respuestaUsuario = ctx.message.text.toLowerCase();
-        const respuestaCorrecta = ctx.session.preguntasRespuestas[indicePreguntaActual].respuesta.toLowerCase();
-        if (respuestaUsuario === respuestaCorrecta) {
-            ctx.reply('¡Correcto! Siguiente pregunta.');
-            indicePreguntaActual++;
-            if (indicePreguntaActual < ctx.session.preguntasRespuestas.length) {
-                enviarPregunta(ctx);
-            } else {
-                ctx.reply('¡Has respondido todas las preguntas! ¡Bien hecho!');
-                preguntasCargadas = false;
-            }
-        } else {
-            ctx.reply('Incorrecto. Inténtalo de nuevo.');
-        }
-    }
-});
-function iniciarJuego(ctx) {
-    indicePreguntaActual = obtenerIndicePreguntaAleatoria(ctx.session.preguntasRespuestas.length);
-    enviarPregunta(ctx);
-    setTimeout(() => {
-        if (preguntasCargadas && indicePreguntaActual < ctx.session.preguntasRespuestas.length) {
-            ctx.reply('¡Se acabó el tiempo! La respuesta era: ' + ctx.session.preguntasRespuestas[indicePreguntaActual].respuesta);
-            preguntasCargadas = false;
-        }
-    }, 40000);
-}
-function enviarPregunta(ctx) {
-    const preguntaActual = ctx.session.preguntasRespuestas[indicePreguntaActual].pregunta;
-    ctx.reply(preguntaActual);
-}
-function obtenerIndicePreguntaAleatoria(max) {
-    return Math.floor(Math.random() * max);
-}
+
+
 
 //termina categoria de juegos
 
