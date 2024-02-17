@@ -807,7 +807,7 @@ bot.command('textoavoz', async (ctx) => {
         return;
     }
     try {
-        const response = await fetch(`${apikasu}/api/soundoftext?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
+        const response = await fetch(`${apikasu}/api/soundoftext?text=${encodeURIComponent(userText)}&lang=es-ES&apikey=${apikey}`);
         if (response.ok) {
             const Audio = await response.json();
             const result = Audio.result
