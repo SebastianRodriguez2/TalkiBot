@@ -273,7 +273,8 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
   𝗠𝗘𝗡𝗨 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
       
     𝗝𝗨𝗘𝗚𝗢𝗦
-  
+
+      /acertijo
       `;
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
@@ -1740,7 +1741,9 @@ function iniciarJuego(ctx) {
     if (!juegoActivo) {
         juegoActivo = true;
         acertijoActual = obtenerAcertijoAleatorio();
-        ctx.reply(`Acertijo: ${acertijoActual.question}`);
+        ctx.reply(`
+Acertijo: ${acertijoActual.question}
+Tiempo: 30 segundos`);
         setTimeout(() => {
             finalizarJuego(ctx);
         }, 30000);
@@ -1750,7 +1753,7 @@ function finalizarJuego(ctx) {
     juegoActivo = false;
     ctx.reply('Tiempo para responder agotado. El acertijo ha finalizado.');
 }
-bot.command('iniciaracertijo', (ctx) => {
+bot.command('acertijo', (ctx) => {
     iniciarJuego(ctx);
     ctx.reply('¡Acertijo iniciado! Responde con /responderacertijo seguido de tu respuesta.');
 });
@@ -1764,7 +1767,7 @@ bot.command('responderacertijo', (ctx) => {
         }
         finalizarJuego(ctx);
     } else {
-        ctx.reply('No hay un acertijo activo en este momento. Inicia un nuevo juego con /iniciaracertijo.');
+        ctx.reply('No hay un acertijo activo en este momento. Inicia un nuevo juego con /acertijo.');
     }
 });
 //termina categoria de juegos
