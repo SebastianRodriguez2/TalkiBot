@@ -59,7 +59,7 @@ const User = mongoose.model('User', userSchema);
 bot.start(async (ctx) => {
     const user = ctx.from;
     const name = ctx.message.from.first_name;
-    if (ctx.chat.type !== 'private')
+    if (ctx.chat.type !== 'group')
     {
         ctx.reply('Este comando solo puede ser usado en un chat privado con el bot')
     }
@@ -393,7 +393,7 @@ https://apikasu.onrender.com/`);
 bot.command('registrarme', async (ctx) => {
     const user = ctx.from; 
     const userId = ctx.from.id; 
-    if (ctx.chat.type !== 'private')
+    if (ctx.chat.type !== 'group')
     {
         ctx.reply('Este comando solo puede ser usado en un chat privado con el bot')
     }
@@ -451,9 +451,9 @@ bot.command('registrarme', async (ctx) => {
     }
 });
 bot.command('registrargrupo', async (ctx) => {
-    if (ctx.chat.type !== 'group')
+    if (ctx.chat.type !== 'private')
     {
-        ctx.reply('Este comando solo puede ser usado en un chat privado con el bot')
+        ctx.reply('Este comando solo puede ser usado en un chat de grupo con el bot')
     }
     const chat = ctx.chat;
     const chatInfo = await Chat.findOne({ chatId: chat.id })
