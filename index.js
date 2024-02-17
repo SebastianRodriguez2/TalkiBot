@@ -3,6 +3,7 @@ const fetch = require('node-fetch')
 const mongoose = require('mongoose');
 const fs = require('fs');
 
+
 const logo = 'https://i.imgur.com/ZCeiOY4.jpg';
 const perfildeterminado = 'https://i.imgur.com/VVA2sbG.jpg'
 const apikasu = "https://apikasu.onrender.com"
