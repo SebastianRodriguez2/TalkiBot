@@ -1725,6 +1725,8 @@ bot.action('californiaywhashington', async (ctx) => {
 //comienza categoria de juegos
 let tiempoLimite = 30000;
 let tiempoInicio;
+let juegoActivo = false;
+let acertijoActual;
 function iniciarJuego(ctx) {
     if (!juegoActivo) {
         juegoActivo = true;
