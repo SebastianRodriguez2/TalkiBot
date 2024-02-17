@@ -58,8 +58,7 @@ const User = mongoose.model('User', userSchema);
 bot.start(async (ctx) => {
     const user = ctx.from;
     const name = ctx.message.from.first_name;
-    if (ctx.chat.type !== 'private')
-    {
+    if (ctx.chat.type !== 'private') {
         ctx.reply('Este comando solo puede ser usado en un chat privado con el bot')
         return;
     }
@@ -394,10 +393,9 @@ https://apikasu.onrender.com/`);
 
 //comienza categoria de informacion
 bot.command('registrarme', async (ctx) => {
-    const user = ctx.from; 
-    const userId = ctx.from.id; 
-    if (ctx.chat.type !== 'private')
-    {
+    const user = ctx.from;
+    const userId = ctx.from.id;
+    if (ctx.chat.type !== 'private') {
         ctx.reply('Este comando solo puede ser usado en un chat privado con el bot')
         return;
     }
@@ -452,7 +450,7 @@ bot.command('registrarme', async (ctx) => {
     } catch (error) {
         console.error('Error al guardar o verificar la información del usuario en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
-    }
+    }
 });
 bot.command('registrargrupo', async (ctx) => {
     if (ctx.chat.type !== 'group') {
@@ -485,7 +483,7 @@ bot.command('registrargrupo', async (ctx) => {
     } catch (error) {
         console.error('Error al guardar o verificar la información del grupo en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
-    }
+    }
 });
 bot.command('infogrupo', async (ctx) => {
     const chat = ctx.chat;
@@ -510,7 +508,7 @@ bot.command('infogrupo', async (ctx) => {
     } catch (error) {
         console.error('Error al leer la información del grupo en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
-    }
+    }
 });
 bot.command('cambiarnombre', async (ctx) => {
     const userId = ctx.from.id;
@@ -531,13 +529,13 @@ bot.command('cambiarnombre', async (ctx) => {
     } catch (error) {
         console.error('Error al actualizar el nombre del usuario en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
-    }
+    }
 });
 
 bot.command('perfil', async (ctx) => {
     const userId = ctx.from.id;
     try {
-        const userDocument = await User.findOne({ userId: userId });  
+        const userDocument = await User.findOne({ userId: userId });
         if (userDocument) {
             const mensaje = `
 𝗣𝗘𝗥𝗙𝗜𝗟
@@ -562,7 +560,7 @@ bot.command('perfil', async (ctx) => {
     } catch (error) {
         console.error('Error al leer el nombre del usuario en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
-    }
+    }
 });
 bot.command('cambiarfoto', async (ctx) => {
     const userId = ctx.from.id;
@@ -572,19 +570,20 @@ bot.command('cambiarfoto', async (ctx) => {
         return;
     }
     try {
-        const userDocument = await User.findOne({ userId: userId }); 
+        const userDocument = await User.findOne({ userId: userId });
         if (userDocument) {
             userDocument.Avatar = userText;
             await userDocument.save();
             ctx.replyWithPhoto({ url: userDocument.Avatar }, {
-                caption: `¡Avatar actualizado exitosamente!` });
+                caption: `¡Avatar actualizado exitosamente!`
+            });
         } else {
             ctx.reply('Usuario no encontrado en la base de datos. Primero, utiliza /registrarme.');
         }
     } catch (error) {
         console.error('Error al actualizar el avatar del usuario en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
-    }
+    }
 });
 //termina categoria de informacion
 
@@ -1737,16 +1736,21 @@ function obtenerAcertijoAleatorio() {
     const indexAleatorio = Math.floor(Math.random() * acertijosJSON.length);
     return acertijosJSON[indexAleatorio];
 }
+let tiempoRestante = 30;
 function iniciarJuego(ctx) {
     if (!juegoActivo) {
         juegoActivo = true;
         acertijoActual = obtenerAcertijoAleatorio();
         ctx.reply(`
-Acertijo: ${acertijoActual.question}
-Tiempo: 30 segundos`);
-        setTimeout(() => {
-            finalizarJuego(ctx);
-        }, 30000);
+𝗔𝗰𝗲𝗿𝘁𝗶𝗷𝗼: ${acertijoActual.question}
+𝗧𝗶𝗲𝗺𝗽𝗼: 30 segundos`);
+        const intervalo = setInterval(() => {
+            tiempoRestante--;
+            if (tiempoRestante <= 0) {
+                clearInterval(intervalo);
+                finalizarJuego(ctx);
+            }
+        }, 1000);
     }
 }
 function finalizarJuego(ctx) {
@@ -1768,7 +1772,7 @@ bot.command('responderacertijo', (ctx) => {
         finalizarJuego(ctx);
     } else {
         ctx.reply('No hay un acertijo activo en este momento. Inicia un nuevo juego con /acertijo.');
-    }
+    }
 });
 //termina categoria de juegos
 
