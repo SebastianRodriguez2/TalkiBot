@@ -1723,10 +1723,21 @@ bot.action('californiaywhashington', async (ctx) => {
 });
 //termina categoria de economia
 //comienza categoria de juegos
-let tiempoLimite = 30000;
-let tiempoInicio;
+let acertijosJSON;
+try {
+    const data = fs.readFileSync('./media/acertijo.json', 'utf8');
+    acertijosJSON = JSON.parse(data);
+} catch (error) {
+    console.error('Error al cargar el archivo JSON de acertijos');
+}
 let juegoActivo = false;
 let acertijoActual;
+let tiempoLimite = 30000;
+let tiempoInicio;
+function obtenerAcertijoAleatorio() {
+    const indexAleatorio = Math.floor(Math.random() * acertijosJSON.length);
+    return acertijosJSON[indexAleatorio];
+}
 function iniciarJuego(ctx) {
     if (!juegoActivo) {
         juegoActivo = true;
@@ -1735,24 +1746,35 @@ function iniciarJuego(ctx) {
         ctx.reply(`
 Acertijo: ${acertijoActual.question}
 Tiempo: 30 segundos`);
+        const intervalo = setInterval(() => {
+            const tiempoTranscurrido = Date.now() - tiempoInicio;
+            if (tiempoTranscurrido >= tiempoLimite) {
+                clearInterval(intervalo);
+                finalizarJuego(ctx);
+            }
+        }, 1000);
     }
+}
+function finalizarJuego(ctx, mensaje) {
+    juegoActivo = false;
+    ctx.reply(mensaje);
 }
 function manejarRespuesta(ctx) {
     if (juegoActivo) {
         const respuestaUsuario = ctx.message.text.split(' ')[1];
         const tiempoTranscurrido = Date.now() - tiempoInicio;
         if (respuestaUsuario && respuestaUsuario.toLowerCase() === acertijoActual.response.toLowerCase() && tiempoTranscurrido <= tiempoLimite) {
-            ctx.reply('¡Respuesta correcta!');
+            finalizarJuego(ctx, '¡Respuesta correcta!');
         } else if (tiempoTranscurrido > tiempoLimite) {
-            ctx.reply('Tiempo para responder agotado. El acertijo ha finalizado.');
+            finalizarJuego(ctx, 'Tiempo para responder agotado. El acertijo ha finalizado.');
         } else {
-            ctx.reply('Respuesta incorrecta. ¡Inténtalo de nuevo!');       
-        }
-        acertijoActual = obtenerAcertijoAleatorio();
-        tiempoInicio = Date.now()
-        ctx.reply(`
+            ctx.reply('Respuesta incorrecta. ¡Inténtalo de nuevo!');
+            acertijoActual = obtenerAcertijoAleatorio();
+            tiempoInicio = Date.now()
+            ctx.reply(`
 Acertijo: ${acertijoActual.question}
 Tiempo: 30 segundos`);
+        }
     } else {
         ctx.reply('No hay un acertijo activo en este momento. Inicia un nuevo juego con /acertijo.');
     }
