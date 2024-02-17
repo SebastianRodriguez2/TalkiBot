@@ -1722,12 +1722,51 @@ bot.action('californiaywhashington', async (ctx) => {
     }
 });
 //termina categoria de economia
-
-
 //comienza categoria de juegos
-
-
-
+let acertijosJSON;
+try {
+    const data = fs.readFileSync('./media/acertijo.json', 'utf8');
+    acertijosJSON = JSON.parse(data);
+} catch (error) {
+    console.error('Error al cargar el archivo JSON de acertijos');
+}
+let juegoActivo = false;
+let acertijoActual;
+function obtenerAcertijoAleatorio() {
+    const indexAleatorio = Math.floor(Math.random() * acertijosJSON.length);
+    return acertijosJSON[indexAleatorio];
+}
+function iniciarJuego(ctx) {
+    if (!juegoActivo) {
+        juegoActivo = true;
+        acertijoActual = obtenerAcertijoAleatorio();
+        ctx.reply(`Acertijo: ${acertijoActual.question}`);
+        setTimeout(() => {
+            finalizarJuego(ctx);
+        }, 30000);
+    }
+}
+function finalizarJuego(ctx) {
+    juegoActivo = false;
+    ctx.reply('Tiempo para responder agotado. El acertijo ha finalizado.');
+}
+bot.command('iniciaracertijo', (ctx) => {
+    iniciarJuego(ctx);
+    ctx.reply('¡Acertijo iniciado! Responde con /responderacertijo seguido de tu respuesta.');
+});
+bot.command('responderacertijo', (ctx) => {
+    if (juegoActivo) {
+        const respuestaUsuario = ctx.message.text.split(' ')[1];
+        if (respuestaUsuario && respuestaUsuario.toLowerCase() === acertijoActual.response.toLowerCase()) {
+            ctx.reply('¡Respuesta correcta!');
+        } else {
+            ctx.reply('Respuesta incorrecta. ¡Inténtalo de nuevo!');
+        }
+        finalizarJuego(ctx);
+    } else {
+        ctx.reply('No hay un acertijo activo en este momento. Inicia un nuevo juego con /iniciaracertijo.');
+    }
+});
 //termina categoria de juegos
 
 bot.launch();
