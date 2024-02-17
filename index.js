@@ -832,7 +832,10 @@ bot.command('acortarurl', async (ctx) => {
     const response = await fetch(`${apikasu}/api/linkshort/bitly?link=${encodeURIComponent(userText)}&apikey=${apikey}`);
     if (response.ok) {
         const textResponse = await response.json();
-        ctx.reply(textResponse.result);
+        ctx.reply(`
+𝗨𝗥𝗟 𝗮𝗻𝘁𝗲𝗿𝗶𝗼𝗿: ${userText}
+𝗨𝗥𝗟 𝗮𝗰𝗼𝗿𝘁𝗮𝗱𝗼: ${textResponse.result}
+`);
     } else {
         ctx.reply('Hubo un error al obtener el enlace acortado desde la API.');
     }
