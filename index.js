@@ -48,7 +48,6 @@ const chatSchema = new mongoose.Schema({
     chatId: { type: Number, unique: true },
     title: String,
     chatType: String,
-    languageCode: String,
     Avatar: String,
 });
 const Chat = mongoose.model('Chat', chatSchema);
@@ -467,7 +466,6 @@ bot.command('registrargrupo', async (ctx) => {
                 chatId: chat.id,
                 title: chat.title || chat.username || '',
                 chatType: chat.type,
-                languageCode: chat.language_code || 'Indefinido',
                 Avatar: perfildeterminado,
             };
             await Chat.create(chatInfo);
@@ -477,7 +475,6 @@ bot.command('registrargrupo', async (ctx) => {
 𝗡𝗼𝗺𝗯𝗿𝗲 𝗱𝗲𝗹 𝗴𝗿𝘂𝗽𝗼: ${chatInfo.title}
 𝗜𝗗 𝗱𝗲𝗹 𝗰𝗵𝗮𝘁: ${chatInfo.chatId}
 𝗧𝗶𝗽𝗼 𝗱𝗲 𝗰𝗵𝗮𝘁: ${chatInfo.chatType}
-𝗟𝗲𝗻𝗴𝘂𝗮𝗷𝗲: ${chatInfo.languageCode}
 𝗟𝗼𝗴𝗼 𝗱𝗲𝘁𝗲𝗿𝗺𝗶𝗻𝗮𝗱𝗼: ${chatInfo.Avatar}
 `;
             ctx.replyWithPhoto({ url: chatInfo.Avatar }, { caption: mensajegroup });
