@@ -467,7 +467,7 @@ bot.command('registrargrupo', async (ctx) => {
                 chatId: chat.id,
                 title: chat.title || chat.username || '',
                 chatType: chat.type,
-                languageCode: chat.language_code,
+                languageCode: chat.language_code || 'Indefinido',
                 Avatar: perfildeterminado,
             };
             await Chat.create(chatInfo);
