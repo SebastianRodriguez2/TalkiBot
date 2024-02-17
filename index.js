@@ -371,7 +371,8 @@ https://apikasu.onrender.com/`);
 
 //comienza categoria de informacion
 bot.command('registrarme', async (ctx) => {
-    const user = ctx.from;  
+    const user = ctx.from; 
+    const userId = ctx.from.id; 
     try {
         const existingUser = await User.findOne({ userId: user.id });
         if (existingUser) {
@@ -424,9 +425,7 @@ bot.command('registrarme', async (ctx) => {
         console.error('Error al guardar o verificar la información del usuario en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
     }
-
 });
-
 bot.command('cambiarnombre', async (ctx) => {
     const command = '/cambiarnombre';
     const userId = ctx.from.id;
