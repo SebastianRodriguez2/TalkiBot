@@ -223,7 +223,8 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
       /imagina2
       /traducir
       /ssweb
-      /textoavoz`;
+      /textoavoz
+      /acortarurl`;
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
             inline_keyboard: [
@@ -819,6 +820,21 @@ bot.command('textoavoz', async (ctx) => {
     } catch (error) {
         console.error('Error al procesar la solicitud.');
         ctx.reply('Hubo un error al procesar la solicitud..');
+    }
+});
+bot.command('acortarurl', async (ctx) => {
+    const command = '/acortarurl';
+    const userText = ctx.message.text.slice(command.length + 1).trim();
+    if (!userText) {
+        ctx.reply(`Por favor, ingresa una url`);
+        return;
+    }
+    const response = await fetch(`${apikasu}/api/linkshort/bitly?link=${encodeURIComponent(userText)}&apikey=${apikey}`);
+    if (response.ok) {
+        const textResponse = await response.json();
+        ctx.reply(textResponse.result);
+    } else {
+        ctx.reply('Hubo un error al obtener el enlace acortado desde la API.');
     }
 });
 //termina categoria de 𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
