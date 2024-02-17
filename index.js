@@ -811,7 +811,7 @@ bot.command('textoavoz', async (ctx) => {
         if (response.ok) {
             const Audio = await response.json();
             const result = Audio.result
-            const audioBuffer = `${result}`
+            const audioBuffer = result
             ctx.replyWithAudio({ url: audioBuffer });
         } else {
             ctx.reply('Hubo un error al obtener el audio.');
