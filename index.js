@@ -222,7 +222,8 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
       /imagina
       /imagina2
       /traducir
-      /ssweb`;
+      /ssweb
+      /textoavoz`;
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
             inline_keyboard: [
@@ -798,6 +799,28 @@ function isValidLanguageCode(code) {
     ];
     return allLanguageCodes.includes(code);
 }
+bot.command('textoavoz', async (ctx) => {
+    const command = '/textoavoz';
+    const userText = ctx.message.text.slice(command.length + 1).trim();
+    if (!userText) {
+        ctx.reply(`Por favor, ingresa el texto a convertir en audio`);
+        return;
+    }
+    try {
+        const response = await fetch(`${apikasu}/api/soundoftext?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
+        if (response.ok) {
+            const Audio = await response.json();
+            const result = Audio.result
+            const audioBuffer = `${result}`
+            ctx.replyWithAudio({ source: audioBuffer });
+        } else {
+            ctx.reply('Hubo un error al obtener el audio.');
+        }
+    } catch (error) {
+        console.error('Error al procesar la solicitud.');
+        ctx.reply('Hubo un error al procesar la solicitud..');
+    }
+});
 //termina categoria de 𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
 
 
