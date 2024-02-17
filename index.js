@@ -453,29 +453,25 @@ bot.command('registrarme', async (ctx) => {
     }
 });
 bot.command('registrargrupo', async (ctx) => {
-    if (ctx.chat.type !== 'group')
-    {
-        ctx.reply('Este comando solo puede ser usado en un chat de grupo con el bot')
+    if (ctx.chat.type !== 'group') {
+        ctx.reply('Este comando solo puede ser usado en un chat de grupo con el bot');
         return;
     }
     const chat = ctx.chat;
-    const chatInfo = await Chat.findOne({ chatId: chat.id })
-
     try {
         const existingChat = await Chat.findOne({ chatId: chat.id });
-        
         if (existingChat) {
             ctx.reply('¡Este grupo ya está registrado!');
         } else {
-            await Chat.create({
+            const chatInfo = {
                 chatId: chat.id,
                 title: chat.title || chat.username || '',
                 chatType: chat.type,
                 languageCode: chat.language_code,
                 Avatar: perfildeterminado,
-            });
-
-const mensajegroup = `
+            };
+            await Chat.create(chatInfo);
+            const mensajegroup = `
 𝗥𝗲𝗴𝗶𝘀𝘁𝗿𝗮𝗱𝗼!
 
 𝗡𝗼𝗺𝗯𝗿𝗲 𝗱𝗲𝗹 𝗴𝗿𝘂𝗽𝗼: ${chatInfo.title}
@@ -483,8 +479,8 @@ const mensajegroup = `
 𝗧𝗶𝗽𝗼 𝗱𝗲 𝗰𝗵𝗮𝘁: ${chatInfo.chatType}
 𝗟𝗲𝗻𝗴𝘂𝗮𝗷𝗲: ${chatInfo.languageCode}
 𝗟𝗼𝗴𝗼 𝗱𝗲𝘁𝗲𝗿𝗺𝗶𝗻𝗮𝗱𝗼: ${chatInfo.Avatar}
-`
-ctx.replyWithPhoto({ url: chatInfo.Avatar }, { caption: mensajegroup })
+`;
+            ctx.replyWithPhoto({ url: chatInfo.Avatar }, { caption: mensajegroup });
         }
     } catch (error) {
         console.error('Error al guardar o verificar la información del grupo en MongoDB:', error);
@@ -509,7 +505,7 @@ bot.command('infogrupo', async (ctx) => {
 `;
             ctx.replyWithPhoto({ url: chatInfo.Avatar }, { caption: infoGrupo })
         } else {
-            ctx.reply('Este grupo no está registrado.');
+            ctx.reply('Este grupo no está registrado. Registrelo usando /registrargrupo');
         }
     } catch (error) {
         console.error('Error al leer la información del grupo en MongoDB:', error);
