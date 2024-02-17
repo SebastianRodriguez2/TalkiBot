@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 
 const logo = 'https://i.imgur.com/ZCeiOY4.jpg';
+const perfildeterminado = 'https://i.imgur.com/VVA2sbG.jpg'
 const apikasu = "https://apikasu.onrender.com"
 const apikey = "SebastianDevelop"
 const bot = new Telegraf(process.env.token);
@@ -76,7 +77,7 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
             Patrimonio: 1,
             Propiedades: 1,
             DiasTrabajados: 1,
-            Avatar: 'https://i.imgur.com/ZCeiOY4.jpg'
+            Avatar: perfildeterminado
         }, { upsert: true });
         ctx.replyWithPhoto({ url: logo }, {
             caption: menu,
@@ -368,6 +369,63 @@ https://apikasu.onrender.com/`);
 
 
 //comienza categoria de informacion
+bot.command('registrarme', async (ctx) => {
+    const user = ctx.from;  
+    try {
+        const existingUser = await User.findOne({ userId: user.id });
+        if (existingUser) {
+            ctx.reply('¡Ya estás registrado!');
+        } else {
+            const fullName = user.first_name + (user.last_name ? ' ' + user.last_name : '');
+            await User.create({
+                userId: user.id,
+                username: user.username,
+                firstName: user.first_name,
+                lastName: user.last_name || '',
+                fullName: fullName,
+                chatType: ctx.chat.type,
+                languageCode: ctx.from.language_code,
+                Dinero: 1,
+                Patrimonio: 1,
+                Propiedades: 1,
+                DiasTrabajados: 1,
+                Avatar: perfildeterminado
+            });
+            try {
+                const userDocument = await User.findOne({ userId: userId });
+                if (userDocument) {
+                    const msgperfil = `
+𝗣𝗘𝗥𝗙𝗜𝗟
+
+𝗡𝗼𝗺𝗯𝗿𝗲: ${userDocument.firstName}
+𝗡𝗼𝗺𝗯𝗿𝗲 𝗰𝗼𝗺𝗽𝗹𝗲𝘁𝗼: ${userDocument.fullName}
+𝗜𝗗: ${userDocument.userId}
+𝗹𝗲𝗻𝗴𝘂𝗮𝗷𝗲: ${userDocument.languageCode}
+
+𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡 𝗔𝗗𝗜𝗖𝗜𝗢𝗡𝗔𝗟:
+
+𝗗𝗶𝗻𝗲𝗿𝗼: ${userDocument.Dinero}
+𝗗𝗶𝗮𝘀 𝘁𝗿𝗮𝗯𝗮𝗷𝗮𝗱𝗼𝘀: ${userDocument.DiasTrabajados}
+𝗣𝗮𝘁𝗿𝗶𝗺𝗼𝗻𝗶𝗼: ${userDocument.Patrimonio}
+𝗣𝗿𝗼𝗽𝗶𝗲𝗱𝗮𝗱𝗲𝘀: ${userDocument.Propiedades}`
+                    ctx.replyWithPhoto({ url: userDocument.Avatar }, {
+                        caption: msgperfil
+                    })
+                } else {
+                    ctx.reply('Usuario no encontrado en la base de datos.');
+                }
+            } catch (error) {
+                console.error('Error al leer el nombre del usuario en MongoDB:', error);
+                ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+            }
+        }
+    } catch (error) {
+        console.error('Error al guardar o verificar la información del usuario en MongoDB:', error);
+        ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+    }
+
+});
+
 bot.command('cambiarnombre', async (ctx) => {
     const command = '/cambiarnombre';
     const userId = ctx.from.id;
