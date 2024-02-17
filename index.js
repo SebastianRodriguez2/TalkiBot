@@ -58,7 +58,8 @@ const User = mongoose.model('User', userSchema);
 bot.start(async (ctx) => {
     const user = ctx.from;
     const name = ctx.message.from.first_name;
-    if (ctx.chat.type !== 'private') {
+    if (ctx.chat.type !== 'private')
+    {
         ctx.reply('Este comando solo puede ser usado en un chat privado con el bot')
         return;
     }
@@ -391,9 +392,10 @@ https://apikasu.onrender.com/`);
 
 //comienza categoria de informacion
 bot.command('registrarme', async (ctx) => {
-    const user = ctx.from;
-    const userId = ctx.from.id;
-    if (ctx.chat.type !== 'private') {
+    const user = ctx.from; 
+    const userId = ctx.from.id; 
+    if (ctx.chat.type !== 'private')
+    {
         ctx.reply('Este comando solo puede ser usado en un chat privado con el bot')
         return;
     }
@@ -448,7 +450,7 @@ bot.command('registrarme', async (ctx) => {
     } catch (error) {
         console.error('Error al guardar o verificar la información del usuario en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
-    }
+    }
 });
 bot.command('registrargrupo', async (ctx) => {
     if (ctx.chat.type !== 'group') {
@@ -481,7 +483,7 @@ bot.command('registrargrupo', async (ctx) => {
     } catch (error) {
         console.error('Error al guardar o verificar la información del grupo en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
-    }
+    }
 });
 bot.command('infogrupo', async (ctx) => {
     const chat = ctx.chat;
@@ -506,7 +508,7 @@ bot.command('infogrupo', async (ctx) => {
     } catch (error) {
         console.error('Error al leer la información del grupo en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
-    }
+    }
 });
 bot.command('cambiarnombre', async (ctx) => {
     const userId = ctx.from.id;
@@ -527,13 +529,13 @@ bot.command('cambiarnombre', async (ctx) => {
     } catch (error) {
         console.error('Error al actualizar el nombre del usuario en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
-    }
+    }
 });
 
 bot.command('perfil', async (ctx) => {
     const userId = ctx.from.id;
     try {
-        const userDocument = await User.findOne({ userId: userId });
+        const userDocument = await User.findOne({ userId: userId });  
         if (userDocument) {
             const mensaje = `
 𝗣𝗘𝗥𝗙𝗜𝗟
@@ -558,7 +560,7 @@ bot.command('perfil', async (ctx) => {
     } catch (error) {
         console.error('Error al leer el nombre del usuario en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
-    }
+    }
 });
 bot.command('cambiarfoto', async (ctx) => {
     const userId = ctx.from.id;
@@ -568,20 +570,19 @@ bot.command('cambiarfoto', async (ctx) => {
         return;
     }
     try {
-        const userDocument = await User.findOne({ userId: userId });
+        const userDocument = await User.findOne({ userId: userId }); 
         if (userDocument) {
             userDocument.Avatar = userText;
             await userDocument.save();
             ctx.replyWithPhoto({ url: userDocument.Avatar }, {
-                caption: `¡Avatar actualizado exitosamente!`
-            });
+                caption: `¡Avatar actualizado exitosamente!` });
         } else {
             ctx.reply('Usuario no encontrado en la base de datos. Primero, utiliza /registrarme.');
         }
     } catch (error) {
         console.error('Error al actualizar el avatar del usuario en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
-    }
+    }
 });
 //termina categoria de informacion
 
@@ -801,35 +802,25 @@ function isValidLanguageCode(code) {
 bot.command('textoavoz', async (ctx) => {
     const command = '/textoavoz';
     const userText = ctx.message.text.slice(command.length + 1).trim();
-    const [languageCode, ...textArray] = userText.split(' ');
-    const userTextToTranslate = textArray.join(' ');
-    if (!isValidLanguageCode(languageCode)) {
-        ctx.reply('Código de idioma no válido.');
-        return;
-    }
-    if (!userTextToTranslate) {
-        ctx.reply('Por favor, ingresa el texto que deseas traducir.');
+    if (!userText) {
+        ctx.reply(`Por favor, ingresa el texto a convertir en audio`);
         return;
     }
     try {
-        const targetLanguageCode = languageCode === 'jko' ? 'KR' : 'US';
-        const Avoice = `${apikasu}/api/soundoftext?text=${encodeURIComponent(userTextToTranslate)}&lang=${languageCode}-${targetLanguageCode}&apikey=${apikey}`;
-        const response = await fetch(Avoice);
+        const response = await fetch(`${apikasu}/api/soundoftext?text=${encodeURIComponent(userText)}&lang=es-ES&apikey=${apikey}`);
         if (response.ok) {
-            const AvoiceResult = await response.json();
-            ctx.replyWithAudio({ url: AvoiceResult });
+            const Audio = await response.json();
+            const result = Audio.result
+            const audioBuffer = result
+            ctx.replyWithAudio({ url: audioBuffer, filename: userText });
         } else {
             ctx.reply('Hubo un error al obtener el audio.');
         }
     } catch (error) {
-        console.error('Error al obtener el audio');
-        ctx.reply('Hubo un error al realizar el envío del audio.');
+        console.error('Error al procesar la solicitud.');
+        ctx.reply('Hubo un error al procesar la solicitud..');
     }
 });
-function isValidLanguageCode(code) {
-    const allLanguageCodes = ['ja', 'en', 'id', 'es', 'fr', 'fil', 'my', 'hi', 'de', 'it', 'th', 'jko', 'ru'];
-    return allLanguageCodes.includes(code);
-}
 //termina categoria de 𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
 
 
