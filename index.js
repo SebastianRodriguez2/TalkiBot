@@ -44,6 +44,14 @@ const userSchema = new mongoose.Schema({
     Patrimonio: String,
     Propiedades: String,
 });
+const chatSchema = new mongoose.Schema({
+    chatId: { type: Number, unique: true },
+    title: String,
+    chatType: String,
+    languageCode: String,
+    Avatar: String,
+});
+const Chat = mongoose.model('Chat', chatSchema);
 const User = mongoose.model('User', userSchema);
 
 
@@ -51,6 +59,10 @@ const User = mongoose.model('User', userSchema);
 bot.start(async (ctx) => {
     const user = ctx.from;
     const name = ctx.message.from.first_name;
+    if (ctx.chat.type !== 'private')
+    {
+        ctx.reply('Este comando solo puede ser usado en un chat privado con el bot')
+    }
     const menu = `
 𝗛𝗼𝗹𝗮: ${name}
 
@@ -63,7 +75,8 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
     /cuentasoficiales
     /miapi
     /ping
-    /info`
+    /info
+    /registrarme`
     try {
         const fullName = user.first_name + (user.last_name ? ' ' + user.last_name : '');
         await User.updateOne({ userId: user.id }, {
@@ -113,7 +126,9 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
      /cuentasoficiales
      /miapi
      /ping
-     /info`;
+     /info
+     /registrarme
+     /registrargrupo`;
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
             inline_keyboard: [
@@ -144,7 +159,9 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
       /cuentasoficiales
       /miapi
       /ping
-      /info`;
+      /info
+      /registrarme
+      /registrargrupo`;
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
             inline_keyboard: [
@@ -170,7 +187,10 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
   
       /cambiarnombre
       /cambiarfoto
-      /perfil`;
+      /perfil
+      /registrarme
+      /registrargrupo
+      /infogrupo`;
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
             inline_keyboard: [
@@ -252,7 +272,7 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
       
     𝗝𝗨𝗘𝗚𝗢𝗦
   
-      /wait`;
+      `;
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
             inline_keyboard: [
@@ -373,14 +393,18 @@ https://apikasu.onrender.com/`);
 bot.command('registrarme', async (ctx) => {
     const user = ctx.from; 
     const userId = ctx.from.id; 
+    if (ctx.chat.type !== 'private')
+    {
+        ctx.reply('Este comando solo puede ser usado en un chat privado con el bot')
+    }
     try {
-        const existingUser = await User.findOne({ userId: user.id });
+        const existingUser = await User.findOne({ userId: userId });
         if (existingUser) {
             ctx.reply('¡Ya estás registrado!');
         } else {
             const fullName = user.first_name + (user.last_name ? ' ' + user.last_name : '');
             await User.create({
-                userId: user.id,
+                userId: userId,
                 username: user.username,
                 firstName: user.first_name,
                 lastName: user.last_name || '',
@@ -397,7 +421,7 @@ bot.command('registrarme', async (ctx) => {
                 const userDocument = await User.findOne({ userId: userId });
                 if (userDocument) {
                     const msgperfil = `
-𝗣𝗘𝗥𝗙𝗜𝗟
+𝗥𝗲𝗴𝗶𝘀𝘁𝗿𝗮𝗱𝗼!
 
 𝗡𝗼𝗺𝗯𝗿𝗲: ${userDocument.firstName}
 𝗡𝗼𝗺𝗯𝗿𝗲 𝗰𝗼𝗺𝗽𝗹𝗲𝘁𝗼: ${userDocument.fullName}
@@ -426,10 +450,72 @@ bot.command('registrarme', async (ctx) => {
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
     }
 });
+bot.command('registrargrupo', async (ctx) => {
+    if (ctx.chat.type !== 'group')
+    {
+        ctx.reply('Este comando solo puede ser usado en un chat privado con el bot')
+    }
+    const chat = ctx.chat;
+    const chatInfo = await Chat.findOne({ chatId: chat.id })
+
+    try {
+        const existingChat = await Chat.findOne({ chatId: chat.id });
+        
+        if (existingChat) {
+            ctx.reply('¡Este grupo ya está registrado!');
+        } else {
+            await Chat.create({
+                chatId: chat.id,
+                title: chat.title || chat.username || '',
+                chatType: chat.type,
+                languageCode: chat.language_code,
+                Avatar: perfildeterminado,
+            });
+
+const mensajegroup = `
+𝗥𝗲𝗴𝗶𝘀𝘁𝗿𝗮𝗱𝗼!
+
+𝗡𝗼𝗺𝗯𝗿𝗲 𝗱𝗲𝗹 𝗴𝗿𝘂𝗽𝗼: ${chatInfo.title}
+𝗜𝗗 𝗱𝗲𝗹 𝗰𝗵𝗮𝘁: ${chatInfo.chatId}
+𝗧𝗶𝗽𝗼 𝗱𝗲 𝗰𝗵𝗮𝘁: ${chatInfo.chatType}
+𝗟𝗲𝗻𝗴𝘂𝗮𝗷𝗲: ${chatInfo.languageCode}
+𝗟𝗼𝗴𝗼 𝗱𝗲𝘁𝗲𝗿𝗺𝗶𝗻𝗮𝗱𝗼: ${chatInfo.Avatar}
+`
+ctx.replyWithPhoto({ url: chatInfo.Avatar }, { caption: mensajegroup })
+        }
+    } catch (error) {
+        console.error('Error al guardar o verificar la información del grupo en MongoDB:', error);
+        ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+    }
+});
+bot.command('infogrupo', async (ctx) => {
+    const chat = ctx.chat;
+
+    try {
+        const chatInfo = await Chat.findOne({ chatId: chat.id });
+
+        if (chatInfo) {
+            const infoGrupo = `
+𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡 𝗗𝗘𝗟 𝗚𝗥𝗨𝗣𝗢
+
+𝗡𝗼𝗺𝗯𝗿𝗲 𝗱𝗲𝗹 𝗴𝗿𝘂𝗽𝗼: ${chatInfo.title}
+𝗜𝗗 𝗱𝗲𝗹 𝗰𝗵𝗮𝘁: ${chatInfo.chatId}
+𝗧𝗶𝗽𝗼 𝗱𝗲 𝗰𝗵𝗮𝘁: ${chatInfo.chatType}
+𝗟𝗲𝗻𝗴𝘂𝗮𝗷𝗲: ${chatInfo.languageCode}
+𝗟𝗼𝗴𝗼 𝗱𝗲𝘁𝗲𝗿𝗺𝗶𝗻𝗮𝗱𝗼: ${chatInfo.Avatar}
+`;
+            ctx.replyWithPhoto({ url: chatInfo.Avatar }, { caption: infoGrupo })
+        } else {
+            ctx.reply('Este grupo no está registrado.');
+        }
+    } catch (error) {
+        console.error('Error al leer la información del grupo en MongoDB:', error);
+        ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+    }
+});
 bot.command('cambiarnombre', async (ctx) => {
-    const command = '/cambiarnombre';
     const userId = ctx.from.id;
-    const userText = ctx.message.text.slice(command.length + 1).trim();
+    const userText = ctx.message.text.replace('/cambiarnombre', '').trim();
     if (!userText) {
         ctx.reply(`Por favor, ingresa el nuevo nombre`);
         return;
@@ -439,20 +525,20 @@ bot.command('cambiarnombre', async (ctx) => {
         if (userDocument) {
             userDocument.fullName = userText;
             await userDocument.save();
-            ctx.reply(`𝗡𝗼𝗺𝗯𝗿𝗲 𝗮𝗰𝘁𝘂𝗮𝗹𝗶𝘇𝗮𝗱𝗼 𝗰𝗼𝗻 𝗲́𝘅𝗶𝘁𝗼 𝗮: ${userText}`);
+            ctx.reply(`Nombre actualizado exitosamente a: ${userText}`);
         } else {
-            ctx.reply('Usuario no encontrado en la base de datos.');
+            ctx.reply('Usuario no encontrado en la base de datos. Primero, utiliza /registrarme.');
         }
     } catch (error) {
         console.error('Error al actualizar el nombre del usuario en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
-    }
+    }
 });
 
 bot.command('perfil', async (ctx) => {
     const userId = ctx.from.id;
     try {
-        const userDocument = await User.findOne({ userId: userId });
+        const userDocument = await User.findOne({ userId: userId });  
         if (userDocument) {
             const mensaje = `
 𝗣𝗘𝗥𝗙𝗜𝗟
@@ -472,36 +558,34 @@ bot.command('perfil', async (ctx) => {
                 caption: mensaje
             })
         } else {
-            ctx.reply('Usuario no encontrado en la base de datos.');
+            ctx.reply('¡No estás registrado! Utiliza /registrarme para registrarte.');
         }
     } catch (error) {
         console.error('Error al leer el nombre del usuario en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
-    }
+    }
 });
 bot.command('cambiarfoto', async (ctx) => {
-    const command = '/cambiarfoto';
     const userId = ctx.from.id;
-    const userText = ctx.message.text.slice(command.length + 1).trim();
+    const userText = ctx.message.text.replace('/cambiarfoto', '').trim();
     if (!userText) {
         ctx.reply(`Por favor, ingresa el enlace de la nueva foto`);
         return;
     }
     try {
-        const userDocument = await User.findOne({ userId: userId });
+        const userDocument = await User.findOne({ userId: userId }); 
         if (userDocument) {
             userDocument.Avatar = userText;
             await userDocument.save();
             ctx.replyWithPhoto({ url: userDocument.Avatar }, {
-                caption: `𝗔𝘃𝗮𝘁𝗮𝗿 𝗔𝗰𝘁𝘂𝗮𝗹𝗶𝘇𝗮𝗱𝗼.`
-            })
+                caption: `¡Avatar actualizado exitosamente!` });
         } else {
-            ctx.reply('Usuario no encontrado en la base de datos.');
+            ctx.reply('Usuario no encontrado en la base de datos. Primero, utiliza /registrarme.');
         }
     } catch (error) {
-        console.error('Error al actualizar el nombre del usuario en MongoDB:', error);
+        console.error('Error al actualizar el avatar del usuario en MongoDB:', error);
         ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
-    }
+    }
 });
 //termina categoria de informacion
 
