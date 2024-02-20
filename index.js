@@ -10,7 +10,7 @@ const apikasu = "https://apikasu.onrender.com"
 const apikey = "SebastianDevelop"
 const bot = new Telegraf(process.env.token);
 const mongoUrl = process.env.mongodb;
-const idiomaCodigo = 'es';
+const idiomaCodigo = process.env.language || 'es'
 const jsonidioma = `./idiomas/${idiomaCodigo}.json`;
 const jsonlanguage = JSON.parse(fs.readFileSync(jsonidioma, 'utf8'));
 

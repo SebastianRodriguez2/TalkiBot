@@ -1,0 +1,15 @@
+{
+    "comandoprivado": "This command can only be used in a private chat with the bot",
+    "limitestelegram": "Due to Telegram limits, we have decided to divide the menu into categories. Please press the button for the category you want to view.",
+    "hola": "Hello:",
+    "menuinicial": "INITIAL MENU OF TALKI BOT:",
+    "errorprocesarsolicitud": "Oops! An error occurred while processing your request:",
+    "menutalki": "TALKI MENU",
+    "acercade": "ABOUT",
+    "informacion": "INFORMATION",
+    "herramientas": "TOOLS",
+    "economia": "ECONOMY",
+    "juegos": "GAMES",
+    "dl": "DOWNLOADS, SEARCHS AND STALKERS"
+  }
+  
