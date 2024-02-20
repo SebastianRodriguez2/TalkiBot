@@ -1762,16 +1762,25 @@ function finalizarJuego(ctx, mensaje) {
     ctx.reply(mensaje);
     clearInterval(intervaloTiempo);
 }
+function calcularSimilitud(str1, str2) {
+    const set1 = new Set(str1);
+    const set2 = new Set(str2);
+    const intersection = new Set([...set1].filter(x => set2.has(x)));
+    const union = new Set([...set1, ...set2]);
+    const jaccardCoefficient = intersection.size / union.size;
+    return jaccardCoefficient;
+}
 function manejarRespuesta(ctx) {
     if (juegoActivo) {
         const respuestaUsuario = ctx.message.text.split(' ').slice(1).join(' ').toLowerCase();
         const tiempoTranscurrido = Date.now() - tiempoInicio;
-        if (respuestaUsuario && respuestaUsuario === acertijoActual.response.toLowerCase() && tiempoTranscurrido <= tiempoLimite) {
+        const similitud = calcularSimilitud(respuestaUsuario, acertijoActual.response.toLowerCase());
+        if (tiempoTranscurrido <= tiempoLimite && similitud >= 0.7) {
             finalizarJuego(ctx, '¡Respuesta correcta!');
         } else if (tiempoTranscurrido > tiempoLimite) {
             finalizarJuego(ctx, 'Tiempo para responder agotado. El acertijo ha finalizado.');
         } else {
-            ctx.reply('Respuesta incorrecta. ¡Inténtalo de nuevo!');
+            ctx.reply(`Respuesta incorrecta. La similitud es ${similitud * 100}%. ¡Inténtalo de nuevo!`);
         }
     } else {
         ctx.reply('No hay un acertijo activo en este momento. Inicia un nuevo juego con /acertijo.');
