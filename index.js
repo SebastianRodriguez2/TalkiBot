@@ -13,7 +13,6 @@ const mongoUrl = process.env.mongodb;
 const idiomaCodigo = process.env.language || 'es'
 const jsonidioma = `./idiomas/${idiomaCodigo}.json`;
 const jsonlanguage = JSON.parse(fs.readFileSync(jsonidioma, 'utf8'));
-console.log('Ruta del archivo:', jsonidioma);
 
 console.log(`
  ████████╗ █████╗ ██╗     ██╗  ██╗██╗    ██████╗  ██████╗ ████████╗
@@ -351,43 +350,43 @@ bot.command('ping', async (ctx) => {
             ctx.reply(`𝗣𝗶𝗻𝗴: ${pingTime.toFixed(2)} ms`);
         })
         .catch((error) => {
-            console.error('Error al obtener información del bot');
-            ctx.reply('Ocurrió un error al obtener información del bot.');
+            console.error(`${jsonlanguage.error1}`);
+            ctx.reply(`${jsonlanguage.error2}`);
         });
 });
 bot.command('info', async (ctx) => {
-    const activeStatus = (lastPingTime > 0) ? 'Activo' : 'Inactivo';
+    const activeStatus = (lastPingTime > 0) ? `${jsonlanguage.activo}` : `${jsonlanguage.inactivo}`;
     const lastPing = (lastPingTime > 0) ? `${lastPingTime.toFixed(2)} ms` : 'N/A';
     ctx.reply(`
-𝗜𝗻𝗳𝗼𝗿𝗺𝗮𝗰𝗶𝗼𝗻 𝗱𝗲𝗹 𝗯𝗼𝘁:
+${jsonlanguage.informacionbot}
 
-𝗘𝘀𝘁𝗮𝗱𝗼: ${activeStatus}
-𝗨𝗹𝘁𝗶𝗺𝗼 𝗽𝗶𝗻𝗴: ${lastPing}`);
+${jsonlanguage.estado} ${activeStatus}
+${jsonlanguage.ultimoping} ${lastPing}`);
 });
 bot.command('creadores', async (ctx) => {
     ctx.reply(`
 𝗦𝗲𝗯𝗮𝘀𝘁𝗶𝗮𝗻
 
-𝗡𝗼𝗺𝗯𝗿𝗲: Sebastian
-𝗡𝘂𝗺𝗲𝗿𝗼 𝘁𝗲𝗹𝗲𝗳𝗼𝗻𝗶𝗰𝗼: +57 301 4953662
+${jsonlanguage.nombre} Sebastian
+${jsonlanguage.numerotel} +57 301 4953662
 𝗜𝗻𝘀𝘁𝗮𝗴𝗿𝗮𝗺: https://www.instagram.com/seebastian_88/
 𝗚𝗶𝘁𝗛𝘂𝗯: https://github.com/BOT-TX
 
 𝗚𝘂𝗶𝗹𝗹𝗲𝗿𝗺𝗼
 
-𝗡𝗼𝗺𝗯𝗿𝗲: Guillermo
-𝗡𝘂𝗺𝗲𝗿𝗼 𝘁𝗲𝗹𝗲𝗳𝗼𝗻𝗶𝗰𝗼: +593 99 566 8111
+${jsonlanguage.nombre} Guillermo
+${jsonlanguage.numerotel} +593 99 566 8111
 𝗜𝗻𝘀𝘁𝗮𝗴𝗿𝗮𝗺: https://www.instagram.com/traxnox/
 𝗚𝗶𝘁𝗛𝘂𝗯: https://github.com/ByTraxnox-X`);
 });
 bot.command('cuentasoficiales', (ctx) => {
     ctx.reply(`
-Mis unicas cuentas oficiales son las de este enlace!
+${jsonlanguage.cuentasof}
 https://solo.to/talki`);
 });
 bot.command('miapi', async (ctx) => {
     ctx.reply(`
-la unica API de nuestro team es la del siguiente link!
+${jsonlanguage.miapi}
 https://apikasu.onrender.com/`);
 });
 // termina comandos de acerca de
@@ -400,13 +399,13 @@ bot.command('registrarme', async (ctx) => {
     const user = ctx.from;
     const userId = ctx.from.id;
     if (ctx.chat.type !== 'private') {
-        ctx.reply('Este comando solo puede ser usado en un chat privado con el bot')
+        ctx.reply(`${jsonlanguage.comandoprivado}`)
         return;
     }
     try {
         const existingUser = await User.findOne({ userId: userId });
         if (existingUser) {
-            ctx.reply('¡Ya estás registrado!');
+            ctx.reply(`${jsonlanguage.registrado}`);
         } else {
             const fullName = user.first_name + (user.last_name ? ' ' + user.last_name : '');
             await User.create({
@@ -427,45 +426,45 @@ bot.command('registrarme', async (ctx) => {
                 const userDocument = await User.findOne({ userId: userId });
                 if (userDocument) {
                     const msgperfil = `
-𝗥𝗲𝗴𝗶𝘀𝘁𝗿𝗮𝗱𝗼!
+${jsonlanguage.registrado2}
 
-𝗡𝗼𝗺𝗯𝗿𝗲: ${userDocument.firstName}
-𝗡𝗼𝗺𝗯𝗿𝗲 𝗰𝗼𝗺𝗽𝗹𝗲𝘁𝗼: ${userDocument.fullName}
-𝗜𝗗: ${userDocument.userId}
-𝗹𝗲𝗻𝗴𝘂𝗮𝗷𝗲: ${userDocument.languageCode}
+${jsonlanguage.nombre} ${userDocument.firstName}
+${jsonlanguage.nombrecompleto} ${userDocument.fullName}
+${jsonlanguage.id} ${userDocument.userId}
+${jsonlanguage.lenguaje} ${userDocument.languageCode}
 
-𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡 𝗔𝗗𝗜𝗖𝗜𝗢𝗡𝗔𝗟:
+${jsonlanguage.informacionadicc}
 
-𝗗𝗶𝗻𝗲𝗿𝗼: ${userDocument.Dinero}
-𝗗𝗶𝗮𝘀 𝘁𝗿𝗮𝗯𝗮𝗷𝗮𝗱𝗼𝘀: ${userDocument.DiasTrabajados}
-𝗣𝗮𝘁𝗿𝗶𝗺𝗼𝗻𝗶𝗼: ${userDocument.Patrimonio}
-𝗣𝗿𝗼𝗽𝗶𝗲𝗱𝗮𝗱𝗲𝘀: ${userDocument.Propiedades}`
+${jsonlanguage.dinero} ${userDocument.Dinero}
+${jsonlanguage.diastrabajados} ${userDocument.DiasTrabajados}
+${jsonlanguage.patrimonio} ${userDocument.Patrimonio}
+${jsonlanguage.propiedades} ${userDocument.Propiedades}`
                     ctx.replyWithPhoto({ url: userDocument.Avatar }, {
                         caption: msgperfil
                     })
                 } else {
-                    ctx.reply('Usuario no encontrado en la base de datos.');
+                    ctx.reply(`${jsonlanguage.usuarionoconbase}`);
                 }
             } catch (error) {
-                console.error('Error al leer el nombre del usuario en MongoDB:', error);
-                ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+                console.error(`${jsonlanguage.error3}`, error);
+                ctx.reply(`${jsonlanguage.error4}`);
             }
         }
     } catch (error) {
-        console.error('Error al guardar o verificar la información del usuario en MongoDB:', error);
-        ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+        console.error(`${jsonlanguage.error5}`, error);
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 bot.command('registrargrupo', async (ctx) => {
     if (ctx.chat.type !== 'group') {
-        ctx.reply('Este comando solo puede ser usado en un chat de grupo con el bot');
+        ctx.reply(`${jsonlanguage.comandogroup}`);
         return;
     }
     const chat = ctx.chat;
     try {
         const existingChat = await Chat.findOne({ chatId: chat.id });
         if (existingChat) {
-            ctx.reply('¡Este grupo ya está registrado!');
+            ctx.reply(`${jsonlanguage.gruporegistrado}`);
         } else {
             const chatInfo = {
                 chatId: chat.id,
@@ -475,18 +474,18 @@ bot.command('registrargrupo', async (ctx) => {
             };
             await Chat.create(chatInfo);
             const mensajegroup = `
-𝗥𝗲𝗴𝗶𝘀𝘁𝗿𝗮𝗱𝗼!
+${jsonlanguage.registrado2}
 
-𝗡𝗼𝗺𝗯𝗿𝗲 𝗱𝗲𝗹 𝗴𝗿𝘂𝗽𝗼: ${chatInfo.title}
-𝗜𝗗 𝗱𝗲𝗹 𝗰𝗵𝗮𝘁: ${chatInfo.chatId}
-𝗧𝗶𝗽𝗼 𝗱𝗲 𝗰𝗵𝗮𝘁: ${chatInfo.chatType}
-𝗟𝗼𝗴𝗼 𝗱𝗲𝘁𝗲𝗿𝗺𝗶𝗻𝗮𝗱𝗼: ${chatInfo.Avatar}
+${jsonlanguage.nombregrupo} ${chatInfo.title}
+${jsonlanguage.idchat} ${chatInfo.chatId}
+${jsonlanguage.tipochat} ${chatInfo.chatType}
+${jsonlanguage.logodeter} ${chatInfo.Avatar}
 `;
             ctx.replyWithPhoto({ url: chatInfo.Avatar }, { caption: mensajegroup });
         }
     } catch (error) {
-        console.error('Error al guardar o verificar la información del grupo en MongoDB:', error);
-        ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+        console.error(`${jsonlanguage.error3}`, error);
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 bot.command('infogrupo', async (ctx) => {
@@ -497,28 +496,27 @@ bot.command('infogrupo', async (ctx) => {
 
         if (chatInfo) {
             const infoGrupo = `
-𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡 𝗗𝗘𝗟 𝗚𝗥𝗨𝗣𝗢
+${jsonlanguage.infogrupo}
 
-𝗡𝗼𝗺𝗯𝗿𝗲 𝗱𝗲𝗹 𝗴𝗿𝘂𝗽𝗼: ${chatInfo.title}
-𝗜𝗗 𝗱𝗲𝗹 𝗰𝗵𝗮𝘁: ${chatInfo.chatId}
-𝗧𝗶𝗽𝗼 𝗱𝗲 𝗰𝗵𝗮𝘁: ${chatInfo.chatType}
-𝗟𝗲𝗻𝗴𝘂𝗮𝗷𝗲: ${chatInfo.languageCode}
-𝗟𝗼𝗴𝗼 𝗱𝗲𝘁𝗲𝗿𝗺𝗶𝗻𝗮𝗱𝗼: ${chatInfo.Avatar}
+${jsonlanguage.nombregrupo} ${chatInfo.title}
+${jsonlanguage.idchat} ${chatInfo.chatId}
+${jsonlanguage.tipochat} ${chatInfo.chatType}
+${jsonlanguage.logodeter} ${chatInfo.Avatar}
 `;
             ctx.replyWithPhoto({ url: chatInfo.Avatar }, { caption: infoGrupo })
         } else {
-            ctx.reply('Este grupo no está registrado. Registrelo usando /registrargrupo');
+            ctx.reply(`${jsonlanguage.registrargrupo} /registrargrupo`);
         }
     } catch (error) {
-        console.error('Error al leer la información del grupo en MongoDB:', error);
-        ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+        console.error(`${jsonlanguage.error3}`, error);
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 bot.command('cambiarnombre', async (ctx) => {
     const userId = ctx.from.id;
     const userText = ctx.message.text.replace('/cambiarnombre', '').trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa el nuevo nombre`);
+        ctx.reply(`${jsonlanguage.ingrenombre}`);
         return;
     }
     try {
@@ -526,13 +524,13 @@ bot.command('cambiarnombre', async (ctx) => {
         if (userDocument) {
             userDocument.fullName = userText;
             await userDocument.save();
-            ctx.reply(`Nombre actualizado exitosamente a: ${userText}`);
+            ctx.reply(`${jsonlanguage.nombreactualizado} ${userText}`);
         } else {
-            ctx.reply('Usuario no encontrado en la base de datos. Primero, utiliza /registrarme.');
+            ctx.reply(`${jsonlanguage.base1} /registrarme.`);
         }
     } catch (error) {
-        console.error('Error al actualizar el nombre del usuario en MongoDB:', error);
-        ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+        console.error(`${jsonlanguage.error6}`, error);
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 
@@ -542,35 +540,35 @@ bot.command('perfil', async (ctx) => {
         const userDocument = await User.findOne({ userId: userId });
         if (userDocument) {
             const mensaje = `
-𝗣𝗘𝗥𝗙𝗜𝗟
+${jsonlanguage.perfil}
 
-𝗡𝗼𝗺𝗯𝗿𝗲: ${userDocument.firstName}
-𝗡𝗼𝗺𝗯𝗿𝗲 𝗰𝗼𝗺𝗽𝗹𝗲𝘁𝗼: ${userDocument.fullName}
-𝗜𝗗: ${userDocument.userId}
-𝗹𝗲𝗻𝗴𝘂𝗮𝗷𝗲: ${userDocument.languageCode}
+${jsonlanguage.nombre} ${userDocument.firstName}
+${jsonlanguage.nombrecompleto} ${userDocument.fullName}
+${jsonlanguage.id} ${userDocument.userId}
+${jsonlanguage.lenguaje} ${userDocument.languageCode}
 
-𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡 𝗔𝗗𝗜𝗖𝗜𝗢𝗡𝗔𝗟:
+${jsonlanguage.informacionadicc}
 
-𝗗𝗶𝗻𝗲𝗿𝗼: ${userDocument.Dinero}
-𝗗𝗶𝗮𝘀 𝘁𝗿𝗮𝗯𝗮𝗷𝗮𝗱𝗼𝘀: ${userDocument.DiasTrabajados}
-𝗣𝗮𝘁𝗿𝗶𝗺𝗼𝗻𝗶𝗼: ${userDocument.Patrimonio}
-𝗣𝗿𝗼𝗽𝗶𝗲𝗱𝗮𝗱𝗲𝘀: ${userDocument.Propiedades}`
+${jsonlanguage.dinero} ${userDocument.Dinero}
+${jsonlanguage.diastrabajados} ${userDocument.DiasTrabajados}
+${jsonlanguage.patrimonio} ${userDocument.Patrimonio}
+${jsonlanguage.propiedades} ${userDocument.Propiedades}`
             ctx.replyWithPhoto({ url: userDocument.Avatar }, {
                 caption: mensaje
             })
         } else {
-            ctx.reply('¡No estás registrado! Utiliza /registrarme para registrarte.');
+            ctx.reply(`${jsonlanguage.error7} /registrarme ${jsonlanguage.registrarte}`);
         }
     } catch (error) {
-        console.error('Error al leer el nombre del usuario en MongoDB:', error);
-        ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+        console.error(`${jsonlanguage.error3}:`, error);
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 bot.command('cambiarfoto', async (ctx) => {
     const userId = ctx.from.id;
     const userText = ctx.message.text.replace('/cambiarfoto', '').trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa el enlace de la nueva foto`);
+        ctx.reply(`${jsonlanguage.nuevafoto}`);
         return;
     }
     try {
@@ -579,14 +577,14 @@ bot.command('cambiarfoto', async (ctx) => {
             userDocument.Avatar = userText;
             await userDocument.save();
             ctx.replyWithPhoto({ url: userDocument.Avatar }, {
-                caption: `¡Avatar actualizado exitosamente!`
+                caption: `${jsonlanguage.avataractualizado}`
             });
         } else {
-            ctx.reply('Usuario no encontrado en la base de datos. Primero, utiliza /registrarme.');
+            ctx.reply(`${jsonlanguage.base1} /registrarme.`);
         }
     } catch (error) {
-        console.error('Error al actualizar el avatar del usuario en MongoDB:', error);
-        ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+        console.error(`${jsonlanguage.error8}`, error);
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 //termina categoria de informacion
@@ -709,7 +707,7 @@ bot.command('imagina', async (ctx) => {
         }
     } catch (error) {
         console.error('Error al realizar la solicitud:');
-        ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+        ctx.reply('${jsonlanguage.error4}');
     }
 });
 
@@ -731,7 +729,7 @@ bot.command('imagina2', async (ctx) => {
         }
     } catch (error) {
         console.error('Error al realizar la solicitud:');
-        ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+        ctx.reply('${jsonlanguage.error4}');
     }
 });
 bot.command('ssweb', async (ctx) => {
@@ -752,7 +750,7 @@ bot.command('ssweb', async (ctx) => {
         }
     } catch (error) {
         console.error('Error al realizar la solicitud:');
-        ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+        ctx.reply('${jsonlanguage.error4}');
     }
 });
 bot.command('traducir', async (ctx) => {
@@ -1452,7 +1450,7 @@ bot.command('youtubevideo', async (ctx) => {
         }
     } catch (error) {
         console.error('Error al realizar la solicitud:');
-        ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+        ctx.reply('${jsonlanguage.error4}');
     }
 });
 
@@ -1474,7 +1472,7 @@ bot.command('youtubeaudio', async (ctx) => {
         }
     } catch (error) {
         console.error('Error al realizar la solicitud:');
-        ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+        ctx.reply('${jsonlanguage.error4}');
     }
 });
 bot.command('peliculainfo', async (ctx) => {

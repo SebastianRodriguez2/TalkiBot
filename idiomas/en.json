@@ -1,15 +1,14 @@
 {
-    "comandoprivado": "This command can only be used in a private chat with the bot",
-    "limitestelegram": "Due to Telegram limits, we have decided to divide the menu into categories. Please press the button for the category you want to view.",
-    "hola": "Hello:",
-    "menuinicial": "INITIAL MENU OF TALKI BOT:",
-    "errorprocesarsolicitud": "Oops! An error occurred while processing your request:",
-    "menutalki": "TALKI MENU",
-    "acercade": "ABOUT",
-    "informacion": "INFORMATION",
-    "herramientas": "TOOLS",
-    "economia": "ECONOMY",
-    "juegos": "GAMES",
-    "dl": "DOWNLOADS, SEARCHS AND STALKERS"
-  }
-  
+  "comandoprivado": "This command can only be used in a private chat with the bot",
+  "limitestelegram": "Due to Telegram's limits, we have decided to divide the menu into categories. Please press the button of the category you want to view the menu.",
+  "hola": "𝗛𝗲𝗹𝗹𝗼:",
+  "menuinicial": "𝗠𝗔𝗜𝗡 𝗠𝗘𝗡𝗨 𝗢𝗙 𝗧𝗔𝗟𝗞𝗜 𝗕𝗢𝗧:",
+  "errorprocesarsolicitud": "𝗢𝗼𝗽𝘀! 𝗔𝗻 𝗲𝗿𝗿𝗼𝗿 𝗼𝗰𝗰𝘂𝗿𝗿𝗲𝗱 𝘄𝗵𝗶𝗹𝗲 𝗽𝗿𝗼𝗰𝗲𝘀𝘀𝗶𝗻𝗴 𝘆𝗼𝘂𝗿 𝗿𝗲𝗾𝘂𝗲𝘀𝘁.",
+  "menutalki": "𝗠𝗘𝗡𝗨 𝗢𝗙 𝗧𝗔𝗟𝗞𝗜",
+  "acercade": "𝗔𝗯𝗼𝘂𝘁",
+  "informacion": "𝗜𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻",
+  "herramientas": "𝗛𝗲𝗿𝗿𝗮𝗺𝗶𝗲𝗻𝘁𝗮𝘀",
+  "economia": "𝗘𝗰𝗼𝗻𝗼𝗺𝘆",
+  "juegos": "𝗝𝘂𝗲𝗴𝗼𝘀",
+  "dl": "𝗗𝗶𝘀𝗰𝗼𝘂𝗻𝘁𝘀, 𝗕𝘂𝘀𝗾𝘂𝗲𝘀 𝗔𝗻𝗱 𝗦𝘁𝗮𝗹𝗸𝗲𝗼𝘂𝘀"
+}
