@@ -24,7 +24,7 @@
 ### IDIOMAS DISPONIBLES
 
 | LANGUAGE | CODE |
-|------|-------------|-------|
+|------|-------------|
 | **English** | ***en*** |
 | **Portugués** | ***pt*** |
 | **Italian** | ***it*** |
