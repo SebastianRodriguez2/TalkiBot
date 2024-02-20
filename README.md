@@ -23,13 +23,15 @@
 
 ### IDIOMAS DISPONIBLES
 
-Inglés (English): en
-Portugués (Portuguese): pt
-Español (Spanish): es
-Italiano (Italian): it
-Hindi: hi
-Francés (French): fr
-Indonesio (Indonesian): id
+| LANGUAGE | CODE |
+|------|-------------|-------|
+| **English** | ***en*** |
+| **Portugués** | ***pt*** |
+| **Italian** | ***it*** |
+| **Spanish** | ***es*** |
+| **Hindi** | ***hi*** |
+| **French** | ***fr*** |
+| **Indonesian** | ***id*** |
 
 ***
 
