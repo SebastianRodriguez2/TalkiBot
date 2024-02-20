@@ -10,6 +10,9 @@ const apikasu = "https://apikasu.onrender.com"
 const apikey = "SebastianDevelop"
 const bot = new Telegraf(process.env.token);
 const mongoUrl = process.env.mongodb;
+const idiomaCodigo = ctx.from && ctx.from.language_code ? ctx.from.language_code.toLowerCase() : 'es';
+const jsonidioma = `./idiomas/${idiomaCodigo}.json`;
+const jsonlanguage = JSON.parse(fs.readFileSync(jsonidioma, 'utf8'));
 
 console.log(`
  ████████╗ █████╗ ██╗     ██╗  ██╗██╗    ██████╗  ██████╗ ████████╗
@@ -59,23 +62,23 @@ bot.start(async (ctx) => {
     const user = ctx.from;
     const name = ctx.message.from.first_name;
     if (ctx.chat.type !== 'private') {
-        ctx.reply('Este comando solo puede ser usado en un chat privado con el bot')
+        ctx.reply(`${jsonlanguage.comandoprivado}`)
         return;
     }
     const menu = `
-𝗛𝗼𝗹𝗮: ${name}
+${jsonlanguage.hola} ${name}
 
-Debido a los limites de telegram hemos decidido dividir el menu en categorias, porfavor para ver el menu en categorias presione el boton de la categoria que desea.
+${jsonlanguage.limitestelegram}
    
-  𝗠𝗘𝗡𝗨 𝗜𝗡𝗜𝗖𝗜𝗔𝗟 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜 𝗕𝗢𝗧
+    ${jsonlanguage.menuinicial}
         
-    /help
-    /creadores
-    /cuentasoficiales
-    /miapi
-    /ping
-    /info
-    /registrarme`
+      /help
+      /creadores
+      /cuentasoficiales
+      /miapi
+      /ping
+      /info
+      /registrarme`
     try {
         const fullName = user.first_name + (user.last_name ? ' ' + user.last_name : '');
         await User.updateOne({ userId: user.id }, {
