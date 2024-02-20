@@ -1734,6 +1734,7 @@ let juegoActivo = false;
 let acertijoActual;
 let tiempoLimite = 30000;
 let tiempoInicio;
+let intervaloTiempo;
 function obtenerAcertijoAleatorio() {
     const indexAleatorio = Math.floor(Math.random() * acertijosJSON.length);
     return acertijosJSON[indexAleatorio];
@@ -1746,11 +1747,12 @@ function iniciarJuego(ctx) {
         ctx.reply(`
 Acertijo: ${acertijoActual.question}
 Tiempo: 30 segundos`);
-        const intervalo = setInterval(() => {
+        intervaloTiempo = setInterval(() => {
             const tiempoTranscurrido = Date.now() - tiempoInicio;
+
             if (tiempoTranscurrido >= tiempoLimite) {
-                clearInterval(intervalo);
-                finalizarJuego(ctx);
+                clearInterval(intervaloTiempo);
+                finalizarJuego(ctx, 'Tiempo para responder agotado. El acertijo ha finalizado.');
             }
         }, 1000);
     }
@@ -1758,6 +1760,7 @@ Tiempo: 30 segundos`);
 function finalizarJuego(ctx, mensaje) {
     juegoActivo = false;
     ctx.reply(mensaje);
+    clearInterval(intervaloTiempo);
 }
 function manejarRespuesta(ctx) {
     if (juegoActivo) {
@@ -1769,11 +1772,6 @@ function manejarRespuesta(ctx) {
             finalizarJuego(ctx, 'Tiempo para responder agotado. El acertijo ha finalizado.');
         } else {
             ctx.reply('Respuesta incorrecta. ¡Inténtalo de nuevo!');
-            acertijoActual = obtenerAcertijoAleatorio();
-            tiempoInicio = Date.now()
-            ctx.reply(`
-Acertijo: ${acertijoActual.question}
-Tiempo: 30 segundos`);
         }
     } else {
         ctx.reply('No hay un acertijo activo en este momento. Inicia un nuevo juego con /acertijo.');
