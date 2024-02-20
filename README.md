@@ -10,6 +10,7 @@
 
 | CONTENIDO | DESCRIPCIÓN | LINK |
 |------|-------------|-------|
+| **IDIOMAS DISPONIBLES** | ***IDIOMAS DISPONIBLES PARA EL BOT*** |[VER](https://github.com/BOT-TX/TalkiBot?tab=readme-ov-file#idiomas-disponibles) |
 | **API FREE** | ***API FREE*** |[VER](https://github.com/BOT-TX/TalkiBot?tab=readme-ov-file#api-free) |
 | **CUENTAS OFICIALES** | ***CUENTAS OFICIALES*** |[VER](https://github.com/BOT-TX/TalkiBot?tab=readme-ov-file#cuentas-oficiales) |
 | **PROBAR EL BOT ANTES DE INSTALAR** | ***PROBAR EL BOT*** |[VER](https://github.com/BOT-TX/TalkiBot?tab=readme-ov-file#probar-bot) |
@@ -17,6 +18,18 @@
 | **MONGO DB** | ***MONGO DB CREAR CUENTA*** |[VER](https://github.com/BOT-TX/TalkiBot?tab=readme-ov-file#mongo-db) |
 | **DATABASES PUBLICAS** | ***DATABASES PUBLICAS PARA EN CASO DE NO ENTENDER O ERROR*** |[VER](https://github.com/BOT-TX/TalkiBot?tab=readme-ov-file#databases-publicas) |
 
+
+***
+
+### IDIOMAS DISPONIBLES
+
+Inglés (English): en
+Portugués (Portuguese): pt
+Español (Spanish): es
+Italiano (Italian): it
+Hindi: hi
+Francés (French): fr
+Indonesio (Indonesian): id
 
 ***
 
