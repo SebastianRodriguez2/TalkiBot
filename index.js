@@ -110,18 +110,18 @@ ${jsonlanguage.limitestelegram}
         });
     } catch (error) {
         console.error('Error al guardar la información del usuario en MongoDB:', error);
-        ctx.reply('¡Ups! Ha ocurrido un error al procesar tu solicitud.');
+        ctx.reply(`${jsonlanguage.errorprocesarsolicitud}`);
     }
 });
 // menus (modificar los 2)
 bot.command('help', async (ctx) => {
     const name = ctx.message.from.first_name;
     const menu = `
-𝗛𝗼𝗹𝗮: ${name}
+${jsonlanguage.hola} ${name}
 
-Debido a los limites de telegram hemos decidido dividir el menu en categorias, porfavor para ver el menu en categorias presione el boton de la categoria que desea.
+${jsonlanguage.limitestelegram}
    
-  𝗠𝗘𝗡𝗨 𝗜𝗡𝗜𝗖𝗜𝗔𝗟 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜 𝗕𝗢𝗧
+    ${jsonlanguage.menuinicial}
         
      /help
      /creadores
@@ -148,13 +148,13 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
 bot.action('acerca', async (ctx) => {
     const name = ctx.from.first_name
     const menu = `
-𝗛𝗼𝗹𝗮: ${name}
+${jsonlanguage.hola} ${name}
 
-Debido a los limites de telegram hemos decidido dividir el menu en categorias, porfavor para ver el menu en categorias presione el boton de la categoria que desea.
+${jsonlanguage.limitestelegram}
   
-  𝗠𝗘𝗡𝗨 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
+  ${jsonlanguage.menutalki} 
       
-    𝗔𝗖𝗘𝗥𝗖𝗔 𝗗𝗘
+    ${jsonlanguage.acercade} 
 
       /help
       /creadores
@@ -179,13 +179,13 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
 bot.action('informacion', async (ctx) => {
     const name = ctx.from.first_name
     const menu = `
-𝗛𝗼𝗹𝗮: ${name}
+${jsonlanguage.hola} ${name}
 
-Debido a los limites de telegram hemos decidido dividir el menu en categorias, porfavor para ver el menu en categorias presione el boton de la categoria que desea.
+${jsonlanguage.limitestelegram}
   
-  𝗠𝗘𝗡𝗨 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
+  ${jsonlanguage.menutalki}
       
-    𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+    ${jsonlanguage.informacion}
   
       /cambiarnombre
       /cambiarfoto
@@ -208,13 +208,13 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
 bot.action('herramientas', async (ctx) => {
     const name = ctx.from.first_name
     const menu = `
-𝗛𝗼𝗹𝗮: ${name}
+${jsonlanguage.hola} ${name}
 
-Debido a los limites de telegram hemos decidido dividir el menu en categorias, porfavor para ver el menu en categorias presione el boton de la categoria que desea.
-  
-  𝗠𝗘𝗡𝗨 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
+${jsonlanguage.limitestelegram}
+
+  ${jsonlanguage.menutalki}
       
-    𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
+    ${jsonlanguage.herramientas}
       
       /chatgpt
       /bard
@@ -242,13 +242,13 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
 bot.action('economia', async (ctx) => {
     const name = ctx.from.first_name
     const menu = `
-𝗛𝗼𝗹𝗮: ${name}
+${jsonlanguage.hola} ${name}
 
-Debido a los limites de telegram hemos decidido dividir el menu en categorias, porfavor para ver el menu en categorias presione el boton de la categoria que desea.
+${jsonlanguage.limitestelegram}
   
-  𝗠𝗘𝗡𝗨 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
+  ${jsonlanguage.menutalki}
       
-    𝗘𝗖𝗢𝗡𝗢𝗠𝗜𝗔
+    ${jsonlanguage.economia}
   
       /trabajar
       /interesesportrabajo
@@ -268,13 +268,13 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
 bot.action('juegos', async (ctx) => {
     const name = ctx.from.first_name
     const menu = `
-𝗛𝗼𝗹𝗮: ${name}
+${jsonlanguage.hola} ${name}
 
-Debido a los limites de telegram hemos decidido dividir el menu en categorias, porfavor para ver el menu en categorias presione el boton de la categoria que desea.
+${jsonlanguage.limitestelegram}
   
-  𝗠𝗘𝗡𝗨 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
+  ${jsonlanguage.menutalki}
       
-    𝗝𝗨𝗘𝗚𝗢𝗦
+    ${jsonlanguage.juegos}
 
       /acertijo
       `;
@@ -293,13 +293,13 @@ Debido a los limites de telegram hemos decidido dividir el menu en categorias, p
 bot.action('dl', async (ctx) => {
     const name = ctx.from.first_name
     const menu = `
-𝗛𝗼𝗹𝗮: ${name}
+${jsonlanguage.hola} ${name}
 
-Debido a los limites de telegram hemos decidido dividir el menu en categorias, porfavor para ver el menu en categorias presione el boton de la categoria que desea.
+${jsonlanguage.limitestelegram}
  
-  𝗠𝗘𝗡𝗨 𝗗𝗘 𝗧𝗔𝗟𝗞𝗜
+  ${jsonlanguage.menutalki}
       
-    𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦, 𝗕𝗨𝗦𝗤𝗨𝗘𝗗𝗔𝗦 𝗬 𝗦𝗧𝗔𝗟𝗞𝗘𝗢𝗦
+    ${jsonlanguage.dl}
       
       /tiktokstalk
       /instagramstalk
