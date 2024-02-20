@@ -1764,9 +1764,9 @@ function finalizarJuego(ctx, mensaje) {
 }
 function manejarRespuesta(ctx) {
     if (juegoActivo) {
-        const respuestaUsuario = ctx.message.text.split(' ')[1];
+        const respuestaUsuario = ctx.message.text.split(' ').slice(1).join(' ').toLowerCase();
         const tiempoTranscurrido = Date.now() - tiempoInicio;
-        if (respuestaUsuario && respuestaUsuario === acertijoActual.response && tiempoTranscurrido <= tiempoLimite) {
+        if (respuestaUsuario && respuestaUsuario === acertijoActual.response.toLowerCase() && tiempoTranscurrido <= tiempoLimite) {
             finalizarJuego(ctx, '¡Respuesta correcta!');
         } else if (tiempoTranscurrido > tiempoLimite) {
             finalizarJuego(ctx, 'Tiempo para responder agotado. El acertijo ha finalizado.');
