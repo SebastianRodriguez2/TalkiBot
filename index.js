@@ -11,8 +11,9 @@ const apikey = "SebastianDevelop"
 const bot = new Telegraf(process.env.token);
 const mongoUrl = process.env.mongodb;
 const idiomaCodigo = process.env.language || 'es'
-const jsonidioma = `../idiomas/${idiomaCodigo}.json`;
+const jsonidioma = `./idiomas/${idiomaCodigo}.json`;
 const jsonlanguage = JSON.parse(fs.readFileSync(jsonidioma, 'utf8'));
+console.log('Ruta del archivo:', jsonidioma);
 
 console.log(`
  ████████╗ █████╗ ██╗     ██╗  ██╗██╗    ██████╗  ██████╗ ████████╗
