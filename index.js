@@ -1776,44 +1776,21 @@ function manejarRespuesta(ctx) {
         const tiempoTranscurrido = Date.now() - tiempoInicio;
         const similitud = calcularSimilitud(respuestaUsuario, acertijoActual.response.toLowerCase());
         if (tiempoTranscurrido <= tiempoLimite && similitud >= 0.7) {
-            finalizarJuego
-            respuesetacorrec = '¡Respuesta correcta!'
-            ctx.reply({ caption: respuesetacorrec, reply_markup: {
-                inline_keyboard: [
-                    [{ text: 'Iniciar otro acertijo', callback_data: 'acertijo' }],
-                ],
-            }
-        }); 
+            finalizarJuego(ctx, '¡Respuesta correcta!');
         } else if (tiempoTranscurrido > tiempoLimite) {
-            finalizarJuego
-            let finalizadojuego = 'Tiempo para responder agotado. El acertijo ha finalizado.'
-            ctx.reply({ caption: finalizadojuego, reply_markup: {
-                inline_keyboard: [
-                    [{ text: 'Iniciar otro acertijo', callback_data: 'acertijo' }],
-                ],
-            }
-        });    
+            finalizarJuego(ctx, 'Tiempo para responder agotado. El acertijo ha finalizado.');
         } else {
             ctx.reply(`Respuesta incorrecta. La similitud es ${similitud * 100}%. ¡Inténtalo de nuevo!`);
         }
     } else {
-        const acertijono = 'No hay un acertijo activo en este momento. Inicia un nuevo juego con /acertijo.'
-        ctx.reply({ caption: acertijono, reply_markup: {
-                inline_keyboard: [
-                    [{ text: 'Iniciar acertijo', callback_data: 'acertijo' }],
-                ],
-            }
-        });
+        ctx.reply('No hay un acertijo activo en este momento. Inicia un nuevo juego con /acertijo.');
     }
 }
 bot.command('acertijo', (ctx) => {
     iniciarJuego(ctx);
     ctx.reply('¡Acertijo iniciado! Responde con /responderacertijo seguido de tu respuesta.');
 });
-bot.action('acertijo', (ctx) => {
-    iniciarJuego(ctx);
-    ctx.reply('¡Acertijo iniciado! Responde con /responderacertijo seguido de tu respuesta.');
-});
+
 bot.command('responderacertijo', (ctx) => {
     manejarRespuesta(ctx);
 });
