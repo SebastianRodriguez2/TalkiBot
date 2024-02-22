@@ -53,5 +53,6 @@
     "registrarte": "pour vous enregistrer.",
     "nuevafoto": "Veuillez saisir le lien de la nouvelle photo",
     "avataractualizado": "Avatar mis à jour avec succès !",
-    "error8": "Erreur lors de la mise à jour de l'avatar de l'utilisateur dans MongoDB :"
+    "error8": "Erreur lors de la mise à jour de l'avatar de l'utilisateur dans MongoDB :",
+    "botactivo": "Le bot actif fait :"
 }

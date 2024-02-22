@@ -53,5 +53,6 @@
     "registrarte": "untuk mendaftar.",
     "nuevafoto": "Silakan masukkan tautan foto baru",
     "avataractualizado": "Avatar berhasil diperbarui!",
-    "error8": "Kesalahan saat memperbarui avatar pengguna di MongoDB:"
+    "error8": "Kesalahan saat memperbarui avatar pengguna di MongoDB:",
+    "botactivo": "Bot aktif melakukan:"
 }

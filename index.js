@@ -77,6 +77,7 @@ ${jsonlanguage.limitestelegram}
       /cuentasoficiales
       /miapi
       /ping
+      /uptime
       /info
       /registrarme`
     try {
@@ -128,6 +129,7 @@ ${jsonlanguage.limitestelegram}
      /cuentasoficiales
      /miapi
      /ping
+     /uptime
      /info
      /registrarme
      /registrargrupo`;
@@ -161,6 +163,7 @@ ${jsonlanguage.limitestelegram}
       /cuentasoficiales
       /miapi
       /ping
+      /uptime
       /info
       /registrarme
       /registrargrupo`;
@@ -389,6 +392,17 @@ bot.command('miapi', async (ctx) => {
 ${jsonlanguage.miapi}
 https://apikasu.onrender.com/`);
 });
+bot.command('uptime', (ctx) => {
+    const currentTime = new Date();
+    const uptimeInSeconds = Math.floor((currentTime - startTime) / 1000);
+    ctx.reply(`${jsonlanguage.botactivo} ${formatUptime(uptimeInSeconds)}`);
+});
+function formatUptime(uptimeInSeconds) {
+    const hours = Math.floor(uptimeInSeconds / 3600);
+    const minutes = Math.floor((uptimeInSeconds % 3600) / 60);
+    const seconds = uptimeInSeconds % 60;
+    return `${hours}h ${minutes}m ${seconds}s`;
+}
 // termina comandos de acerca de
 
 // PLUGINS

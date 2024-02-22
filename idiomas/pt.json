@@ -53,5 +53,6 @@
     "registrarte": "para se registrar.",
     "nuevafoto": "Por favor, insira o link da nova foto",
     "avataractualizado": "Avatar atualizado com sucesso!",
-    "error8": "Erro ao atualizar o avatar do usuário no MongoDB:"
+    "error8": "Erro ao atualizar o avatar do usuário no MongoDB:",
+    "botactivo": "O bot ativo faz:"
 }
