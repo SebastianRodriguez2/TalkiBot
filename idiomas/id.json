@@ -54,5 +54,6 @@
     "nuevafoto": "Silakan masukkan tautan foto baru",
     "avataractualizado": "Avatar berhasil diperbarui!",
     "error8": "Kesalahan saat memperbarui avatar pengguna di MongoDB:",
-    "botactivo": "Bot aktif melakukan:"
+    "botactivo": "Bot aktif melakukan:",
+    "xp": "Pengalaman:"
 }

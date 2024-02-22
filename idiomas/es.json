@@ -54,5 +54,6 @@
   "nuevafoto": "Por favor, ingresa el enlace de la nueva foto",
   "avataractualizado": "¡Avatar actualizado exitosamente!",
   "error8": "Error al actualizar el avatar del usuario en MongoDB:",
-  "botactivo": "Bot activo hace:"
+  "botactivo": "Bot activo hace:",
+  "xp": "Experiencia:"
 }

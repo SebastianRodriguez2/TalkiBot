@@ -47,6 +47,7 @@ const userSchema = new mongoose.Schema({
     DiasTrabajados: String,
     Patrimonio: String,
     Propiedades: String,
+    xp: String,
 });
 const chatSchema = new mongoose.Schema({
     chatId: { type: Number, unique: true },
@@ -94,6 +95,7 @@ ${jsonlanguage.limitestelegram}
             Dinero: 1,
             Patrimonio: 1,
             Propiedades: 1,
+            xp: 1,
             DiasTrabajados: 1,
             Avatar: perfildeterminado
         }, { upsert: true });
@@ -281,6 +283,7 @@ ${jsonlanguage.limitestelegram}
     ${jsonlanguage.juegos}
 
       /acertijo
+      /ganarxp
       `;
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
@@ -567,7 +570,8 @@ ${jsonlanguage.informacionadicc}
 ${jsonlanguage.dinero} ${userDocument.Dinero}
 ${jsonlanguage.diastrabajados} ${userDocument.DiasTrabajados}
 ${jsonlanguage.patrimonio} ${userDocument.Patrimonio}
-${jsonlanguage.propiedades} ${userDocument.Propiedades}`
+${jsonlanguage.propiedades} ${userDocument.Propiedades}
+${jsonlanguage.xp} ${userDocument.xp}`
             ctx.replyWithPhoto({ url: userDocument.Avatar }, {
                 caption: mensaje
             })
@@ -1609,7 +1613,16 @@ bot.command('interesesportrabajo', async (ctx) => {
         ctx.reply('¡Ups! Ha ocurrido un error al calcular los intereses por trabajo.');
     }
 });
-
+bot.command('ganarxp', async (ctx) => {
+    const userId = ctx.from.id;
+    const db = await User.findOne({ userId: userId });
+    if (db) {
+      xp2 = '10'
+      Number(db.xp) + Number(xp2);
+      await db.save();
+      ctx.reply(`Has ganado ${xp2} xp, para seguir ganando debes incrementar tu uso con el bot!`);
+    }
+  });
 bot.command('comprarpropiedad', async (ctx) => {
     const userId = ctx.from.id;
     try {
