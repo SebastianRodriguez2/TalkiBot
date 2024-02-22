@@ -1824,12 +1824,13 @@ Acertijo: ${acertijoActual.question}
 Tiempo: 30 segundos`);
         intervaloTiempo = setInterval(() => {
             const tiempoTranscurrido = Date.now() - tiempoInicio;
-
             if (tiempoTranscurrido >= tiempoLimite) {
                 clearInterval(intervaloTiempo);
                 finalizarJuego(ctx, 'Tiempo para responder agotado. El acertijo ha finalizado.');
             }
         }, 1000);
+    } else {
+        ctx.reply('Ya hay un acertijo activo en este momento. Finaliza el acertijo actual antes de iniciar uno nuevo.');
     }
 }
 function finalizarJuego(ctx, mensaje) {
@@ -1897,12 +1898,13 @@ sospechosos: ${CasoActual.Sospechosos}\n
 Tiempo: 60 segundos`);
         intervaloTiempo2 = setInterval(() => {
             const tiempoTranscurrido = Date.now() - tiempoInicio2;
-
             if (tiempoTranscurrido >= tiempoLimite2) {
                 clearInterval(intervaloTiempo2);
                 finalizarJuego(ctx, 'Tiempo para responder agotado. El caso ha finalizado.');
             }
         }, 1000);
+    } else {
+        ctx.reply('Ya hay un caso activo en este momento. Finaliza el caso actual antes de iniciar uno nuevo.');
     }
 }
 function finalizarJuego(ctx, mensaje) {
