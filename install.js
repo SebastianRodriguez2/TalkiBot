@@ -23,12 +23,6 @@ rl.question('Ingresa el token de acceso a Telegram: ', (telegramToken) => {
             console.log(`process.env.token: ${process.env.token}`);
             console.log(`process.env.language: ${process.env.language}`);
             console.log(`process.env.mongodb: ${process.env.mongodb}`);
-            exec('npm install', (error, stdout, stderr) => {
-                if (error) {
-                    console.error(`Error al instalar dependencias: ${error}`);
-                    return;
-                }
-                console.log(`Dependencias instaladas exitosamente: ${stdout}`);
                 const startProcess = exec('npm start', (error, stdout, stderr) => {
                     if (error) {
                         console.error(`Error al ejecutar npm start: ${error}`);
@@ -45,4 +39,4 @@ rl.question('Ingresa el token de acceso a Telegram: ', (telegramToken) => {
             });
         });
     });
-});
+
