@@ -55,5 +55,6 @@
     "avataractualizado": "Avatar berhasil diperbarui!",
     "error8": "Kesalahan saat memperbarui avatar pengguna di MongoDB:",
     "botactivo": "Bot aktif melakukan:",
-    "xp": "Pengalaman:"
+    "xp": "Pengalaman:",
+    "nivel": "Tingkat:"
 }

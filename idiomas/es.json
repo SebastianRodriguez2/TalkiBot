@@ -55,5 +55,6 @@
   "avataractualizado": "¡Avatar actualizado exitosamente!",
   "error8": "Error al actualizar el avatar del usuario en MongoDB:",
   "botactivo": "Bot activo hace:",
-  "xp": "Experiencia:"
+  "xp": "Experiencia:",
+  "nivel": "Nivel:"
 }

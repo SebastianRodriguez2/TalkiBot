@@ -15,6 +15,18 @@ const idiomaCodigo = process.env.language || 'es'
 const jsonidioma = `./idiomas/${idiomaCodigo}.json`;
 const jsonlanguage = JSON.parse(fs.readFileSync(jsonidioma, 'utf8'));
 
+function getLevelName(xp) {
+    if (xp >= 50_000) return 'Máster del Bot';
+    if (xp >= 25_000) return 'Experto en Telegram';
+    if (xp >= 20_000) return 'Maestro Mensajero';
+    if (xp >= 15_000) return 'Embajador de Mensajes';
+    if (xp >= 10_000) return 'Conversador Avanzado';
+    if (xp >= 5_000) return 'Iniciado de Charlas';
+    if (xp >= 1_000) return 'Principiante de Palabras';
+    if (xp >= 100) return 'Aficionado de Texto';
+    return 'Novato';
+  }
+
 console.log(`
  ████████╗ █████╗ ██╗     ██╗  ██╗██╗    ██████╗  ██████╗ ████████╗
  ╚══██╔══╝██╔══██╗██║     ██║ ██╔╝██║    ██╔══██╗██╔═══██╗╚══██╔══╝
@@ -558,6 +570,7 @@ bot.command('perfil', async (ctx) => {
     const userId = ctx.from.id;
     try {
         const userDocument = await User.findOne({ userId: userId });
+        const levelName = getLevelName(userDocument.xp);
         if (userDocument) {
             const mensaje = `
 ${jsonlanguage.perfil}
@@ -573,7 +586,8 @@ ${jsonlanguage.dinero} ${userDocument.Dinero}
 ${jsonlanguage.diastrabajados} ${userDocument.DiasTrabajados}
 ${jsonlanguage.patrimonio} ${userDocument.Patrimonio}
 ${jsonlanguage.propiedades} ${userDocument.Propiedades}
-${jsonlanguage.xp} ${userDocument.xp}`
+${jsonlanguage.xp} ${userDocument.xp}
+${jsonlanguage.nivel} ${levelName}`
             ctx.replyWithPhoto({ url: userDocument.Avatar }, {
                 caption: mensaje
             })
