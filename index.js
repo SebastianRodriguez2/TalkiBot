@@ -16,11 +16,9 @@ const jsonidioma = `./idiomas/${idiomaCodigo}.json`;
 const jsonlanguage = JSON.parse(fs.readFileSync(jsonidioma, 'utf8'));
 
 bot.on('text', (msg) => {
-    const chatId = msg.chat.id;
-    const textReceived = msg.text;
-    const username = msg.from.username;
-    console.log(`Mensaje recibido: ${username}: ${textReceived}`);
-    bot.sendMessage(chatId, `Mensaje enviado: ${textReceived}`);
+    const name = ctx.message.from.first_name;
+    const textReceived = ctx.message.text
+    console.log(`Mensaje recibido: ${name} ${textReceived}`);
 });
 
 function getLevelName(xp) {

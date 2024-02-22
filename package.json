@@ -4,6 +4,8 @@
   "description": "",
   "main": "bot.js",
   "scripts": {
+    "start": "node index.js",
+    "install": "node install.js",
     "dev": "nodemon bot.js"
   },
   "keywords": [],
