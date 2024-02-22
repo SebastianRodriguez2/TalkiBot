@@ -15,6 +15,14 @@ const idiomaCodigo = process.env.language || 'es'
 const jsonidioma = `./idiomas/${idiomaCodigo}.json`;
 const jsonlanguage = JSON.parse(fs.readFileSync(jsonidioma, 'utf8'));
 
+bot.on('text', (msg) => {
+    const chatId = msg.chat.id;
+    const textReceived = msg.text;
+    const username = msg.from.username;
+    console.log(`Mensaje recibido: ${username}: ${textReceived}`);
+    bot.sendMessage(chatId, `Mensaje enviado: ${textReceived}`);
+});
+
 function getLevelName(xp) {
     if (xp >= 3000) return '30';
     if (xp >= 2900) return '29';
