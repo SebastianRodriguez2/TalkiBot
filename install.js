@@ -25,11 +25,7 @@ rl.question('Ingresa el token de acceso a Telegram: ', (telegramToken) => {
             process.env.token = telegramToken;
             process.env.language = botLanguage;
             process.env.mongodb = databaseUrl;
-            exec('npm install', (error, stdout, stderr) => {
-                if (error) {
-                    console.error(`Error al instalar dependencias: ${error}`);
-                    return;
-                }
+
                 console.log(`Dependencias instaladas exitosamente: ${stdout}`);
                 exec('npm start', (error, stdout, stderr) => {
                     if (error) {
@@ -42,4 +38,4 @@ rl.question('Ingresa el token de acceso a Telegram: ', (telegramToken) => {
             });
         });
     });
-});
+
