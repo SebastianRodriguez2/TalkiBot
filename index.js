@@ -82,7 +82,7 @@ const userSchema = new mongoose.Schema({
     Patrimonio: String,
     Propiedades: String,
     xp: String,
-    lastxptime: Date,
+    lastxptime: { type: Date, default: null },
 });
 const chatSchema = new mongoose.Schema({
     chatId: { type: Number, unique: true },
@@ -131,7 +131,6 @@ ${jsonlanguage.limitestelegram}
             Patrimonio: 1,
             Propiedades: 1,
             xp: 1,
-            lastxptime: Date,
             DiasTrabajados: 1,
             Avatar: perfildeterminado
         }, { upsert: true });
