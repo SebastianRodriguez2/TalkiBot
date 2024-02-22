@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 
 
+let startTime = new Date();
 const logo = 'https://i.imgur.com/ZCeiOY4.jpg';
 const perfildeterminado = 'https://i.imgur.com/VVA2sbG.jpg'
 const apikasu = "https://apikasu.onrender.com"
@@ -392,7 +393,6 @@ bot.command('miapi', async (ctx) => {
 ${jsonlanguage.miapi}
 https://apikasu.onrender.com/`);
 });
-let startTime;
 bot.command('uptime', (ctx) => {
     const currentTime = new Date();
     const uptimeInSeconds = Math.floor((currentTime - startTime) / 1000);
