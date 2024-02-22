@@ -68,14 +68,14 @@ PAGINA PARA SACAR BASE DE DATOS
 ### DATABASES PUBLICAS
 
 ```sh
-"mongodb+srv://talki1:talki1@cluster0.dnimmgj.mongodb.net/?retryWrites=true&w=majority"
+mongodb+srv://talki1:talki1@cluster0.dnimmgj.mongodb.net/?retryWrites=true&w=majority
 ```
 ```sh
-"mongodb+srv://talki:talki@cluster0.6eub29c.mongodb.net/?retryWrites=true&w=majority"
+mongodb+srv://talki:talki@cluster0.6eub29c.mongodb.net/?retryWrites=true&w=majority
 ```
 ```sh
-"mongodb+srv://talki2:talki2@cluster0.4wb7ixq.mongodb.net/?retryWrites=true&w=majority"
+mongodb+srv://talki2:talki2@cluster0.4wb7ixq.mongodb.net/?retryWrites=true&w=majority
 ```
 ```sh
-"mongodb+srv://talki3:talki3@cluster0.liwpj6h.mongodb.net/?retryWrites=true&w=majority"
+mongodb+srv://talki3:talki3@cluster0.liwpj6h.mongodb.net/?retryWrites=true&w=majority
 ```
