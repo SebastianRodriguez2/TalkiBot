@@ -320,6 +320,7 @@ ${jsonlanguage.limitestelegram}
 
       /acertijo
       /ganarxp
+      /caso
       `;
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
@@ -1866,6 +1867,75 @@ bot.command('acertijo', (ctx) => {
 });
 
 bot.command('responderacertijo', (ctx) => {
+    manejarRespuesta(ctx);
+});
+let CasosJSON;
+try {
+    const data = fs.readFileSync('./media/acertijo.json', 'utf8');
+    CasosJSON = JSON.parse(data);
+} catch (error) {
+    console.error('Error al cargar el archivo JSON de casos');
+}
+let JuegoActivo2 = false;
+let CasoActual;
+function ObtenerCasoAleatorio() {
+    const indexAleatorio = Math.floor(Math.random() * CasosJSON.length);
+    return CasosJSON[indexAleatorio];
+}
+function iniciarJuego(ctx) {
+    if (!JuegoActivo2) {
+        JuegoActivo2 = true;
+        CasoActual = ObtenerCasoAleatorio();
+        tiempoInicio = Date.now();
+        ctx.reply(`
+Caso: ${CasoActual.caso}\n
+sospechosos: ${CasoActual.Sospechosos}\n
+Tiempo: 30 segundos`);
+        intervaloTiempo = setInterval(() => {
+            const tiempoTranscurrido = Date.now() - tiempoInicio;
+
+            if (tiempoTranscurrido >= tiempoLimite) {
+                clearInterval(intervaloTiempo);
+                finalizarJuego(ctx, 'Tiempo para responder agotado. El caso ha finalizado.');
+            }
+        }, 1000);
+    }
+}
+function finalizarJuego(ctx, mensaje) {
+    JuegoActivo2 = false;
+    ctx.reply(mensaje);
+    clearInterval(intervaloTiempo);
+}
+function calcularSimilitud(str1, str2) {
+    const set1 = new Set(str1);
+    const set2 = new Set(str2);
+    const intersection = new Set([...set1].filter(x => set2.has(x)));
+    const union = new Set([...set1, ...set2]);
+    const jaccardCoefficient = intersection.size / union.size;
+    return jaccardCoefficient;
+}
+function manejarRespuesta(ctx) {
+    if (JuegoActivo2) {
+        const respuestaUsuario = ctx.message.text.split(' ').slice(1).join(' ').toLowerCase();
+        const tiempoTranscurrido = Date.now() - tiempoInicio;
+        const similitud = calcularSimilitud(respuestaUsuario, CasoActual.response.toLowerCase());
+        if (tiempoTranscurrido <= tiempoLimite && similitud >= 0.7) {
+            finalizarJuego(ctx, '¡Respuesta correcta!');
+        } else if (tiempoTranscurrido > tiempoLimite) {
+            finalizarJuego(ctx, 'Tiempo para responder agotado. El caso ha finalizado.');
+        } else {
+            ctx.reply(`Respuesta incorrecta. La similitud es ${similitud * 100}%. ¡Inténtalo de nuevo!`);
+        }
+    } else {
+        ctx.reply('No hay un caso activo en este momento. Inicia un nuevo juego con /caso.');
+    }
+}
+bot.command('caso', (ctx) => {
+    iniciarJuego(ctx);
+    ctx.reply('¡Caso iniciado! Responde con /respondercaso seguido de tu respuesta.');
+});
+
+bot.command('respondercaso', (ctx) => {
     manejarRespuesta(ctx);
 });
 //termina categoria de juegos
