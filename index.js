@@ -15,12 +15,6 @@ const idiomaCodigo = process.env.language || 'es'
 const jsonidioma = `./idiomas/${idiomaCodigo}.json`;
 const jsonlanguage = JSON.parse(fs.readFileSync(jsonidioma, 'utf8'));
 
-bot.on('text', (msg) => {
-    const name = ctx.message.from.first_name;
-    const textReceived = ctx.message.text
-    console.log(`Mensaje recibido: ${name} ${textReceived}`);
-});
-
 function getLevelName(xp) {
     if (xp >= 3000) return '30';
     if (xp >= 2900) return '29';
