@@ -39,6 +39,9 @@ rl.question('Ingresa el token de acceso a Telegram: ', (telegramToken) => {
                 });
                 startProcess.stdout.pipe(process.stdout);
                 startProcess.stderr.pipe(process.stderr);
+                startProcess.on('exit', (code) => {
+                    console.log(`npm start ha terminado con código de salida: ${code}`);
+                });
             });
         });
     });
