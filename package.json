@@ -9,7 +9,7 @@
     "dev": "nodemon bot.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sebastian",
   "license": "ISC",
   "dependencies": {
     "fs": "latest",
