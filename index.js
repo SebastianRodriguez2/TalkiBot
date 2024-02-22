@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const { getLevelName } = require('./functions/Ranks.js');
 const chalk = require('chalk');
+const consol = require('consola');
 
 
 let startTime = new Date();
@@ -21,7 +22,7 @@ bot.use((ctx) => {
     if (ctx.message.text == undefined) {
 
     } else {
-        cx.info(`\nChat:` + yellow(ctx.chat.type) + `\n` +
+        consol.info(`\nChat:` + yellow(ctx.chat.type) + `\n` +
             green(`Usuario: `) + blue(ctx.from.username) + `\n` +
             green(`Message: `) + blue(ctx.message.text) + `\n` +
             green(`ID: ` + blue(ctx.from.id) + `\n`)
