@@ -48,6 +48,7 @@ const userSchema = new mongoose.Schema({
     Patrimonio: String,
     Propiedades: String,
     xp: String,
+    lastxptime: Date,
 });
 const chatSchema = new mongoose.Schema({
     chatId: { type: Number, unique: true },
@@ -96,6 +97,7 @@ ${jsonlanguage.limitestelegram}
             Patrimonio: 1,
             Propiedades: 1,
             xp: 1,
+            lastxptime: Date,
             DiasTrabajados: 1,
             Avatar: perfildeterminado
         }, { upsert: true });
@@ -1615,12 +1617,18 @@ bot.command('interesesportrabajo', async (ctx) => {
 });
 bot.command('ganarxp', async (ctx) => {
     const userId = ctx.from.id;
-    const db = await User.findOne({ userId: userId });
-    if (db) {
-      xp2 = '10'
-      Number(db.xp) + Number(xp2);
-      await db.save();
-      ctx.reply(`Has ganado ${xp2} xp, para seguir ganando debes incrementar tu uso con el bot!`);
+    const user = await User.findOne({ userId });
+    if (user) {
+      const now = new Date();
+      if (!user.lastxptime || (now - user.lastxptime) > 24 * 60 * 60 * 1000) {
+        let xp2 = '10'
+        db.xp = Number(db.xp) + Number(xp2);
+        user.lastxptime = now;
+        await user.save();
+        ctx.reply(`Has ganado 10 xp, para seguir ganando debes incrementar tu uso con el bot!`);
+      } else {
+        ctx.reply('Ya has utilizado este comando hoy. Intenta de nuevo mañana.');
+      }
     }
   });
 bot.command('comprarpropiedad', async (ctx) => {
