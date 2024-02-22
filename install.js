@@ -25,7 +25,7 @@ rl.question('Ingresa el token de acceso a Telegram: ', (telegramToken) => {
                     return;
                 }
                 console.log(`Dependencias instaladas exitosamente: ${stdout}`);
-                exec('npm start', (error, stdout, stderr) => {
+                exec('npm run start', (error, stdout, stderr) => {
                     if (error) {
                         console.error(`Error al ejecutar npm start: ${error}`);
                         return;
