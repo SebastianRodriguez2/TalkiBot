@@ -392,6 +392,7 @@ bot.command('miapi', async (ctx) => {
 ${jsonlanguage.miapi}
 https://apikasu.onrender.com/`);
 });
+let startTime;
 bot.command('uptime', (ctx) => {
     const currentTime = new Date();
     const uptimeInSeconds = Math.floor((currentTime - startTime) / 1000);
