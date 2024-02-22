@@ -1621,8 +1621,8 @@ bot.command('ganarxp', async (ctx) => {
     if (user) {
       const now = new Date();
       if (!user.lastxptime || (now - user.lastxptime) > 24 * 60 * 60 * 1000) {
-        let xp2 = '10'
-        db.xp = Number(db.xp) + Number(xp2);
+        const xp2 = '10'
+        user.xp = Number(user.xp) + Number(xp2);
         user.lastxptime = now;
         await user.save();
         ctx.reply(`Has ganado 10 xp, para seguir ganando debes incrementar tu uso con el bot!`);
