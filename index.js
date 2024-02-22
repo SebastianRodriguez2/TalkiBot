@@ -16,15 +16,37 @@ const jsonidioma = `./idiomas/${idiomaCodigo}.json`;
 const jsonlanguage = JSON.parse(fs.readFileSync(jsonidioma, 'utf8'));
 
 function getLevelName(xp) {
-    if (xp >= 50_000) return 'All-Father';
-    if (xp >= 25_000) return 'Sage';
-    if (xp >= 20_000) return 'Divine';
-    if (xp >= 15_000) return 'Archmage';
-    if (xp >= 10_000) return 'Myth';
-    if (xp >= 5_000) return 'Hero';
-    if (xp >= 1_000) return 'Guardian';
-    if (xp >= 100) return 'Magus';
-    return 'Apprentice';
+    if (xp >= 3000) return '30';
+    if (xp >= 2900) return '29';
+    if (xp >= 2800) return '28';
+    if (xp >= 2700) return '27';
+    if (xp >= 2600) return '26';
+    if (xp >= 2500) return '25';
+    if (xp >= 2400) return '24';
+    if (xp >= 2300) return '23';
+    if (xp >= 2200) return '22';
+    if (xp >= 2100) return '21';
+    if (xp >= 2000) return '20';
+    if (xp >= 1900) return '19';
+    if (xp >= 1800) return '18';
+    if (xp >= 1700) return '17';
+    if (xp >= 1600) return '16';
+    if (xp >= 1500) return '15';
+    if (xp >= 1400) return '14';
+    if (xp >= 1300) return '13';
+    if (xp >= 1200) return '12';
+    if (xp >= 1100) return '11';
+    if (xp >= 1000) return '10';
+    if (xp >= 900) return '9';
+    if (xp >= 800) return '8';
+    if (xp >= 700) return '7';
+    if (xp >= 600) return '6';
+    if (xp >= 500) return '5';
+    if (xp >= 400) return '4';
+    if (xp >= 300) return '3';
+    if (xp >= 200) return '2';
+    if (xp >= 100) return '1';
+    return '0';
   }
 
 console.log(`
