@@ -22,10 +22,10 @@ bot.use((ctx) => {
     if (ctx.message.text == undefined) {
 
     } else {
-        consol.info(`\nChat:` + yellow(ctx.chat.type) + `\n` +
-            green(`Usuario: `) + blue(ctx.from.username) + `\n` +
-            green(`Message: `) + blue(ctx.message.text) + `\n` +
-            green(`ID: ` + blue(ctx.from.id) + `\n`)
+        consol.info(`\nChat:` + (ctx.chat.type) + `\n` +
+            (`Usuario: `) + (ctx.from.username) + `\n` +
+            (`Message: `) + (ctx.message.text) + `\n` +
+            (`ID: ` + (ctx.from.id) + `\n`)
         );
     }
 
@@ -1636,18 +1636,18 @@ bot.command('ganarxp', async (ctx) => {
     const userId = ctx.from.id;
     const user = await User.findOne({ userId });
     if (user) {
-      const now = new Date();
-      if (!user.lastxptime || (now - user.lastxptime) > 24 * 60 * 60 * 1000) {
-        const xp2 = '10'
-        user.xp = Number(user.xp) + Number(xp2);
-        user.lastxptime = now;
-        await user.save();
-        ctx.reply(`Has ganado 10 xp, para seguir ganando debes incrementar tu uso con el bot!`);
-      } else {
-        ctx.reply('Ya has utilizado este comando hoy. Intenta de nuevo mañana.');
-      }
+        const now = new Date();
+        if (!user.lastxptime || (now - user.lastxptime) > 24 * 60 * 60 * 1000) {
+            const xp2 = '10'
+            user.xp = Number(user.xp) + Number(xp2);
+            user.lastxptime = now;
+            await user.save();
+            ctx.reply(`Has ganado 10 xp, para seguir ganando debes incrementar tu uso con el bot!`);
+        } else {
+            ctx.reply('Ya has utilizado este comando hoy. Intenta de nuevo mañana.');
+        }
     }
-  });
+});
 bot.command('comprarpropiedad', async (ctx) => {
     const userId = ctx.from.id;
     try {
