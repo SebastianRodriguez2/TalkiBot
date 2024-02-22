@@ -5,7 +5,7 @@
   "main": "bot.js",
   "scripts": {
     "start": "node index.js",
-    "installbot": "node install.js",
+    "install": "node install.js",
     "dev": "nodemon bot.js"
   },
   "keywords": [],
