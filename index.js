@@ -16,15 +16,15 @@ const jsonidioma = `./idiomas/${idiomaCodigo}.json`;
 const jsonlanguage = JSON.parse(fs.readFileSync(jsonidioma, 'utf8'));
 
 function getLevelName(xp) {
-    if (xp >= 50_000) return 'Máster del Bot';
-    if (xp >= 25_000) return 'Experto en Telegram';
-    if (xp >= 20_000) return 'Maestro Mensajero';
-    if (xp >= 15_000) return 'Embajador de Mensajes';
-    if (xp >= 10_000) return 'Conversador Avanzado';
-    if (xp >= 5_000) return 'Iniciado de Charlas';
-    if (xp >= 1_000) return 'Principiante de Palabras';
-    if (xp >= 100) return 'Aficionado de Texto';
-    return 'Novato';
+    if (xp >= 50_000) return 'All-Father';
+    if (xp >= 25_000) return 'Sage';
+    if (xp >= 20_000) return 'Divine';
+    if (xp >= 15_000) return 'Archmage';
+    if (xp >= 10_000) return 'Myth';
+    if (xp >= 5_000) return 'Hero';
+    if (xp >= 1_000) return 'Guardian';
+    if (xp >= 100) return 'Magus';
+    return 'Apprentice';
   }
 
 console.log(`
