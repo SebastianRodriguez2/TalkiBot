@@ -15,6 +15,12 @@ rl.question('Ingresa el token de acceso a Telegram: ', (telegramToken) => {
                 language: botLanguage,
                 mongodb: databaseUrl
             };
+
+            console.log('Variables de entorno configuradas:');
+            console.log(`process.env.token: ${process.env.token}`);
+            console.log(`process.env.language: ${process.env.language}`);
+            console.log(`process.env.mongodb: ${process.env.mongodb}`);
+        
             fs.writeFileSync('config.json', JSON.stringify(config, null, 2));
             process.env.token = telegramToken;
             process.env.language = botLanguage;
@@ -25,7 +31,7 @@ rl.question('Ingresa el token de acceso a Telegram: ', (telegramToken) => {
                     return;
                 }
                 console.log(`Dependencias instaladas exitosamente: ${stdout}`);
-                exec('npm run start', (error, stdout, stderr) => {
+                exec('npm start', (error, stdout, stderr) => {
                     if (error) {
                         console.error(`Error al ejecutar npm start: ${error}`);
                         return;
