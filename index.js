@@ -18,19 +18,6 @@ const idiomaCodigo = process.env.language || 'es'
 const jsonidioma = `./idiomas/${idiomaCodigo}.json`;
 const jsonlanguage = JSON.parse(fs.readFileSync(jsonidioma, 'utf8'));
 
-bot.use((ctx) => {
-    if (ctx.message.text == undefined) {
-
-    } else {
-        consol.info(`\nChat:` + (ctx.chat.type) + `\n` +
-            (`Usuario: `) + (ctx.from.username) + `\n` +
-            (`Message: `) + (ctx.message.text) + `\n` +
-            (`ID: ` + (ctx.from.id) + `\n`)
-        );
-    }
-
-});
-
 console.log(`
  ████████╗ █████╗ ██╗     ██╗  ██╗██╗    ██████╗  ██████╗ ████████╗
  ╚══██╔══╝██╔══██╗██║     ██║ ██╔╝██║    ██╔══██╗██╔═══██╗╚══██╔══╝
@@ -1926,4 +1913,16 @@ bot.command('respondercaso', (ctx) => {
 });
 //termina categoria de juegos
 
+bot.use((ctx) => {
+    if (ctx.message.text == undefined) {
+
+    } else {
+        consol.info(`\nChat:` + (ctx.chat.type) + `\n` +
+            (`Usuario: `) + (ctx.from.username) + `\n` +
+            (`Message: `) + (ctx.message.text) + `\n` +
+            (`ID: ` + (ctx.from.id) + `\n`)
+        );
+    }
+
+});
 bot.launch();
