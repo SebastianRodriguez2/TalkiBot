@@ -1869,9 +1869,10 @@ bot.command('acertijo', (ctx) => {
 bot.command('responderacertijo', (ctx) => {
     manejarRespuesta(ctx);
 });
+
 let CasosJSON;
 try {
-    const data = fs.readFileSync('./media/acertijo.json', 'utf8');
+    const data = fs.readFileSync('./media/casos.json', 'utf8');
     CasosJSON = JSON.parse(data);
 } catch (error) {
     console.error('Error al cargar el archivo JSON de casos');
