@@ -1871,6 +1871,9 @@ bot.command('responderacertijo', (ctx) => {
 });
 
 let CasosJSON;
+let tiempoLimite2 = 60000;
+let tiempoInicio2;
+let intervaloTiempo2;
 try {
     const data = fs.readFileSync('./media/casos.json', 'utf8');
     CasosJSON = JSON.parse(data);
@@ -1887,16 +1890,16 @@ function iniciarJuego(ctx) {
     if (!JuegoActivo2) {
         JuegoActivo2 = true;
         CasoActual = ObtenerCasoAleatorio();
-        tiempoInicio = Date.now();
+        tiempoInicio2 = Date.now();
         ctx.reply(`
 Caso: ${CasoActual.caso}\n
 sospechosos: ${CasoActual.Sospechosos}\n
-Tiempo: 30 segundos`);
-        intervaloTiempo = setInterval(() => {
-            const tiempoTranscurrido = Date.now() - tiempoInicio;
+Tiempo: 60 segundos`);
+        intervaloTiempo2 = setInterval(() => {
+            const tiempoTranscurrido = Date.now() - tiempoInicio2;
 
-            if (tiempoTranscurrido >= tiempoLimite) {
-                clearInterval(intervaloTiempo);
+            if (tiempoTranscurrido >= tiempoLimite2) {
+                clearInterval(intervaloTiempo2);
                 finalizarJuego(ctx, 'Tiempo para responder agotado. El caso ha finalizado.');
             }
         }, 1000);
@@ -1905,7 +1908,7 @@ Tiempo: 30 segundos`);
 function finalizarJuego(ctx, mensaje) {
     JuegoActivo2 = false;
     ctx.reply(mensaje);
-    clearInterval(intervaloTiempo);
+    clearInterval(intervaloTiempo2);
 }
 function calcularSimilitud(str1, str2) {
     const set1 = new Set(str1);
@@ -1918,11 +1921,11 @@ function calcularSimilitud(str1, str2) {
 function manejarRespuesta(ctx) {
     if (JuegoActivo2) {
         const respuestaUsuario = ctx.message.text.split(' ').slice(1).join(' ').toLowerCase();
-        const tiempoTranscurrido = Date.now() - tiempoInicio;
+        const tiempoTranscurrido = Date.now() - tiempoInicio2;
         const similitud = calcularSimilitud(respuestaUsuario, CasoActual.response.toLowerCase());
-        if (tiempoTranscurrido <= tiempoLimite && similitud >= 0.7) {
+        if (tiempoTranscurrido <= tiempoLimite2 && similitud >= 0.7) {
             finalizarJuego(ctx, '¡Respuesta correcta!');
-        } else if (tiempoTranscurrido > tiempoLimite) {
+        } else if (tiempoTranscurrido > tiempoLimite2) {
             finalizarJuego(ctx, 'Tiempo para responder agotado. El caso ha finalizado.');
         } else {
             ctx.reply(`Respuesta incorrecta. La similitud es ${similitud * 100}%. ¡Inténtalo de nuevo!`);
