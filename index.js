@@ -21,10 +21,14 @@ const jsonlanguage = JSON.parse(fs.readFileSync(jsonidioma, 'utf8'));
 
 
 function imprimirMensaje(ctx) {
-    console.log(`\nTipo de chat: ${ctx.chat.type}` +
-        `\nID: ${ctx.from.id}` +
-        `\nUsuario: ${ctx.message.from.first_name}` +
-        `\nMensaje: ${ctx.message.text}`);
+    const { chat, from, message } = ctx;
+    const formattedMessage = `
+        \x1b[43mHora: \x1b[0m\x1b[33m${new Date().toLocaleTimeString()}\x1b[0m
+        \x1b[41mID: \x1b[0m\x1b[31m${from.id}\x1b[0m
+        \x1b[41mUsername: \x1b[0m\x1b[31m${from.username}\x1b[0m
+        Mensaje: ${message.text}
+    `;
+    cx.info(formattedMessage);
 }
 bot.use((ctx, next) => {
     if (ctx.message.text == undefined) {
