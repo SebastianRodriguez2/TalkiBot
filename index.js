@@ -2,8 +2,8 @@ const { Telegraf } = require('telegraf');
 const fetch = require('node-fetch')
 const mongoose = require('mongoose');
 const fs = require('fs');
+import cfonts from 'cfonts';
 const { say } = cfonts
-
 
 let startTime = new Date();
 const logo = 'https://i.imgur.com/ZCeiOY4.jpg';
