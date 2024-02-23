@@ -56,11 +56,19 @@ say(`
     ██║   ███████║██║     █████╔╝ ██║    ██████╔╝██║   ██║   ██║   
     ██║   ██╔══██║██║     ██╔═██╗ ██║    ██╔══██╗██║   ██║   ██║   
     ██║   ██║  ██║███████╗██║  ██╗██║    ██████╔╝╚██████╔╝   ██║   
-    ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝    ╚═════╝  ╚═════╝    ╚═╝ @Sebastian @Traxnox
-                      BOT DE TELEGRAM
-
-Intentando hacer conexión con la base de datos de MongoDB`, {
+    ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝    ╚═════╝  ╚═════╝    ╚═╝`, {
     font: 'chrome',
+    align: 'center',
+    gradient: ['red', 'magenta']
+  })
+say(`@Sebastian, @Traxnox.`, {
+    font: 'console',
+    align: 'center',
+    gradient: ['red', 'magenta']
+  })
+
+  say(`Intentando hacer conexion con MongoDB.`, {
+    font: 'console',
     align: 'center',
     gradient: ['red', 'magenta']
   })
