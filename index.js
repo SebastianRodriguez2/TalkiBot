@@ -28,7 +28,7 @@ function imprimirMensaje(ctx) {
         \x1b[41mUsername: \x1b[0m\x1b[31m${from.username}\x1b[0m
         Mensaje: ${message.text}
     `;
-    cx.info(formattedMessage);
+    console.log(formattedMessage);
 }
 bot.use((ctx, next) => {
     if (ctx.message.text == undefined) {
