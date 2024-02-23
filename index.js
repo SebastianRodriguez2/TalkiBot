@@ -6,15 +6,34 @@ const cfonts = require('cfonts');
 const { say } = cfonts
 
 let startTime = new Date();
+
 const logo = 'https://i.imgur.com/ZCeiOY4.jpg';
 const perfildeterminado = 'https://i.imgur.com/VVA2sbG.jpg'
 const apikasu = "https://apikasu.onrender.com"
 const apikey = "SebastianDevelop"
-const bot = new Telegraf(process.env.token);
-const mongoUrl = process.env.mongodb;
+
+const bot = new Telegraf('6711277361:AAEiGUqxlMqEmD1qjveyGOOj8ut2Ie9FpPI');
+const mongoUrl = 'mongodb+srv://talki1:talki1@cluster0.dnimmgj.mongodb.net/?retryWrites=true&w=majority';
+
 const idiomaCodigo = process.env.language || 'es'
 const jsonidioma = `./idiomas/${idiomaCodigo}.json`;
 const jsonlanguage = JSON.parse(fs.readFileSync(jsonidioma, 'utf8'));
+
+
+function imprimirMensaje(ctx) {
+    console.log(`\nTipo de chat: ${ctx.chat.type}` +
+        `\nID: ${ctx.from.id}` +
+        `\nUsuario: ${ctx.message.from.first_name}` +
+        `\nMensaje: ${ctx.message.text}`);
+}
+bot.use((ctx, next) => {
+    if (ctx.message.text == undefined) {
+    } else {
+        imprimirMensaje(ctx);
+    }
+    next();
+});
+
 
 function getLevelName(xp) {
     if (xp >= 3000) return '30';
@@ -48,24 +67,24 @@ function getLevelName(xp) {
     if (xp >= 200) return '2';
     if (xp >= 100) return '1';
     return '0';
-  }
+}
 
 say(`TALKI BOT`, {
     font: 'chrome',
     align: 'center',
     gradient: ['red', 'magenta']
-  })
+})
 say(`@Sebastian, @Traxnox.`, {
     font: 'console',
     align: 'center',
     gradient: ['red', 'magenta']
-  })
+})
 
-  say(`Intentando hacer conexion con MongoDB.`, {
+say(`Intentando hacer conexion con MongoDB.`, {
     font: 'console',
     align: 'center',
     gradient: ['red', 'magenta']
-  })
+})
 
 
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
