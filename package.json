@@ -18,8 +18,7 @@
     "telegraf": "^4.15.3",
     "child_process": "latest",
     "readline": "latest",
-    "chalk": "^4.1.2",
-    "consola": "^3.2.3"
+    "cfonts": "latest"
   },
   "devDependencies": {
     "nodemon": "^3.0.3"

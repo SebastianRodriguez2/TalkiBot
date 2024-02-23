@@ -3,8 +3,7 @@ const fetch = require('node-fetch')
 const mongoose = require('mongoose');
 const fs = require('fs');
 const { getLevelName } = require('./functions/Ranks.js');
-const chalk = require('chalk');
-const consol = require('consola');
+const { say } = cfonts
 
 
 let startTime = new Date();
@@ -52,7 +51,7 @@ function getLevelName(xp) {
     return '0';
   }
 
-console.log(`
+say(`
  ████████╗ █████╗ ██╗     ██╗  ██╗██╗    ██████╗  ██████╗ ████████╗
  ╚══██╔══╝██╔══██╗██║     ██║ ██╔╝██║    ██╔══██╗██╔═══██╗╚══██╔══╝
     ██║   ███████║██║     █████╔╝ ██║    ██████╔╝██║   ██║   ██║   
@@ -61,7 +60,11 @@ console.log(`
     ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝    ╚═════╝  ╚═════╝    ╚═╝ @Sebastian @Traxnox
                       BOT DE TELEGRAM
 
-Intentando hacer conexión con la base de datos de MongoDB`);
+Intentando hacer conexión con la base de datos de MongoDB`, {
+    font: 'chrome',
+    align: 'center',
+    gradient: ['red', 'magenta']
+  })
 
 
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -1946,17 +1949,4 @@ bot.command('respondercaso', (ctx) => {
     manejarRespuesta(ctx);
 });
 //termina categoria de juegos
-
-bot.use((ctx) => {
-    if (ctx.message.text == undefined) {
-
-    } else {
-        consol.info(`\nChat:` + (ctx.chat.type) + `\n` +
-            (`Usuario: `) + (ctx.from.username) + `\n` +
-            (`Message: `) + (ctx.message.text) + `\n` +
-            (`ID: ` + (ctx.from.id) + `\n`)
-        );
-    }
-
-});
 bot.launch();
