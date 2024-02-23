@@ -12,8 +12,8 @@ const perfildeterminado = 'https://i.imgur.com/VVA2sbG.jpg'
 const apikasu = "https://apikasu.onrender.com"
 const apikey = "SebastianDevelop"
 
-const bot = new Telegraf('6711277361:AAEiGUqxlMqEmD1qjveyGOOj8ut2Ie9FpPI');
-const mongoUrl = 'mongodb+srv://talki1:talki1@cluster0.dnimmgj.mongodb.net/?retryWrites=true&w=majority';
+const bot = new Telegraf(process.env.token);
+const mongoUrl = process.env.mongodb;
 
 const idiomaCodigo = process.env.language || 'es'
 const jsonidioma = `./idiomas/${idiomaCodigo}.json`;
