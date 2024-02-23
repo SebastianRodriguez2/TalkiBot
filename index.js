@@ -23,10 +23,8 @@ const jsonlanguage = JSON.parse(fs.readFileSync(jsonidioma, 'utf8'));
 function imprimirMensaje(ctx) {
     const { chat, from, message } = ctx;
     const formattedMessage = `
-        \x1b[43mHora: \x1b[0m\x1b[33m${new Date().toLocaleTimeString()}\x1b[0m
-        \x1b[41mID: \x1b[0m\x1b[31m${from.id}\x1b[0m
-        \x1b[41mUsername: \x1b[0m\x1b[31m${from.username}\x1b[0m
-        Mensaje: ${message.text}
+    \x1b[30mID: ${ctx.from.id}\x1b[0m \x1b[41m\x1b[30mUsername: ${ctx.from.username} \x1b[43m\x1b[30mHora: ${new Date().toLocaleTimeString()} \x1b[0m
+    \x1b[0m Mensaje: ${message.text}
     `;
     console.log(formattedMessage);
 }
@@ -37,7 +35,6 @@ bot.use((ctx, next) => {
     }
     next();
 });
-
 
 function getLevelName(xp) {
     if (xp >= 3000) return '30';
