@@ -2,7 +2,7 @@ const { Telegraf } = require('telegraf');
 const fetch = require('node-fetch')
 const mongoose = require('mongoose');
 const fs = require('fs');
-import cfonts from 'cfonts';
+const cfonts = require('cfonts');
 const { say } = cfonts
 
 let startTime = new Date();
