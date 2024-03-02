@@ -29,8 +29,7 @@ function imprimirMensaje(ctx) {
     console.log(formattedMessage);
 }
 bot.use((ctx, next) => {
-    if (ctx.message.text == undefined) {
-    } else {
+    if (ctx.message && ctx.message.text !== undefined) {
         imprimirMensaje(ctx);
     }
     next();
