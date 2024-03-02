@@ -7,8 +7,8 @@ const { say } = cfonts
 
 let startTime = new Date();
 
-const logo = 'https://i.imgur.com/ZCeiOY4.jpg';
-const perfildeterminado = 'https://i.imgur.com/VVA2sbG.jpg'
+const logo = 'https://ibb.co/rs2f2Wx';
+const perfildeterminado = 'https://ibb.co/8jC4Q6j'
 const apikasu = "https://apikasu.onrender.com"
 const apikey = "SebastianDevelop"
 
