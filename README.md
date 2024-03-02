@@ -16,7 +16,6 @@
 | **PROBAR EL BOT ANTES DE INSTALAR** | ***PROBAR EL BOT*** |[VER](https://github.com/BOT-TX/TalkiBot?tab=readme-ov-file#probar-bot) |
 | **BOT PARA SACAR EL TOKEN** | ***BOT PARA SACAR EL TOKEN DE VERIFICACION*** |[VER](https://github.com/BOT-TX/TalkiBot?tab=readme-ov-file#bot-father) |
 | **MONGO DB** | ***MONGO DB CREAR CUENTA*** |[VER](https://github.com/BOT-TX/TalkiBot?tab=readme-ov-file#mongo-db) |
-| **DATABASES PUBLICAS** | ***DATABASES PUBLICAS PARA EN CASO DE NO ENTENDER O ERROR*** |[VER](https://github.com/BOT-TX/TalkiBot?tab=readme-ov-file#databases-publicas) |
 
 
 ***
@@ -63,13 +62,3 @@ BOT PARA SACAR EL TOKEN
 PAGINA PARA SACAR BASE DE DATOS
 -  [`MONGODB`](https://cloud.mongodb.com/)
 
-***
-
-### DATABASES PUBLICAS
-
-```sh
-mongodb+srv://talki1:talki1@cluster0.dnimmgj.mongodb.net/?retryWrites=true&w=majority
-```
-```sh
-mongodb+srv://talki:talki@cluster0.6eub29c.mongodb.net/?retryWrites=true&w=majority
-```
