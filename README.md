@@ -76,6 +76,3 @@ mongodb+srv://talki:talki@cluster0.6eub29c.mongodb.net/?retryWrites=true&w=major
 ```sh
 mongodb+srv://talki2:talki2@cluster0.4wb7ixq.mongodb.net/?retryWrites=true&w=majority
 ```
-```sh
-mongodb+srv://talki3:talki3@cluster0.liwpj6h.mongodb.net/?retryWrites=true&w=majority
-```
