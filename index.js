@@ -138,6 +138,7 @@ ${jsonlanguage.limitestelegram}
       /help
       /creadores
       /cuentasoficiales
+      /script
       /miapi
       /ping
       /uptime
@@ -190,6 +191,7 @@ ${jsonlanguage.limitestelegram}
      /help
      /creadores
      /cuentasoficiales
+     /script
      /miapi
      /ping
      /uptime
@@ -456,6 +458,9 @@ bot.command('miapi', async (ctx) => {
     ctx.reply(`
 ${jsonlanguage.miapi}
 https://apikasu.onrender.com/`);
+});
+bot.command('script', async (ctx) => {
+    ctx.reply(`https://github.com/BOT-TX/TalkiBot`);
 });
 bot.command('uptime', (ctx) => {
     const currentTime = new Date();
