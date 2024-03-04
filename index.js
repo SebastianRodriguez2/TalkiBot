@@ -10,7 +10,7 @@ let startTime = new Date();
 const logo = "https://telegra.ph/file/470647d2a89f6381d644f.jpg"
 const perfildeterminado = "https://telegra.ph/file/d3dddde7f6ea244c4d736.jpg"
 const apikasu = "https://apikasu.onrender.com"
-const apikey = "SebastianDevelop"
+const apikey = process.env.apikey
 
 const bot = new Telegraf(process.env.token);
 const mongoUrl = process.env.mongodb;
