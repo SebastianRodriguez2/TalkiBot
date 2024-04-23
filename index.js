@@ -1531,7 +1531,7 @@ bot.command('youtubevideo', async (ctx) => {
         const response = await fetch(apiUrl);
         if (response.ok) {
             const data = await response.json();
-            const videoBuffer = await fetch(data.videoUrl).then(res => res.buffer());
+            const videoBuffer = await fetch(data.data.vid_360p).then(res => res.buffer());
             ctx.replyWithVideo({ source: { source: videoBuffer } });
             ctx.reply(`Información del video:\nTítulo: ${data.title}\nDuración: ${data.duration}\nTamaño: ${data.size}`);
         } else {
