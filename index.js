@@ -164,12 +164,12 @@ ${jsonlanguage.limitestelegram}
             caption: menu,
             reply_markup: {
                 inline_keyboard: [
-                    [{ text: 'ACERCA DE', callback_data: 'acerca' }],
-                    [{ text: 'INFORMACION', callback_data: 'informacion' }],
-                    [{ text: 'HERRAMIENTAS', callback_data: 'herramientas' }],
-                    [{ text: 'ECONOMIA', callback_data: 'economia' }],
-                    [{ text: 'JUEGOS', callback_data: 'juegos' }],
-                    [{ text: 'DESCARGAS, BUSQUEDAS Y STALKEOS', callback_data: 'dl' }],
+                    [{ text: `${jsonlanguage.acercadem}`, callback_data: 'acerca' }],
+                    [{ text: `${jsonlanguage.informacionm}`, callback_data: 'informacion' }],
+                    [{ text: `${jsonlanguage.herramientasm}`, callback_data: 'herramientas' }],
+                    [{ text: `${jsonlanguage.economiam}`, callback_data: 'economia' }],
+                    [{ text: `${jsonlanguage.games}`, callback_data: 'juegos' }],
+                    [{ text: `${jsonlanguage.dlm}`, callback_data: 'dl' }],
                 ],
             },
         });
@@ -201,12 +201,12 @@ ${jsonlanguage.limitestelegram}
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
             inline_keyboard: [
-                [{ text: 'ACERCA DE', callback_data: 'acerca' }],
-                [{ text: 'INFORMACION', callback_data: 'informacion' }],
-                [{ text: 'HERRAMIENTAS', callback_data: 'herramientas' }],
-                [{ text: 'ECONOMIA', callback_data: 'economia' }],
-                [{ text: 'JUEGOS', callback_data: 'juegos' }],
-                [{ text: 'DESCARGAS, BUSQUEDAS Y STALKEOS', callback_data: 'dl' }],
+                [{ text: `${jsonlanguage.acercadem}`, callback_data: 'acerca' }],
+                [{ text: `${jsonlanguage.informacionm}`, callback_data: 'informacion' }],
+                [{ text: `${jsonlanguage.herramientasm}`, callback_data: 'herramientas' }],
+                [{ text: `${jsonlanguage.economiam}`, callback_data: 'economia' }],
+                [{ text: `${jsonlanguage.games}`, callback_data: 'juegos' }],
+                [{ text: `${jsonlanguage.dlm}`, callback_data: 'dl' }],
             ],
         }
     });
@@ -223,7 +223,7 @@ ${jsonlanguage.limitestelegram}
       
     ${jsonlanguage.acercade} 
 
-      /help
+      /menu
       /creadores
       /cuentasoficiales
       /miapi
@@ -235,11 +235,11 @@ ${jsonlanguage.limitestelegram}
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
             inline_keyboard: [
-                [{ text: 'INFORMACION', callback_data: 'informacion' }],
-                [{ text: 'HERRAMIENTAS', callback_data: 'herramientas' }],
-                [{ text: 'ECONOMIA', callback_data: 'economia' }],
-                [{ text: 'JUEGOS', callback_data: 'juegos' }],
-                [{ text: 'DESCARGAS, BUSQUEDAS Y STALKEOS', callback_data: 'dl' }],
+                [{ text: `${jsonlanguage.informacionm}`, callback_data: 'informacion' }],
+                [{ text: `${jsonlanguage.herramientasm}`, callback_data: 'herramientas' }],
+                [{ text: `${jsonlanguage.economiam}`, callback_data: 'economia' }],
+                [{ text: `${jsonlanguage.games}`, callback_data: 'juegos' }],
+                [{ text: `${jsonlanguage.dlm}`, callback_data: 'dl' }],
             ],
         }
     });
@@ -264,11 +264,11 @@ ${jsonlanguage.limitestelegram}
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
             inline_keyboard: [
-                [{ text: 'ACERCA DE', callback_data: 'acerca' }],
-                [{ text: 'HERRAMIENTAS', callback_data: 'herramientas' }],
-                [{ text: 'ECONOMIA', callback_data: 'economia' }],
-                [{ text: 'JUEGOS', callback_data: 'juegos' }],
-                [{ text: 'DESCARGAS, BUSQUEDAS Y STALKEOS', callback_data: 'dl' }],
+                [{ text: `${jsonlanguage.acercadem}`, callback_data: 'acerca' }],
+                [{ text: `${jsonlanguage.herramientasm}`, callback_data: 'herramientas' }],
+                [{ text: `${jsonlanguage.economiam}`, callback_data: 'economia' }],
+                [{ text: `${jsonlanguage.games}`, callback_data: 'juegos' }],
+                [{ text: `${jsonlanguage.dlm}`, callback_data: 'dl' }],
             ],
         }
     });
@@ -298,11 +298,11 @@ ${jsonlanguage.limitestelegram}
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
             inline_keyboard: [
-                [{ text: 'ACERCA DE', callback_data: 'acerca' }],
-                [{ text: 'INFORMACION', callback_data: 'informacion' }],
-                [{ text: 'ECONOMIA', callback_data: 'economia' }],
-                [{ text: 'JUEGOS', callback_data: 'juegos' }],
-                [{ text: 'DESCARGAS, BUSQUEDAS Y STALKEOS', callback_data: 'dl' }],
+                [{ text: `${jsonlanguage.acercadem}`, callback_data: 'acerca' }],
+                [{ text: `${jsonlanguage.informacionm}`, callback_data: 'informacion' }],
+                [{ text: `${jsonlanguage.economiam}`, callback_data: 'economia' }],
+                [{ text: `${jsonlanguage.games}`, callback_data: 'juegos' }],
+                [{ text: `${jsonlanguage.dlm}`, callback_data: 'dl' }],
             ],
         }
     });
@@ -324,11 +324,11 @@ ${jsonlanguage.limitestelegram}
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
             inline_keyboard: [
-                [{ text: 'ACERCA DE', callback_data: 'acerca' }],
-                [{ text: 'INFORMACION', callback_data: 'informacion' }],
-                [{ text: 'HERRAMIENTAS', callback_data: 'herramientas' }],
-                [{ text: 'JUEGOS', callback_data: 'juegos' }],
-                [{ text: 'DESCARGAS, BUSQUEDAS Y STALKEOS', callback_data: 'dl' }],
+                [{ text: `${jsonlanguage.acercadem}`, callback_data: 'acerca' }],
+                [{ text: `${jsonlanguage.informacionm}`, callback_data: 'informacion' }],
+                [{ text: `${jsonlanguage.herramientasm}`, callback_data: 'herramientas' }],
+                [{ text: `${jsonlanguage.games}`, callback_data: 'juegos' }],
+                [{ text: `${jsonlanguage.dlm}`, callback_data: 'dl' }],
             ],
         }
     });
@@ -351,11 +351,11 @@ ${jsonlanguage.limitestelegram}
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
             inline_keyboard: [
-                [{ text: 'ACERCA DE', callback_data: 'acerca' }],
-                [{ text: 'INFORMACION', callback_data: 'informacion' }],
-                [{ text: 'HERRAMIENTAS', callback_data: 'herramientas' }],
-                [{ text: 'ECONOMIA', callback_data: 'economia' }],
-                [{ text: 'DESCARGAS, BUSQUEDAS Y STALKEOS', callback_data: 'dl' }],
+                [{ text: `${jsonlanguage.acercadem}`, callback_data: 'acerca' }],
+                [{ text: `${jsonlanguage.informacionm}`, callback_data: 'informacion' }],
+                [{ text: `${jsonlanguage.herramientasm}`, callback_data: 'herramientas' }],
+                [{ text: `${jsonlanguage.economiam}`, callback_data: 'economia' }],
+                [{ text: `${jsonlanguage.dlm}`, callback_data: 'dl' }],
             ],
         }
     });
@@ -399,11 +399,11 @@ ${jsonlanguage.limitestelegram}
     ctx.replyWithPhoto({ url: logo }, {
         caption: menu, reply_markup: {
             inline_keyboard: [
-                [{ text: 'ACERCA DE', callback_data: 'acerca' }],
-                [{ text: 'INFORMACION', callback_data: 'informacion' }],
-                [{ text: 'HERRAMIENTAS', callback_data: 'herramientas' }],
-                [{ text: 'ECONOMIA', callback_data: 'economia' }],
-                [{ text: 'JUEGOS', callback_data: 'juegos' }],
+                [{ text: `${jsonlanguage.acercadem}`, callback_data: 'acerca' }],
+                [{ text: `${jsonlanguage.informacionm}`, callback_data: 'informacion' }],
+                [{ text: `${jsonlanguage.herramientasm}`, callback_data: 'herramientas' }],
+                [{ text: `${jsonlanguage.economiam}`, callback_data: 'economia' }],
+                [{ text: `${jsonlanguage.games}`, callback_data: 'juegos' }],
             ],
         }
     });
@@ -682,7 +682,7 @@ bot.command('chatgpt', async (ctx) => {
     const command = '/chatgpt';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa un texto`);
+        ctx.reply(`${jsonlanguage.ingresatexto}`);
         return;
     }
     const response = await fetch(`${apikasu}/api/tools/chatgpt?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
@@ -690,7 +690,7 @@ bot.command('chatgpt', async (ctx) => {
         const textResponse = await response.json();
         ctx.reply(textResponse.result);
     } else {
-        ctx.reply('Hubo un error al obtener el texto desde la API.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 
@@ -698,7 +698,7 @@ bot.command('bard', async (ctx) => {
     const command = '/bard';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa un texto`);
+        ctx.reply(`${jsonlanguage.ingresatexto}`);
         return;
     }
     const response = await fetch(`${apikasu}/api/tools/bard?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
@@ -706,7 +706,7 @@ bot.command('bard', async (ctx) => {
         const textResponse = await response.json();
         ctx.reply(textResponse.result);
     } else {
-        ctx.reply('Hubo un error al obtener el texto desde la API.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 
@@ -714,7 +714,7 @@ bot.command('gemini', async (ctx) => {
     const command = '/gemini';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa un texto`);
+        ctx.reply(`${jsonlanguage.ingresatexto}`);
         return;
     }
     const response = await fetch(`${apikasu}/api/tools/gemini?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
@@ -722,7 +722,7 @@ bot.command('gemini', async (ctx) => {
         const textResponse = await response.json();
         ctx.reply(textResponse.result);
     } else {
-        ctx.reply('Hubo un error al obtener el texto desde la API.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 
@@ -730,7 +730,7 @@ bot.command('ipinfo', async (ctx) => {
     const command = '/ipinfo';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa una IP`);
+        ctx.reply(`${jsonlanguage.ingresaip}`);
         return;
     }
     const response = await fetch(`${apikasu}/api/tools/ip?ip=${userText}&apikey=${apikey}`);
@@ -738,23 +738,23 @@ bot.command('ipinfo', async (ctx) => {
         const textResponse = await response.json();
         const result = textResponse.result
         ctx.reply(`
-𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+${jsonlanguage.informacionm}
 
-𝗜𝗣: ${result.query}
-𝗣𝗮𝗶𝘀: ${result.country}
-𝗖𝗼𝗱𝗶𝗴𝗼 𝗱𝗲 𝗽𝗮𝗶𝘀: ${result.countryCode}
-𝗥𝗲𝗴𝗶𝗼𝗻: ${result.regionName}
-𝗖𝗼𝗱𝗶𝗴𝗼 𝗱𝗲 𝗹𝗮 𝗿𝗲𝗴𝗶𝗼𝗻: ${result.region}
-𝗖𝗶𝘂𝗱𝗮𝗱: ${result.city}
-𝗭𝗜𝗣: ${result.zip}
-𝗹𝗮𝘁𝗶𝘁𝘂𝗱: ${result.lat}
-𝗟𝗼𝗻𝗴𝗶𝘁𝘂𝗱: ${result.lon}
-𝗭𝗼𝗻𝗮 𝗵𝗼𝗿𝗮𝗿𝗶𝗮: ${result.timezone}
+${jsonlanguage.ip} ${result.query}
+${jsonlanguage.pais} ${result.country}
+${jsonlanguage.codepais} ${result.countryCode}
+${jsonlanguage.region} ${result.regionName}
+${jsonlanguage.coderegion} ${result.region}
+${jsonlanguage.ciudad} ${result.city}
+ZIP: ${result.zip}
+${jsonlanguage.latitud} ${result.lat}
+${jsonlanguage.longitud} ${result.lon}
+${jsonlanguage.zonah} ${result.timezone}
 𝗜𝗦𝗣: ${result.isp}
-𝗢𝗿𝗴𝗮𝗻𝗶𝘇𝗮𝗰𝗶𝗼𝗻: ${result.org}
-𝗘𝗺𝗽𝗿𝗲𝘀𝗮 𝗱𝗲 𝘁𝗲𝗹𝗲𝗳𝗼𝗻𝗶𝗮: ${result.as}`);
+${jsonlanguage.org} ${result.org}
+${jsonlanguage.telefonia} ${result.as}`);
     } else {
-        ctx.reply('Hubo un error al obtener el texto desde la API.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 
@@ -762,7 +762,7 @@ bot.command('bingcreator', async (ctx) => {
     const command = '/bingcreator';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa una peticion para crear la imagen`);
+        ctx.reply(`${jsonlanguage.bingcreatorpeticion}`);
         return;
     }
     const response = await fetch(`${apikasu}/api/tools/bingimg?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
@@ -772,7 +772,7 @@ bot.command('bingcreator', async (ctx) => {
         const imageUrl = `${result[0]}`;
         ctx.replyWithPhoto({ url: imageUrl });
     } else {
-        ctx.reply('Hubo un error al obtener la creacion desde la API.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 
@@ -780,7 +780,7 @@ bot.command('imagina', async (ctx) => {
     const command = '/imagina';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa una peticion para crear la imagen`);
+        ctx.reply(`${jsonlanguage.bingcreatorpeticion}`);
         return;
     }
     const apiUrl = `${apikasu}/api/tools/imagine?text=${encodeURIComponent(userText)}&apikey=${apikey}`;
@@ -790,11 +790,11 @@ bot.command('imagina', async (ctx) => {
             const PhotoBuffer = await response.buffer();
             ctx.replyWithPhoto({ source: PhotoBuffer });
         } else {
-            ctx.reply(`Error al generar la imagen`);
+            ctx.reply(`${jsonlanguage.error4}`);
         }
     } catch (error) {
-        console.error('Error al realizar la solicitud:');
-        ctx.reply('${jsonlanguage.error4}');
+        console.error(`${jsonlanguage.error4}`);
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 
@@ -802,7 +802,7 @@ bot.command('imagina2', async (ctx) => {
     const command = '/imagina2';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa una peticion para crear la imagen`);
+        ctx.reply(`${jsonlanguage.bingcreatorpeticion}`);
         return;
     }
     const apiUrl = `${apikasu}/api/tools/imagine2?text=${encodeURIComponent(userText)}&apikey=${apikey}`;
@@ -812,18 +812,18 @@ bot.command('imagina2', async (ctx) => {
             const PhotoBuffer = await response.buffer();
             ctx.replyWithPhoto({ source: PhotoBuffer });
         } else {
-            ctx.reply(`Error al generar la imagen`);
+            ctx.reply(`${jsonlanguage.error4}`);
         }
     } catch (error) {
-        console.error('Error al realizar la solicitud:');
-        ctx.reply('${jsonlanguage.error4}');
+        console.error(`${jsonlanguage.error4}`);
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 bot.command('ssweb', async (ctx) => {
     const command = '/ssweb';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa el enlace de la web`);
+        ctx.reply(`${jsonlanguage.ingresaurl}`);
         return;
     }
     const apiUrl = `${apikasu}/api/tools/ssweb?link=https://${encodeURIComponent(userText)}&apikey=${apikey}`;
@@ -833,11 +833,11 @@ bot.command('ssweb', async (ctx) => {
             const PhotoBuffer = await response.buffer();
             ctx.replyWithPhoto({ source: PhotoBuffer });
         } else {
-            ctx.reply(`Error al obtener la iamgen`);
+            ctx.reply(`${jsonlanguage.error4}`);
         }
     } catch (error) {
         console.error('Error al realizar la solicitud:');
-        ctx.reply('${jsonlanguage.error4}');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 bot.command('traducir', async (ctx) => {
@@ -846,11 +846,11 @@ bot.command('traducir', async (ctx) => {
     const [languageCode, ...textArray] = userText.split(' ');
     const userTextToTranslate = textArray.join(' ');
     if (!isValidLanguageCode(languageCode)) {
-        ctx.reply('Código de idioma no válido.');
+        ctx.reply(`${jsonlanguage.codel}`);
         return;
     }
     if (!userTextToTranslate) {
-        ctx.reply('Por favor, ingresa el texto que deseas traducir.');
+        ctx.reply(`${jsonlanguage.ingresatextra}`);
         return;
     }
     try {
@@ -859,17 +859,17 @@ bot.command('traducir', async (ctx) => {
         if (response.ok) {
             const translationResult = await response.json();
             const caption = `
-𝗧𝗥𝗔𝗗𝗨𝗖𝗖𝗜𝗢𝗡
+${jsonlanguage.traduccion}
 
-𝗧𝗲𝘅𝘁𝗼 𝗼𝗿𝗶𝗴𝗶𝗻𝗮𝗹: ${userTextToTranslate}
-𝗧𝗿𝗮𝗱𝘂𝗰𝗰𝗶𝗼𝗻 (${languageCode}): ${translationResult.result}`;
+${jsonlanguage.textorig} ${userTextToTranslate}
+${jsonlanguage.trad} (${languageCode}): ${translationResult.result}`;
             ctx.reply(caption);
         } else {
-            ctx.reply('Hubo un error al obtener la traducción desde la API.');
+            ctx.reply(`${jsonlanguage.error4}`);
         }
     } catch (error) {
         console.error('Error al traducir');
-        ctx.reply('Hubo un error al realizar la traducción.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 function isValidLanguageCode(code) {
@@ -893,7 +893,7 @@ bot.command('textoavoz', async (ctx) => {
     const command = '/textoavoz';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa el texto a convertir en audio`);
+        ctx.reply(`${jsonlanguage.ingresartextconv}`);
         return;
     }
     try {
@@ -904,29 +904,29 @@ bot.command('textoavoz', async (ctx) => {
             const audioBuffer = result
             ctx.replyWithAudio({ url: audioBuffer, filename: userText });
         } else {
-            ctx.reply('Hubo un error al obtener el audio.');
+            ctx.reply(`${jsonlanguage.error4}`);
         }
     } catch (error) {
         console.error('Error al procesar la solicitud.');
-        ctx.reply('Hubo un error al procesar la solicitud..');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 bot.command('acortarurl', async (ctx) => {
     const command = '/acortarurl';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa una url`);
+        ctx.reply(`${jsonlanguage.ingresaurlcortar}`);
         return;
     }
     const response = await fetch(`${apikasu}/api/linkshort/bitly?link=${encodeURIComponent(userText)}&apikey=${apikey}`);
     if (response.ok) {
         const textResponse = await response.json();
         ctx.reply(`
-𝗨𝗥𝗟 𝗮𝗻𝘁𝗲𝗿𝗶𝗼𝗿: ${userText}
-𝗨𝗥𝗟 𝗮𝗰𝗼𝗿𝘁𝗮𝗱𝗼: ${textResponse.result}
+${jsonlanguage.urlante} ${userText}
+${jsonlanguage.urlcortado} ${textResponse.result}
 `);
     } else {
-        ctx.reply('Hubo un error al obtener el enlace acortado desde la API.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 //termina categoria de 𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦
@@ -937,7 +937,7 @@ bot.command('image', async (ctx) => {
     const command = '/image';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa un texto para buscar la imagen`);
+        ctx.reply(`${jsonlanguage.buscarimgtext}`);
         return;
     }
     const response = await fetch(`${apikasu}/api/search/googleimg?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
@@ -947,14 +947,14 @@ bot.command('image', async (ctx) => {
         const imageUrl = `${result[0]}`;
         ctx.replyWithPhoto({ url: imageUrl });
     } else {
-        ctx.reply('Hubo un error al obtener la imagen.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 bot.command('pinterest', async (ctx) => {
     const command = '/pinterest';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa un texto para buscar la imagen`);
+        ctx.reply(`${jsonlanguage.buscarimgtext}`);
         return;
     }
     const response = await fetch(`${apikasu}/api/search/pinterest?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
@@ -964,14 +964,14 @@ bot.command('pinterest', async (ctx) => {
         const imageUrl = `${result[0]}`;
         ctx.replyWithPhoto({ url: imageUrl });
     } else {
-        ctx.reply('Hubo un error al obtener la imagen.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 bot.command('wallpaper', async (ctx) => {
     const command = '/wallpaper';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa un texto para buscar el wallpaper`);
+        ctx.reply(`${jsonlanguage.textbuscawpp}`);
         return;
     }
     try {
@@ -982,14 +982,14 @@ bot.command('wallpaper', async (ctx) => {
                 const imageUrl = result[0].image;
                 ctx.replyWithPhoto({ url: imageUrl });
             } else {
-                ctx.reply('No se encontraron imágenes.');
+                ctx.reply(`${jsonlanguage.noimg}`);
             }
         } else {
-            ctx.reply('Hubo un error al obtener la imagen.');
+            ctx.reply(`${jsonlanguage.error4}`);
         }
     } catch (error) {
         console.error('Error al procesar la solicitud de wallpaper:', error);
-        ctx.reply('Hubo un error al procesar la solicitud de wallpaper.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 
@@ -998,7 +998,7 @@ bot.command('googlesearch', async (ctx) => {
     const command = '/googlesearch';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa un texto a buscar`);
+        ctx.reply(`${jsonlanguage.ingresatexto}`);
         return;
     }
     const response = await fetch(`${apikasu}/api/search/google?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
@@ -1006,14 +1006,14 @@ bot.command('googlesearch', async (ctx) => {
         const textResponse = await response.json();
         const respon = textResponse.result[0]
         const result = `
-𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+${jsonlanguage.informacionm}
 
-𝗧𝗶𝘁𝘂𝗹𝗼: ${respon.title}
-𝗟𝗶𝗻𝗸: ${respon.link}
-𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝗰𝗶𝗼𝗻 𝗰𝗼𝗿𝘁𝗮: ${respon.snippet}     `
+${jsonlanguage.title} ${respon.title}
+${jsonlanguage.url} ${respon.link}
+${jsonlanguage.desc} ${respon.snippet}     `
         ctx.reply(result)
     } else {
-        ctx.reply('Hubo un error al obtener la creacion desde la API.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 
@@ -1021,7 +1021,7 @@ bot.command('tiktokstalk', async (ctx) => {
     const command = '/tiktokstalk';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa un nombre de usuario de tiktok`);
+        ctx.reply(`${jsonlanguage.ttstalk}`);
         return;
     }
     const response = await fetch(`${apikasu}/api/tools/tiktokstalk?username=${encodeURIComponent(userText)}&apikey=${apikey}`);
@@ -1029,25 +1029,25 @@ bot.command('tiktokstalk', async (ctx) => {
         const textResponse = await response.json();
         const result = textResponse.result
         const caption = `
-𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+${jsonlanguage.informacionm}
 
-𝗡𝗼𝗺𝗯𝗿𝗲 𝗱𝗲 𝘂𝘀𝘂𝗮𝗿𝗶𝗼: ${result.username}
-𝗡𝗼𝗺𝗯𝗿𝗲: ${result.nickname}
-𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝗰𝗶𝗼𝗻: ${result.description}
-𝗦𝗲𝗴𝘂𝗶𝗱𝗼𝗿𝗲𝘀:: ${result.followers}
-𝗦𝗶𝗴𝘂𝗶𝗲𝗻𝗱𝗼: ${result.following}
-𝗩𝗲𝗿𝗶𝗳𝗶𝗰𝗮𝗱𝗼: ${result.isVerify ? 'Si' : 'No'}
-𝗖𝘂𝗲𝗻𝘁𝗮 𝗽𝗿𝗶𝘃𝗮𝗱𝗮: ${result.isPrivate ? 'Si' : 'No'}
+${jsonlanguage.username} ${result.username}
+${jsonlanguage.nombrem} ${result.nickname}
+${jsonlanguage.desc} ${result.description}
+${jsonlanguage.seg} ${result.followers}
+${jsonlanguage.sig} ${result.following}
+${jsonlanguage.ver} ${result.isVerify ? 'Si' : 'No'}
+${jsonlanguage.priv} ${result.isPrivate ? 'Si' : 'No'}
 
-𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡 ADICIONAL
-𝗔𝗺𝗶𝗴𝗼𝘀: ${result.friends}
-𝗟𝗶𝗸𝗲𝘀: ${result.totalLikes}
-𝗩𝗶𝗱𝗲𝗼𝘀: ${result.totalVideos}
-𝗥𝗲𝗴𝗶𝗼𝗻: ${result.region} `;
+${jsonlanguage.informas}
+${jsonlanguage.friends} ${result.friends}
+${jsonlanguage.likes} ${result.totalLikes}
+${jsonlanguage.videos} ${result.totalVideos}
+${jsonlanguage.region} ${result.region} `;
         const imageUrl = `${result.pp_thumbnail}`;
         ctx.replyWithPhoto({ url: imageUrl }, { caption: caption });
     } else {
-        ctx.reply('Hubo un error al obtener el texto desde la API.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 
@@ -1055,7 +1055,7 @@ bot.command('instagramstalk', async (ctx) => {
     const command = '/instagramstalk';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa un nombre de usuario de instagram`);
+        ctx.reply(`${jsonlanguage.iguser}`);
         return;
     }
     const response = await fetch(`${apikasu}/api/tools/igstalk?username=${encodeURIComponent(userText)}&apikey=${apikey}`);
@@ -1063,27 +1063,27 @@ bot.command('instagramstalk', async (ctx) => {
         const textResponse = await response.json();
         const result = textResponse.result
         const caption = `
-𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+${jsonlanguage.informacionm}
 
-𝗡𝗼𝗺𝗯𝗿𝗲 𝗱𝗲 𝘂𝘀𝘂𝗮𝗿𝗶𝗼: ${result.username}
-𝗡𝗼𝗺𝗯𝗿𝗲: ${result.full_name}
-𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝗰𝗶𝗼𝗻: ${result.biography}
-𝗘𝗻𝗹𝗮𝗰𝗲𝘀 𝘃𝗶𝗻𝗰𝘂𝗹𝗮𝗱𝗼𝘀: ${result.external_url}
-𝗦𝗲𝗴𝘂𝗶𝗱𝗼𝗿𝗲𝘀:: ${result.followers}
-𝗦𝗶𝗴𝘂𝗶𝗲𝗻𝗱𝗼: ${result.following}
-𝗩𝗲𝗿𝗶𝗳𝗶𝗰𝗮𝗱𝗼: ${result.is_verified ? 'Si' : 'No'}
-𝗖𝘂𝗲𝗻𝘁𝗮 𝗽𝗿𝗶𝘃𝗮𝗱𝗮: ${result.is_private ? 'Si' : 'No'}`;
+${jsonlanguage.username} ${result.username}
+${jsonlanguage.nombrem} ${result.full_name}
+${jsonlanguage.desc} ${result.biography}
+${jsonlanguage.urlvin} ${result.external_url}
+${jsonlanguage.seg} ${result.followers}
+${jsonlanguage.sig} ${result.following}
+${jsonlanguage.ver} ${result.is_verified ? 'Si' : 'No'}
+${jsonlanguage.priv} ${result.is_private ? 'Si' : 'No'}`;
         const imageUrl = `${result.profile_pic_url}`;
         ctx.replyWithPhoto({ url: imageUrl }, { caption: caption });
     } else {
-        ctx.reply('Hubo un error al obtener el texto desde la API.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 bot.command('githubstalk', async (ctx) => {
     const command = '/githubstalk';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa un nombre de usuario de GitHub`);
+        ctx.reply(`${jsonlanguage.usergit}`);
         return;
     }
     const response = await fetch(`${apikasu}/api/info/githubstalk?user=${encodeURIComponent(userText)}&apikey=${apikey}`);
@@ -1091,24 +1091,24 @@ bot.command('githubstalk', async (ctx) => {
         const textResponse = await response.json();
         const result = textResponse.result
         const caption = `
-𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+${jsonlanguage.informacionm}
 
-𝗡𝗼𝗺𝗯𝗿𝗲 𝗱𝗲 𝘂𝘀𝘂𝗮𝗿𝗶𝗼: ${result.login}
-𝗡𝗼𝗺𝗯𝗿𝗲: ${result.name}
-𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝗰𝗶𝗼𝗻: ${result.bio}
-𝗧𝗶𝗽𝗼 𝗱𝗲 𝗰𝘂𝗲𝗻𝘁𝗮: ${result.type}
-𝗦𝗲𝗴𝘂𝗶𝗱𝗼𝗿𝗲𝘀:: ${result.followers}
-𝗦𝗶𝗴𝘂𝗶𝗲𝗻𝗱𝗼: ${result.following}
-𝗘𝗺𝗮𝗶𝗹: ${result.email}
-𝗖𝗼𝗺𝗽𝗮𝗻𝗶𝗮: ${result.company}
-𝗟𝗼𝗰𝗮𝗰𝗶𝗼𝗻: ${result.location}
-𝗥𝗲𝗽𝗼𝘀𝗶𝘁𝗼𝗿𝗶𝗼𝘀 𝗽𝘂𝗯𝗹𝗶𝗰𝗼𝘀: ${result.public_repos}
-𝗙𝗲𝗰𝗵𝗮 𝗱𝗲 𝗰𝗿𝗲𝗮𝗰𝗶𝗼𝗻: ${result.created_at}
-𝗙𝗲𝗰𝗵𝗮 𝗱𝗲 𝗮𝗰𝘁𝘂𝗮𝗹𝗶𝘇𝗮𝗰𝗶𝗼𝗻: ${result.updated_at}`;
+${jsonlanguage.username} ${result.login}
+${jsonlanguage.nombrem} ${result.name}
+${jsonlanguage.desc} ${result.bio}
+${jsonlanguage.typeaccount} ${result.type}
+${jsonlanguage.seg} ${result.followers}
+${jsonlanguage.sig} ${result.following}
+EMAIL: ${result.email}
+${jsonlanguage.compañia} ${result.company}
+${jsonlanguage.localizacion} ${result.location}
+${jsonlanguage.reppublic} ${result.public_repos}
+${jsonlanguage.datecreate} ${result.created_at}
+${jsonlanguage.dateupdate} ${result.updated_at}`;
         const imageUrl = `${result.avatar_url}`;
         ctx.replyWithPhoto({ url: imageUrl }, { caption: caption });
     } else {
-        ctx.reply('Hubo un error al obtener el texto desde la API.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 
@@ -1116,7 +1116,7 @@ bot.command('letra', async (ctx) => {
     const command = '/letra';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa el nombre de la cancion`);
+        ctx.reply(`${jsonlanguage.ingreletra}`);
         return;
     }
     const response = await fetch(`${apikasu}/api/search/lyrics?text=${encodeURIComponent(userText)}&apikey=${apikey}`);
@@ -1124,14 +1124,14 @@ bot.command('letra', async (ctx) => {
         const textResponse = await response.json();
         const result = textResponse.result
         const caption = `
-𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+${jsonlanguage.informacionm}
 
-𝗧𝗶𝘁𝘂𝗹𝗼: ${result.title}
-𝗔𝗿𝘁𝗶𝘀𝘁𝗮: ${result.artist}
-𝗟𝗲𝘁𝗿𝗮: ${result.lyrics}`;
+${jsonlanguage.title} ${result.title}
+${jsonlanguage.artist} ${result.artist}
+${jsonlanguage.letra} ${result.lyrics}`;
         ctx.reply(caption);
     } else {
-        ctx.reply('Hubo un error al obtener el texto desde la API.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 
@@ -1139,7 +1139,7 @@ bot.command('twitter', async (ctx) => {
     const command = '/twitter';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa el link de twitter`);
+        ctx.reply(`${jsonlanguage.urltt}`);
         return;
     }
     const response = await fetch(`${apikasu}/api/dowloader/twitter?url=${userText}&apikey=${apikey}`);
@@ -1148,7 +1148,7 @@ bot.command('twitter', async (ctx) => {
         const result = textResponse.result
         ctx.replyWithVideo({ url: result.video });
     } else {
-        ctx.reply('Hubo un error al obtener el texto desde la API.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 
@@ -1156,7 +1156,7 @@ bot.command('facebook', async (ctx) => {
     const command = '/facebook';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa el enlace de Facebook`);
+        ctx.reply(`${jsonlanguage.urlfc}`);
         return;
     }
     const response = await fetch(`${apikasu}/api/dowloader/fbdown?url=${userText}&apikey=${apikey}`);
@@ -1166,10 +1166,10 @@ bot.command('facebook', async (ctx) => {
             const result = textResponse.result;
             ctx.replyWithVideo({ url: result.Normal_video });
         } else {
-            ctx.reply('La API no devolvió la información esperada o no se encontró el enlace HD.');
+            ctx.reply(`${jsonlanguage.errro4}`);
         }
     } else {
-        ctx.reply('Hubo un error al obtener el texto desde la API.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 
@@ -1177,7 +1177,7 @@ bot.command('spotify', async (ctx) => {
     const command = '/spotify';
     const userText = ctx.message.text.slice(command.length + 1).trim();
     if (!userText) {
-        ctx.reply(`Por favor, ingresa el enlace de Spotify`);
+        ctx.reply(`${jsonlanguage.urlpotify}`);
         return;
     }
     try {
@@ -1187,20 +1187,20 @@ bot.command('spotify', async (ctx) => {
             const result = sptyInfo.spotify.resultado
             const audioBuffer = await fetch(`${apikasu}/api/dowloader/spotify?url=${result.url}&apikey=${apikey}`).then(res => res.buffer());
             const message = `
- 𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+${jsonlanguage.informacionm}
 
-𝗧𝗶𝘁𝘂𝗹𝗼: ${result.title}
-𝗔𝗿𝘁𝗶𝘀𝘁𝗮: ${result.artist}
-𝗔𝗹𝗯𝘂𝗺: ${result.album}
-𝗚𝗲𝗻𝗲𝗿𝗼: ${result.genre}
-𝗣𝘂𝗯𝗹𝗶𝗰𝗮𝗱𝗼: ${result.year}`;
+${jsonlanguage.title} ${result.title}
+${jsonlanguage.artist} ${result.artist}
+${jsonlanguage.album} ${result.album}
+${jsonlanguage.gen} ${result.genre}
+${jsonlanguage.pub} ${result.year}`;
             ctx.replyWithAudio({ source: audioBuffer }, { caption: message });
         } else {
-            ctx.reply('Hubo un error al obtener información de Spotify desde la API.');
+            ctx.reply(`${jsonlanguage.error4}`);
         }
     } catch (error) {
-        console.error('Error al procesar la solicitud de Spotify');
-        ctx.reply('Hubo un error al procesar la solicitud de Spotify.');
+        console.error(`${jsonlanguage.error4}`);
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 bot.command('deezer', async (ctx) => {
@@ -1224,23 +1224,23 @@ bot.command('deezer', async (ctx) => {
             if (firstResult) {
                 const audioUrl = firstResult.preview;
                 const message = `
- 𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗖𝗜𝗢𝗡
+${jsonlanguage.informacionm}
 
-𝗧𝗶𝘁𝘂𝗹𝗼: ${firstResult.title}
-𝗗𝘂𝗿𝗮𝗰𝗶𝗼𝗻: ${formatDuration(firstResult.duration)} Minutos
-𝗟𝗶𝗻𝗸: ${firstResult.link}
-𝗔𝗿𝘁𝗶𝘀𝘁𝗮: ${firstResult.artist.name}
-𝗟𝗶𝗻𝗸 𝗱𝗲𝗹 𝗽𝗲𝗿𝗳𝗶𝗹 𝗱𝗲𝗹 𝗮𝗿𝘁𝗶𝘀𝘁𝗮: ${firstResult.artist.link}`;
+${jsonlanguage.title} ${firstResult.title}
+${jsonlanguage.dura} ${formatDuration(firstResult.duration)} Minutos
+${jsonlanguage.url} ${firstResult.link}
+${jsonlanguage.artist} ${firstResult.artist.name}
+${jsonlanguage.linkperfil} ${firstResult.artist.link}`;
                 ctx.replyWithAudio({ url: audioUrl }, { caption: message });
             } else {
-                ctx.reply('No se encontraron resultados de Deezer.');
+                ctx.reply(`${jsonlanguage.sinresuldeezer}`);
             }
         } else {
-            ctx.reply('Hubo un error al obtener información de Deezer desde la API.');
+            ctx.reply(`${jsonlanguage.error4}`);
         }
     } catch (error) {
         console.error('Error al procesar la solicitud de Deezer:', error);
-        ctx.reply('Hubo un error al procesar la solicitud de Deezer.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 
@@ -1303,7 +1303,7 @@ bot.command('tiktok', async (ctx) => {
             ctx.reply('La API no devolvió la información esperada.');
         }
     } else {
-        ctx.reply('Hubo un error al obtener el texto desde la API.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 
@@ -1449,7 +1449,7 @@ bot.command('mediafire', async (ctx) => {
             ctx.reply('La API no devolvió la información esperada.');
         }
     } else {
-        ctx.reply('Hubo un error al obtener el texto desde la API.');
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 
@@ -1477,7 +1477,7 @@ bot.command('googledrive', async (ctx) => {
                 ctx.reply('La API no devolvió la información esperada.');
             }
         } else {
-            ctx.reply('Hubo un error al obtener el texto desde la API.');
+            ctx.reply(`${jsonlanguage.error4}`);
         }
     } catch (error) {
         console.error('Error al procesar la solicitud de Google Drive:', error);
@@ -1530,16 +1530,19 @@ bot.command('youtubevideo', async (ctx) => {
     try {
         const response = await fetch(apiUrl);
         if (response.ok) {
-            const videoBuffer = await response.buffer();
+            const data = await response.json();
+            const videoBuffer = await fetch(data.videoUrl).then(res => res.buffer());
             ctx.replyWithVideo({ source: videoBuffer });
+            ctx.reply(`Información del video:\nTítulo: ${data.title}\nDuración: ${data.duration}\nTamaño: ${data.size}`);
         } else {
             ctx.reply(`Error al descargar el video`);
         }
     } catch (error) {
-        console.error('Error al realizar la solicitud:');
-        ctx.reply('${jsonlanguage.error4}');
+        console.error('Error al realizar la solicitud:', error);
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
+
 
 bot.command('youtubeaudio', async (ctx) => {
     const command = '/youtubeaudio';
@@ -1551,15 +1554,22 @@ bot.command('youtubeaudio', async (ctx) => {
     const apiUrl = `${apikasu}/api/dowloader/youtubemp3?url=${encodeURIComponent(userText)}&apikey=${apikey}`;
     try {
         const response = await fetch(apiUrl);
-        if (response.ok) {
-            const audioBuff = await response.buffer();
-            ctx.replyWithAudio({ source: audioBuff });
+        const data = await response.json();
+        if (data.status && data.result) {
+            const audioUrl = data.result;
+            const audioResponse = await fetch(audioUrl);
+            if (audioResponse.ok) {
+                const audioBuff = await audioResponse.buffer();
+                ctx.replyWithAudio({ source: audioBuff });
+            } else {
+                ctx.reply(`Error al descargar el audio`);
+            }
         } else {
-            ctx.reply(`Error al descargar el audio`);
+            ctx.reply(`Error al obtener el audio de la API`);
         }
     } catch (error) {
-        console.error('Error al realizar la solicitud:');
-        ctx.reply('${jsonlanguage.error4}');
+        console.error('Error al realizar la solicitud:', error);
+        ctx.reply(`${jsonlanguage.error4}`);
     }
 });
 bot.command('peliculainfo', async (ctx) => {
