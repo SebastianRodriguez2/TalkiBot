@@ -1532,7 +1532,7 @@ bot.command('youtubevideo', async (ctx) => {
         if (response.ok) {
             const data = await response.json();
             const videoBuffer = await fetch(data.videoUrl).then(res => res.buffer());
-            ctx.replyWithVideo({ source: videoBuffer });
+            ctx.replyWithVideo({ source: { source: videoBuffer } });
             ctx.reply(`Información del video:\nTítulo: ${data.title}\nDuración: ${data.duration}\nTamaño: ${data.size}`);
         } else {
             ctx.reply(`Error al descargar el video`);
