@@ -1534,7 +1534,11 @@ bot.command('youtubevideo', async (ctx) => {
             const videoBufferResponse = await fetch(data.result.vid_360p);
             if (videoBufferResponse.ok) {
                 const videoBuffer = await videoBufferResponse.buffer();
-                await ctx.replyWithVideo({ source: { source: videoBuffer } });
+                await ctx.replyWithVideo({
+                    source: videoBuffer,
+                    filename: 'video.mp4', // Especificamos el nombre del archivo
+                    contentType: 'video/mp4' // Especificamos el tipo MIME
+                });
                 ctx.reply(`Información del video:\nTítulo: ${data.result.title}\nDuración: ${data.result.duration}\nTamaño: ${data.result.size}`);
             } else {
                 ctx.reply(`Error al descargar el video`);
