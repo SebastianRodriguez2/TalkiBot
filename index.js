@@ -135,7 +135,7 @@ ${jsonlanguage.limitestelegram}
    
     ${jsonlanguage.menuinicial}
         
-      /help
+      /menu
       /creadores
       /cuentasoficiales
       /script
@@ -179,7 +179,7 @@ ${jsonlanguage.limitestelegram}
     }
 });
 // menus (modificar los 2)
-bot.command('help', async (ctx) => {
+bot.command(['help', 'menu'], async (ctx) => {
     const name = ctx.message.from.first_name;
     const menu = `
 ${jsonlanguage.hola} ${name}
@@ -188,7 +188,7 @@ ${jsonlanguage.limitestelegram}
    
     ${jsonlanguage.menuinicial}
         
-     /help
+     /menu
      /creadores
      /cuentasoficiales
      /script
