@@ -1548,7 +1548,7 @@ bot.command('youtubevideo', async (ctx) => {
         }
     } catch (error) {
         console.error('Error al realizar la solicitud:', error);
-        ctx.reply(`${jsonlanguage.error4}`);
+        ctx.reply(`Ocurrió un error al procesar la solicitud.`);
     }
 });
 
